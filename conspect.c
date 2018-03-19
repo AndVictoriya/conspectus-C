@@ -792,9 +792,9 @@ int main(){
 	int y = 999;
 	int *yPrt;
 	yPrt = &y;
-	printf("%d	\n",	y		);	//999				%d
-	printf("%p	\n",	&y 	);	//0028FF38		%p
-	printf("%d	\n",	*yPrt );	//999				%d
+	printf("%d	\n",	y	);	//999			%d
+	printf("%p	\n",	&y	);	//0028FF38		%p
+	printf("%d	\n",	*yPrt	);	//999			%d
 	printf("%p	\n",	yPrt	);	//0028FF38		%p
 	return 0;
 }

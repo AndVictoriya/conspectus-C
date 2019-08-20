@@ -1,4 +1,5 @@
 GCC 
+utf8
 
 Настройка переменных сред для возможности ввода gcc без полного пути:
 Переменные среды, создать PATH с значением D:\GDrive\books\C\MinGW\bin\
@@ -68,150 +69,160 @@ C:\Users\Qyb>a
 00000081  129 129
 00000082  130 130
 
-@
-#include <stdio.h>
-Директива для препроцессора С, выполняется до компиляции, заставляет препроцессор включить в программу содержание заголовочного файла stdio.h. 
-Иначе не будут работать функции printf и scanf. Подробнее в главе 5.
 
-int main(void){
-Круглые скобки () означают, что main это строительный блок программы, называемый функцией. Подробнее в главе 5.
-Программа С может содержать одну или большее количество функций, но одна из функций должна быть main.
-Данная функция возвращает int, принимает (void)=(пустым скобкам). В главе 14 показан пример, как main получает информацию. 
-Левая фигурная скобка { предваряет тело функции, а правая } завершает. Эта пара скобок {} и код между ними называется блоком. 
 
-	int sum;
-	int a, b;
-Эти линии - это объявления(определения, описания, definitions) имен и типа данных переменных (variables). 
-All variables must be defined with a name and a data type before they can be used in a program.
 
-	For the Microsoft Visual C++ compiler place variable definitions immediately after the left brace that begins the body of main. 
-	The C standard allows you to place each variable definition anywhere in main before that variable’s first use in the code. 
-	Some compilers, such as GNU gcc, have implemented this capability.
 
-	Place variable definitions before executable statements (вообще любыми, а не только используюущими эту переменную).
-	Имеется ввиду, что не надо printf ("hello"); int a; 
 
-	Microsoft Visual C++ compiler requires variable definitions to be placed after the left brace of a function and before
-	any (тут любым написано) executable statements. Therefore, in the program in Fig. 2.5, inserting the definition
-	of integer1 after the first printf would cause a syntax error in Visual C++.  
-		
-	При этом, после printf(A) инициализировать int Z = 2 и отправить на печать - то ошибки нет ни в вижуале, ни в gcc...
 
-	Вдобавок объявления могут быть внутри функций и внутри выделенных блоков, см. области действия. 
 
+
+Введение
+We use the structured approach throughout the remainder of the C portion (используем структурированный подход на протяжении оставшейся части) of the text.
+
+Наступает великий миг: я утверждаю, что собранное нами
+устройство может с полным правом именоваться компьютером!
+Очень примитивным, но компьютером. Его ключевое свойство
+— наличие команды условного перехода. Именно возможность
+управляемых циклических процедур отличает компьютер от
+калькулятора. Петцольд, 283.
+
+
+1	#include <stdio.h>
+
+Lines beginning with # are processed by the preprocessor before compilation. 
+This is a directive to the C preprocessor. It tells the preprocessor to include the contents of the standard input/output header (<stdio.h>) in the program. 
+This header contains information used by the compiler when compiling calls to standard input/output library functions such as printf. 
+We explain the contents of headers in more detail in Chapter 5 and 13.
+
+
+2	int main(void) or int main() { }
+
+The parentheses () after main indicate that main is a program building block called a function. 
+C programs contain one or more functions, one of which must be main. The main function is a part of every C program. Every program in C begins executing at the function main. 
+
+A left brace { begins the body of every function. A corresponding right brace } ends each function.
+This pair of braces and the portion of the program between the braces is called a block. The block is an important program unit in C. 
+
+Functions can return information. The keyword int to the left of main indicates that main “returns” an integer (whole-number) value. 
+We’ll explain what it means for a function to “return a value” when we demonstrate how to create your own functions in Chapter 5. 
+
+Functions can receive information when they’re called upon to execute. 
+The void in parentheses here means that main does not receive any information. In Chapter 14, we’ll show an example of main receiving information. 
+
+
+3	printf( "Welcome \\ to C!\n" );
+
+An Output Statement instructs the computer to perform an action (namely to print on the screen the string of characters marked by the quotation marks ""). 
+A string is sometimes called a character string (символьная строка), a message or a literal. 
+The entire line, including the printf function (the “f” stands for “formatted”), its argument within the parentheses () and the semicolon ; , is called a statement. 
+Every statement must end with statement terminator a semicolon ; . 
+
+The backslash (\) is called an escape character. Они же esq-коды.
+
+Printf causes the computer to perform an action. 
+As any program executes, it performs a variety (множество) of actions and makes decisions. 
+Executable statements either perform actions (calculations, input or output of data, etc) or make decisions (if, while, etc) (стр 54). 
+
+
+The Linker and Executables. Standard library functions like printf and scanf are not part of the C programming language. Сompiler cannot find a spelling error in printf or scanf. When the compiler compiles a printf statement, it merely provides space in the object program for a “call” to the library function (e.g printf). But the compiler does not know where the library functions are — the linker does. When the linker runs, it locates the library functions and inserts the proper calls (соответствующие вызовы) to these library functions in the object program (причем, вставляет он уже обжекнутые куски кода). Now the object program is complete and ready to be executed. For this reason, the linked program is called an executable. If the function name is misspelled, the linker will spot the error, because it will not be able to match the name in the C program with the name of any known function in the libraries.
+
+
+4	int integer1, integer2;
+	int sum; 
+
+This line are definitions (определения). The names integer1, integer2 and sum are the names of variables (переменных). Variables is the locations in memory where values can be stored for use by a program. Variable names such as integer1 and sum actually correspond to locations in the computer’s memory. These definitions specify (указывают) that variables integer1, integer2 and sum are of type int, which means that they’ll hold integer values, i.e., whole numbers such as 7, –11, etc. Every variable has a name, a type and a value. All variables must be defined with a name and a data type before they can be used in a program. 
+
+Definitions are not executable statements—they’re simply messages to the compiler (стр 72). 
+
+For readers using the Microsoft Visual C++ compiler, note that we’re placing our variable definitions immediately after the left brace { that begins the body of main. The C standard allows you to place each variable definition anywhere in main before that variable’s first use in the code. Some compilers, such as GNU gcc, have implemented this capability. We’ll address this issue in more depth in later chapters.
+Recall that the Microsoft Visual C++ compiler requires variable definitions to be placed after the left brace { of a function and before any executable statements. Therefore, in the program in Fig. 2.5, inserting the definition of integer1 after the first printf would cause a syntax error in Visual C++. 
+
+Вдобавок объявления могут быть внутри выделенных блоков, см. области действия. 
 	int main(){
-		int x = 1;
-
-		printf("1_%d\n", x);//1_1
+			int x = 1;
+			printf("%d\n", x);//1
 		{
 			x = x + 10; 
-			printf("2_%d\n", x);//2_11
+			printf("%d\n", x);//11
 		}
 		{	
-			printf("3_%d\n", x);//3_11
+			printf("%d\n", x);//11
 		}
 		{	
 			int x = 3;
-			printf("4_%d\n", x);//4_3
+			printf("%d\n", x);//3
 		}
-			printf("5_%d\n", x);//5_11
+			printf("%d\n", x);//11
 		return 0;
 	}
 
-Definitions are not executable statements — they’re simply messages to the compiler. 
-This definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed, стр 72.
-Объявления всего лишь сообщают компилятору о типе переменных и дает ему указание зарезервировать места в памяти для этих переменных. Объявлений нет в псевдокоде.
+A variable name in C is any valid identifier (идентификатор). An identifier is a series of characters consisting of letters, digits and underscores (_) that does not begin with a digit. C is case sensitive — uppercase and lowercase letters are different in C, so a1 and A1 are different identifiers. The first letter of an identifier used as a simple variable name should be a lowercase letter. Later in the text we’ll assign special significance to identifiers that begin with a capital letter and to identifiers that use all capital letters. 
 
-sum, a, b - являются идентификаторами. Это последовательность букв, цифр и _ для обозначения переменных, функций, типов, меток. 
-Длина идентификатора до 31 символа, учитываются строчные и заглавные буквы, не должен начинаться с цифры. Идентификаторы простых переменных лучше начинать со строчной буквы.
+ 
+5	scanf("%d", &integer1);
+	scanf("%d", &integer2);
 
-	printf("Hello world!\n");
-Вся строка (line), включая printf функцию и точку с запятой (statement terminator) называется инструкцией (statement, в надмозге оператор).
-Эта инструкция дает команду компьютеру выполнить действие (instructs the computer to perform an action).
-Выполнение любой программы представляет собой набор действий и принятий решений (as any program executes, it performs a variety of actions and makes decisions, стр 43).
-Исполняемые инструкции выполняют действия или принимают решения (executable statements either perform actions (such as calculations or input or output of data) or make decisions (if, etc), стр 54). 
-Стандартные библиотеки функций (как printf или scanf) не являются частью языка С. 
-Компилятор не может найти ошибки в printf или scanf.
-Когда компилятор компилирует инструкцию printf, то он всего лишь резервирует место в объектной программе для вызова библиотечной функции. 
-Компилятор не знает где находится библиотечная функция. Об этом знает линкер (компоновщик). 
-Когда запускается линкер, то он находит библиотечную функцию и вставляет соответствующий вызов в объектную программу. 
-Теперь объектная программа завершена и готова к исполнению. For this reason, the linked program is called an executable. 
-Если имя функции ошибочно, то именно линкер обнаружит ошибку, т.к. не сможет сопоставить такое имя каким-либо библиотечной функции. 
+This statement uses scanf (the “f” stands for “formatted”) to obtain a value from the user. The function reads from the standard input, which is usually the keyboard. 
 
-	scanf("%d", &a );
-	scanf("%d", &b );
-%d - esc-код, спецификация преобразования, показывает, что данные должны быть целым числом.
-&a - операция взятия адреса следующей за ним переменной. &—called the address operator. 
-Сообщает сканфу ячейку памяти, в которой хранится переменная A. Компьютер будет хранить величину для A в этой ячейке. 
-Подробнее расмотрено в главе про указатели.
+This scanf has two arguments: "%d" and &integer1. 
 
-	sum = a + b
-Это инструкция присваивания (assignment statement) с помощью оператора присваивания = (assignment operator).
-The + operator’s two operands are "integer1" and "integer2". 
-The = operator’s two operands are "sum" and the value of the expression "integer1 + integer2". 
-	
-	printf("%d", sum);
+The first, the format control string (строка управляющая форматом) "%d". It indicates the type of data that should be entered by the user. 
+The %d conversion specifier (спецификатор преобразования) indicates that the data should be an integer. 
+The % in this context is treated (рассматривается) by scanf (and printf as we’ll see) as a special character (специальный символ, как esq-код) that begins a conversion specifier. 
+The letter d stands for “decimal integer”. 
 
-	return 0; 
-Информирует об успешном выполнении, вообще это означает, что функция main возвращает 0.
-В последнем eng издании в исходниках return 0 нету.
-}
+The second argument &integer1 of scanf begins with an ampersand & address operator followed by the variable name. 
+The &, when combined with the variable name integer1, tells scanf the location (or address) in memory at which the variable integer1 is stored. 
+The computer then stores the value that the user enters for integer1 at that location. 
 
-	printf("%d_%d_%f_%f\n", A/B, B/A, A/B, B/A );
-Даст нули. Отбросит дробную часть. Не будет округлять. 
+Some exceptions to this rule are discussed in Chapters 6 and 7. The use of the ampersand will become clear after we study pointers in Chapter 7. 
+Forgetting to precede a variable in a scanf statement with an ampersand when that variable should, in fact, be preceded by an ampersand this causes a “segmentation fault” or “access violation.” The precise cause of this error will be explained in Chapter 7.
 
-	printf("%f\n", 3/2 ); выдаст ноль... printf("%f\n", x>2 && x <5); тоже выдает ноль, вне зависимости от истинности...
-Похоже, что %f выдет 0 при работе с int.
 
-	printf("%f_%f\n", 3/2*3.14, 2/3*3.14 );
-3.140000_0.000000.
-	
-	printf("%f\n", A/C) ;
-0.33 - выполнит неявное преобразование (создаст копию) int A во float.
-	
-	printf("%f\n", (float) A/B );
-0.50 - выполнит явное преобразование int A во float, что потом неявно возведёт int B до float.
+6	sum = integer1 + integer2;	
 
-Avoid Single-Argument printfs:
-good:
+This is assignment (присваивания) statement calculates the total of variables integer1 and integer2 and assigns the result to variable sum using the assignment operator =. 
+Most calculations are performed in assignments. 
+The = operator and the + operator are called binary operators because each has two operands. 
+The + operator’s two operands are integer1 and integer2. 
+The = operator’s two operands are sum and the value of the expression (выражение) integer1 + integer2
+
+
+7	printf( "Sum is %d\n", sum ); 
+
+This printf has two arguments, "Sum is %d\n" and sum. 
+
+The first argument "Sum is %d\n" is the format control string. 
+It contains some literal characters Sum is  to be displayed, and it contains the conversion specifier %d indicating that an integer will be printed. 
+
+The second argument sum specifies (задает?) the value to be printed. 
+
+Secure print:
 	puts( "Welcome to C!" );
 	printf( "%s", "Welcome " );
-bad:
-	printf( "Welcome to C!\n" );
-	printf( "Welcome " );
 
-@
-Управляющие структуры (control structures). В другом переводе операторы, в нормальном мире конструкции или инструкции.
 
-Всего 3 вида управляющих структур: 
-	1. Структура последовательная. Sequence:
-		Любой тип действий, вычисление, ввод/вывод.
-	2. Структура выбора. C provides three types of selection structures in the form of statements:
-		if, if/else, switch.
-	3. Структура повторения. C provides three types of repetition structures in the form of statements:
-		while, for, do/while.
+In computer programming, a statement is a syntactic unit of an imperative programming language that expresses (выражает) some action to be carried out (которые необходимо выполнить). 
+A program written in such a language (imperative) is formed (сформирована чем) by a sequence of one or more statements. A statement may have internal components (e.g. например, expressions). Many imperative languages (e.g. C) make a distinction (делают различие) between statements and definitions, with (причем) a statement only containing executable code and a definition instantiating an identifier (определение, создающее экземпляр идентификатора), while (тогда как) an expression evaluates (оценивается) to a value only. 
+A distinction (различие) can also be made between simple and compound statements; the latter may contain statements as components. 
+{} блок, if, assigment это тоже стайтменты как и многие другие.
+In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. a = b = c = 0 - выражение оценивается справа налево, сначала с, потом b, потом a.
+In purely (чисто) functional programming, there are no statements; everything is an expression.
+Pseudocode consists only of action statements—those that are executed when the program has been converted from pseudocode to C and is run in C. Definitions are not executable statements—they’re simply messages to the compiler. For example, the definition tells the compiler the type of variable i and instructs the compiler to reserve space in memory for the variable. But this definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed. 
 
-	An expression is a sequence of operators.
-	Выражение - это последовательность операторов.
-	Statements are fragments of the C program that are executed in sequence. 
-	Инструкции (операторы надмозг) есть фрагменты что выполняются в последовательности (или последовательно?).
-	The body of any function is a compound statement, which, in turn is a sequence of statements and declarations:
-	Тело функции есть составная инструкция, которая в свою очередь есть последовательность инструкций и объявлений.
 
-@
 Assignment Operators, Increment and Decrement Operators, стр 93.
 	
-Statement
-	c = c + 3
-can be abbreviated with the addition assignment operator += as
-	c += 3 
-которое компилируется быстрее.
-	
-C also provides the unary increment operator ++ and the unary decrement operator --.
+	Statement c = c + 3; can be abbreviated (сокращена) with the addition assignment operator += as c += 3; 
+	Это компилируется быстрее.
+		
+	C also provides the unary increment operator ++ and the unary decrement operator --.
 
-++a преинкремент, увеличивает на 1, использует новое значение.
-a++ постинкремент, использует значение, потом увеличивает на 1.  
-Преинкремент работает быстрее. 
+	++a преинкремент, увеличивает на 1, использует новое значение.
+	a++ постинкремент, использует значение, потом увеличивает на 1.  
+	Преинкремент работает быстрее. 
+
 
 	a = 5;
 	printf("%d\n", ++a);	//6
@@ -220,15 +231,119 @@ a++ постинкремент, использует значение, пото�
 	printf("%d\n", a++);	//5
 	printf("%d\n", a	);	//6
 
-@
-The if Selection Statement (Инструкция if), с одиночным выбором (single-selection statement): 
 
-	if ( a > b )
-		printf("something\n");
-Если if(constant) - то условие всегда истино.
+Operator precedence and associativity, стр 136.
+	Operators								Associativity	Type 			My comment
+	()										left to right	parentheses 	просто скобки или function call operator?
+	++ (postfix) -- (postfix)				right to left	postfix			unary
+	+ - ! ++ (prefix) -- (prefix) (type)	right to left	unary			+5,-7, unary
+	* / %									left to right	multiplicative	binary
+	+ -										left to right	additive		binary
+	< <= > >=								left to right	relational
+	== !=									left to right	equality
+	&&										left to right	logical AND 	binary
+	||										left to right	logical OR 		binary
+	?:										right to left	conditional		ternary
+	= += -= *= /= %=						right to left	assignment 		binary
+	,										left to right	comma 			см. 4.4 for Repetition Statement
+
+	Unary cast operator (одноместный унарный приведения оператор) типа (float)a. 
+
+
+Keywords
+	auto double int struct
+	break else long switch
+	case enum register typedef
+	char extern return union
+	const float short unsigned
+	continue for signed void
+	default goto sizeof volatile
+	do if static while
+
+	Keywords added in C99 standard
+	_Bool _Complex _Imaginary inline restrict
+	Keywords added in C11 draft standard
+	_Alignas _Alignof _Atomic _Generic _Noreturn _Static_assert _Thread_local
+
+
+Явные - неявные преобразования???
+	printf("%d_%d_%f_%f\n", A/B, B/A, A/B, B/A );
+	Даст нули. Отбросит дробную часть. Не будет округлять. 
+
+		printf("%f\n", 3/2 ); 
+	Выдаст ноль... 
+
+		printf("%f\n", x>2 && x <5); 
+	Тоже выдает ноль, вне зависимости от истинности...
+	Похоже, что %f выдет 0 при работе с int.
+
+		printf("%f_%f\n", 3/2*3.14, 2/3*3.14 );
+	3.140000_0.000000.
+		
+		printf("%f\n", A/C) ;
+	0.33 - выполнит неявное преобразование (создаст копию) int A во float.
+		
+		printf("%f\n", (float) A/B );
+	0.50 - выполнит явное преобразование int A во float, что потом неявно возведёт int B до float.
+
+	Avoid Single-Argument printfs:
+	good:
+		puts( "Welcome to C!" );
+		printf( "%s", "Welcome " );
+	bad:
+		printf( "Welcome to C!\n" );
+		printf( "Welcome " );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Control structures (управляющие структуры). В другом переводе операторы, в нормальном мире конструкции или инструкции.
+
+В основе лежит структурное программирование и отказ от goto. Суть в том, что бы любая структура подключалась к остальным как блок со входом и выходом. Это отлично видно в flowcharts.
+
+All programs could be written in terms of only three control structures: the sequence structure, the selection structure and the repetition structure.
+	1. The sequence structure (любой тип действий, вычисление, ввод/вывод) is simple — unless directed otherwise, the computer executes C statements one after the other in the order in which they’re written. 
+	2. C provides three types of selection structures in the form of statements: if, if/else, switch.
+	3. Repetition Statements, three types of in the form of statements: while, for, do/while.
+
+		An expression (выражение) is a sequence of operators.
+		Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). 
+		The body of any function is a compound (составная) statement which in turn is a sequence of statements and declarations (объявлений).
+
+
+
+
+
+
+
+
+
+
+The if Statement, single-selection statement (с одиночным выбором).
+
+	if ( a > b ){
+			printf("something\n");
+		}
+
+Conditions in if statements are formed by using the equality operators and relational (отношения) operators. 
+Если condition = constant, то условие всегда будет возвращать истину.
+The relational operators all have the same level of precedence and associate left to right. 
+The equality operators have a lower level of precedence than the relational operators and they also associate left to right. 
 
 	scanf ("%d", &x); 
 	printf("%d\n", x>=2); 
+
 Напечатает 0 или 1 в зависимости от истинности.
 
 Совокупность инструкций внутри {} скобок называтеся составной инструкцией или блоком:
@@ -236,6 +351,7 @@ The if Selection Statement (Инструкция if), с одиночным вы
 		инструкция1;
 		инструкция2;
 	}
+
 Составную инструкцию можно помещать где угодно. 
 Так же можно использовать пустой оператор ";" на месте, обычно занимаемым некоторым оператором. 
 
@@ -251,25 +367,61 @@ int main(){
 	}
 }
 
-@
-The if…else Selection Statement, с двойным выбором (double-selection statement). 
 
-	if (/* condition */)
+
+
+
+
+
+
+
+
+The if…else Selection Statement, double-selection statement. 
+
+
+	if ( grade >= 60 ){
+	 puts( "Passed" );
+	} // end if
+	else{
+	 puts( "Failed" );
+	} // end else
+
+Simple if…else statements.
+ 
+
+	if (/* condition */){
 		printf("AAA");
-	else if (/* condition */)
+	}
+	else if (/* condition */){
 		printf("BBB");
-	else if (/* condition */)
+	}
+	else if (/* condition */){
 		printf("CCC");
+	}
 
-Дополнение к if:
-The conditional operator (?:) is C’s only ternary operator—it takes three operands.
-These (three operands) together with the conditional operator form a conditional expression (условное выражение). 
-The first operand is a condition (условие). 
-The second operand is the value for the entire(всего) conditional expression (условного выражения) if the condition is true 
-and the third operand is the value for the entire conditional expression if the condition is false. 
-For example, the puts statement
-	printf("%s\n", grade >= 60 ? "Passed" : "Failed" );
-	grade >= 60 ? printf("Passed") : printf("Failed" );
+Nested if…else statements.
+
+
+	printf 	(			grade >= 60 ? "1Passed\n" : "Failed\n" );
+	printf 	("%s\n" , 	grade >= 60 ? "2Passed" : "Failed" );
+	puts 	(			grade >= 60 ? "3Passed" : "Failed" );
+
+	grade >= 60 ? printf( "Passed" ) : printf( "Failed" );
+	grade >= 60 ? printf("%s", "Passed") : printf("%s", "Failed" );
+	grade >= 60 ? puts 	( "Passed" ) : puts( "Failed" );
+
+The conditional operator ?: is C’s only ternary operator — it takes three operands. These (three operands) together with the conditional operator ?: form a conditional expression (условное выражение). 
+The first operand grade >= 60 is a condition (условие). 
+The second operand string "Passed" is the value for the entire(всего) conditional expression (условного выражения) if the condition is true.
+The third operand string "Failed" is the value for the entire conditional expression if the condition is false. 
+
+
+
+
+
+
+
+
 
 rvalue lvalue:
 имена переменных lvalue.
@@ -280,32 +432,54 @@ lvalue может использоваться в качестве rvalue, но 
 	printf("%d\n", a);
 Так работать не будет, потому что нарушается принцип. ???
 
-@
+Variable names are said to be lvalues (for “left values”) because they can be used on the left side of an assignment operator. 
+Constants are said to be rvalues (for “right values”) because they can be used on only the right side of an assignment operator. 
+lvalues can also be used as rvalues, but not vice versa.
+
+
+
+
+
+
+
+
 The while Repetition Statement.
 
-	int stud = 0;
-	while (stud < 10){
+	int stud = 0; //stud = 0  - initialized
+	while (stud < 3){
 		printf("AAA");
 		stud = stud + 1;
 	}
-
-while со счетчиком
-
-	int counter = 0;
-	while (++counter <= 2)
-		printf("%d\n", counter);
-1
-2
+AAA
+AAA
+AAA
 
 	int counter = 0;
-	while (counter++ <= 2)
+	while (++counter <= 2) // 0 + 1 ; 1 <= 2 ; print 1
 		printf("%d\n", counter);
+	printf("%d\n", counter);
 1
 2
 3
 
-@
-for Repetition Statement.
+	int counter = 0;
+	while (counter++ <= 2)	// 0 <= 2 ; 0+1 ; print 1
+		printf("%d\n", counter);
+	printf("%d\n", counter);	
+1
+2
+3
+4
+
+
+
+
+
+
+
+
+
+The for Repetition Statement.
 
 	for ( expression1; expression2; expression3 ) {
 		statement
@@ -326,6 +500,7 @@ int main(){
 	return 0;
 }
 
+
 В стандарте С99 добавили возможность объявления и инициализации переменной внутри цикла for. 
 Тогда i будет экранирована от i в main.
 	Смотри раздел про классы памяти и 
@@ -333,22 +508,34 @@ int main(){
 		и области действия.
 	}
 
-@
+
+
+
+
+
+
+
+
 switch, с множественным выбором (a multiple-selection statement).
 Работает только с константами.
 
 int main(){
 	int x = 0;
-	while ( ( x=getchar() ) != EOF) {
-		switch (x){
+	while ( (x=getchar()) != EOF) 
+	{
+		switch (x)
+		{
 			case 'A' : case 'a' :
 				printf("this is A or a \n");
 				break;
+
 			case 66 : 
 				printf("this is B \n");
 				break;
+
 			case '\n' : case ' ': // игнор символа переноса и пробела, если работа с символами.
 				break;
+
 			default : // все остальные случаи.
 				printf("this is other \n");
 				break;
@@ -362,7 +549,14 @@ int main(){
 case '\n' : case 10 - будет ошибка duplicate case value.
 Не путай dec с hex. По-умолчанию, все цифры - это dec!
 
-@
+
+
+
+
+
+
+
+
 do/while
 
 int main(){
@@ -373,8 +567,18 @@ int main(){
 	return 0;
 }
 
-@ 
+
+
+
+
+
+
+
+
 break/continue
+
+The break statement, when executed in a while, for, do…while or switch statement, causes an immediate exit from that statement. 
+The continue statement, when executed in a while, for or do…while statement, skips the remaining statements in the body of that control statement and performs the next iteration of the loop. 
 
 int main(){
 	int  x;
@@ -398,8 +602,19 @@ int main(){
 	return 0;
 }
 
-@
-Логические операции.
+
+
+
+
+
+
+
+
+Logical Operators.
+
+In expressions using operator &&, make the condition that’s most likely to be false the leftmost condition. 
+In expressions using operator ||, make the condition that’s most likely to be true the leftmost condition. 
+This can reduce a program’s execution time.
  
 int main(){
 	int  a, b, c;
@@ -415,7 +630,17 @@ int main(){
 	return 0;
 }
 
+
+
+
+
+
+
+
+
 	Булева алгебра. 
+	Короче, вся эта муть дальше, потому что Петцольд не объяснил, что множества и логические высказывания - это две разных вещи. Факт принадлежности кошки к множеству Рыжих - это логическое высказывание, которое может быть истинным или ложным!!! На матпрофи - сначала идут множества, чтобы описать что это такое, а уже ПОТОМ идет логика.
+{
 	Рациональное мышление происходит по законам логики. Если описать эти законы средствами математики - то получится описание мышления. 
 	Для обозначения чисел используются операнды (буквы). Для указания способа объединения чисел используются операторы, например, + или х.
 
@@ -538,36 +763,18 @@ int main(){
 	0 х 1 = 0 ; 0 + 1 = 1
 	1 х 0 = 0 ; 1 + 0 = 1
 	1 х 1 = 1 ; 1 + 1 = 1
+}
 
 
-@
-Operator precedence and associativity, стр 136.
 
-Operators								Associativity	Type 			My comment
-()										left to right	parentheses 	просто скобки или function call operator?
-++ (postfix) -- (postfix)				right to left	postfix			unary
-+ - ! ++ (prefix) -- (prefix) (type)	right to left	unary			+5,-7, unary
-* / %									left to right	multiplicative	binary
-+ -										left to right	additive		binary
-< <= > >=								left to right	relational
-== !=									left to right	equality
-&&										left to right	logical AND 	binary
-||										left to right	logical OR 		binary
-?:										right to left	conditional		ternary
-= += -= *= /= %=						right to left	assignment 		binary
-,										left to right	comma 			см. 4.4 for Repetition Statement
 
-The = operator and the + operator are called binary operators because each has two operands. 
-The + operator’s two operands are integer1 and integer2. 
-The = operator’s two operands are sum and the value of the expression integer1 + integer2. 
 
-Unary cast operator - одноместный(унарный) оператор приведения типа (float)a. 
 
-a = b = c = 0 - выражение оценивается справа налево, сначала с, потом b, потом a.
 
-@
+
+
 Задание 4.14. Факториал интеративный и без функций.
-Похоже, что без рекурсии одной переменной не обойтись.
+
 int main(){
 	int x,i;
 	scanf ("%d", &x);
@@ -580,29 +787,40 @@ int main(){
 	return 0;
 }
 
+
 mov 5, r0
 call fact
 stop
 
 fact:
-	push r1
-    mov 1, r1
+push r1; бекап регистра r1
 
-	a:
-	mul r0, r1
-	sub 1, r0
-	jg a//если больше нуля
+mov 1, r1 ; понеслась
 
-	mov r1, r0
-	pop r1
-	ret
+a:
+mul r0, r1 ; 5 * 1 = 5 , поместить в r1
+sub 1, r0 ;  5 - 1 = 4 , поместить в r0
+jg a ; если r0 больше нуля; можно jnz
+
+mov r1, r0
+
+pop r1 ; применение бэкапа
+ret
+
 
 Или рекурсивная функция
 int fact(int x) {
     return x<2?1:x*fact(x-1);
 }
 
-@
+
+
+
+
+
+
+
+
 Побитовые операции.
 
 PORTX |= (1 << 2);//PORTX = PORTX | (1 << 2);
@@ -617,8 +835,16 @@ PORTX &= ~(1 << 2);//PORTX = PORTX & ~(1 << 2);
 	PORTX & 4 == 0 когда 2-й бит равен 0; 
 	PORTX & 4 != 0 когда 2-й бит равен 1;
 
-@
+
+
+
+
+
+
+
+
 Функции.
+
 
 Любая функция должна быть объявлена перед тем, как будет использована, иначе будут ошибки. 
 
@@ -668,7 +894,14 @@ int BBB(int aaa){
 	return aaa * 1000;
 }
 
-@
+
+
+
+
+
+
+
+
 Заголовочные файлы .h
 
 Каждая библиотека имеет свой заголовочный файл, содержащий прототипы для всех функций
@@ -686,7 +919,14 @@ int BBB(int aaa){
 #include <time.h> time(NULL)
 #include <unistd.h> sleep()
 
-@ 
+
+
+
+
+
+
+
+
 define 
 Умеют много чего, не путать с функцией, это именно символьная замена, с которой работает препроцессор.
 #include <stdio.h>
@@ -703,7 +943,14 @@ int main(){
 0xFF	0000 1111 1111
 AND=	0000 1111 1111
 
-@
+
+
+
+
+
+
+
+
 Вызов функций.
 
 По значению - вызываемой функции передаётся копия значения аргумента.
@@ -718,7 +965,14 @@ AND=	0000 1111 1111
 Массивы автоматически передаются посредством имитации по ссылке. 
 	Подробнее будет в главе 7.
 
-@
+
+
+
+
+
+
+
+
 Классы памяти.
 
 Идентификаторы имеют атрибуты:
@@ -799,7 +1053,15 @@ int main(){
 	return 0;
 }
 
-16. Рекурсия//////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+Рекурсия.
 
 Всё, что можно написать рекурсией - можно написать и итерацией. 
 Нужно выбирать подход в зависимости от обстоятельств. Рекурсия требует больше ресурсов. 
@@ -821,7 +1083,15 @@ int FUNC(int x){
 	}	
 }
 
-17. Массивы/////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+Массивы.
 
 Массив с 3 ячейками типа int с нулями: 
 int MAS[3] = {0};
@@ -887,7 +1157,15 @@ for (int i = 0; i < SIZE ; ++i){
 	scanf("%c", &string[i]);	//& нужен.
 }	
 
-18. Статические массивы static/////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+Статические массивы static.
 	
 static int A[3]; - массив не будет всякий раз создаваться при вызове функции и
 уничтожаться после выхода из неё. Это уменьшает время работы.
@@ -970,7 +1248,14 @@ i=1____p=0040E024____10
 i=2____p=0040E028____10
 
 
-19. Передача массива в функции Стр. 264 Дейтл./////////////////////////////////////////
+
+
+
+
+
+
+
+Передача массива в функции Стр. 264 Дейтл.
 
 int MAS[10];	- массив объявлен
 func(MAS, 10);	- оператор вызова функции передает массив MAS и его размер в функцию.
@@ -1034,7 +1319,15 @@ void printMAS (int b[], int size){
 	printf("\n");
 }
 
-20. Сортировка массивов///////////////////////////////////////////////////// 
+
+
+
+
+
+
+
+
+Сортировка массивов.
 
 Пузырьковая сортировка - меньшие значения всплывают вверх.
 #include <stdio.h>
@@ -1061,7 +1354,15 @@ int main(){
 
 Среднее, медиана и наиболее вероятное - стр.270.
 
-21. Поиск в массивах/////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+Поиск в массивах.
 
 Последовательный перебор.
 #include <stdio.h>
@@ -1085,9 +1386,18 @@ int findM (int array[], int size, int key){
 		return -1;
 }
 
+
 Двоичный поиск, стр 275
 
-22. Многомерные массивы//////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+22. Многомерные массивы.
 
 M[строка][столбец] 
 Значения группирируются в фигурных скобках по строкам.
@@ -1129,9 +1439,18 @@ void printM (int M[][3]){	//первый индекс не требуется, �
 	}
 }
 
+
 23. Сколько там еще задач всяких.......
 
-24.Указатели//////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+Указатели.
 
 Указатель - это переменная, значением которой является адрес памяти.
 	Переменная непосредственно/прямо ссылается на значение,
@@ -1158,7 +1477,8 @@ int *countPtr; //* объявлет переменную, которая явл�
 	(и в некоторых других заголовочных файлах). Инициализация значением 
 	0 эквивалентна конастанте NULL, но NULL предпочтительнее.
 
-25. Операции над указателями///////////////////////////////////////////////////////////
+
+Операции над указателями.
 
 int y = 999; 
 int *yPrt;	//объявление указателя на целое.
@@ -1189,7 +1509,8 @@ int main(){
 	return 0;
 }
 
-26. Передача параметра по ссылке///////////////////////////////////////////////////////
+
+Передача параметра по ссылке.
 
 Есть два способа передачи параметров функции:
 	по значению, 

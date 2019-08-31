@@ -1,117 +1,123 @@
 GCC 
 utf8
 
-Настройка переменных сред для возможности ввода gcc без полного пути:
-Переменные среды, создать PATH с значением D:\GDrive\books\C\MinGW\bin\
+	Настройка переменных сред для возможности ввода gcc без полного пути:
+	Переменные среды, создать PATH с значением D:\GDrive\books\C\MinGW\bin\
 
-Настройка директории по-умолчанию при запуске консоли:
-[HKEY_CURRENT_USER\Software\Microsoft\Command Processor] "Autorun"="cd /d D:\GDrive\books\С\MinGW\CUBEC" 
-/d нужна при смене диска
+	Настройка директории по-умолчанию при запуске консоли:
+	[HKEY_CURRENT_USER\Software\Microsoft\Command Processor] "Autorun"="cd /d D:\GDrive\books\С\MinGW\CUBEC" 
+	/d нужна при смене диска
 
-Директории gcc:
-MinGW\libexec\mingw-get\guimain.exe - update and setup
-MinGW\bin\gcc.exe
+	Директории gcc:
+	MinGW\libexec\mingw-get\guimain.exe - update and setup
+	MinGW\bin\gcc.exe
 
-SUBLIME 
-{
-"fallback_encoding": "Cyrillic (Windows 1251)",
-"auto_complete" : false,
-"tab_completion" : false,
-"update_check": false,
-"word_wrap": "true"
-}
+	SUBLIME 
+	{
+	"fallback_encoding": "Cyrillic (Windows 1251)",
+	"auto_complete" : false,
+	"tab_completion" : false,
+	"update_check": false,
+	"word_wrap": "true"
+	}
 
-keyBinding:
-{ "keys": ["f5"], "command": "save" },
+	keyBinding:
+	{ "keys": ["f5"], "command": "save" },
 
-Ctr+K,B скрыть панель папки слева, если она была. 
-ctrl+[ сдвинуть влево
-ctrl+] сдвинуть вправо
+	Ctr+K,B скрыть панель папки слева, если она была. 
+	ctrl+[ сдвинуть влево
+	ctrl+] сдвинуть вправо
 
-Сompile 
-Экранирование символов — механизм, имеющийся в текстовых языках и протоколах. 
-Он служит, чтобы символы, которые считаются служебными и имеют особое значение, этого значения лишить и объявить «просто символами». 
-Нам нужно двойное экранирование: для ОС (строка с пробелами закавычивается) и для Си (перед кавычкой слэш).
+	Сompile 
+	Экранирование символов — механизм, имеющийся в текстовых языках и протоколах. 
+	Он служит, чтобы символы, которые считаются служебными и имеют особое значение, этого значения лишить и объявить «просто символами». 
+	Нам нужно двойное экранирование: для ОС (строка с пробелами закавычивается) и для Си (перед кавычкой слэш).
 
-system("gcc \"C:/Folder/My Folder/example.c\" ");
-Точно так же экранируется и обратный слэш, если вдруг потребуется.
-system("gcc \"C:\\Folder\\My Folder\\example.c\"" );
+	system("gcc \"C:/Folder/My Folder/example.c\" ");
+	Точно так же экранируется и обратный слэш, если вдруг потребуется.
+	system("gcc \"C:\\Folder\\My Folder\\example.c\"" );
 
-cd D:\books
-gcc C:\Cex\test.c -o C:\Cex\test.exe
+	cd D:\books
+	gcc C:\Cex\test.c -o C:\Cex\test.exe
 
--c Compile or assemble the source files, but do not link
--S Stop after the stage of compilation proper; do not assemble. 
-
-
-
-
-Исходник > 
-	препроцессор (подключает прототипы функций из заголовочных файлов) > 
-		компилятор (сначало в асм?, потом в объектный/машинный код) > 
-			компоновщик (линкер, линковщик добавляет куски скомпилированных библиотек)
+	-c Compile or assemble the source files, but do not link
+	-S Stop after the stage of compilation proper; do not assemble. 
 
 
 
 
-Про типы данных.
-Тут есть некоторые вопросы с char. signed char и unsigned char.
-char будет зависеть от ключей компиляции, вероятно.
-
-Массив из char или signed char
-C:\Users\Qyb>a
-0000007E  126 126
-0000007F  127 127
-FFFFFF80 -128 4294967168
-FFFFFF81 -127 4294967169
-FFFFFF82 -126 4294967170
-
-C:\Users\Qyb>gcc test.c
-unsigned char
-C:\Users\Qyb>a
-0000007E  126 126
-0000007F  127 127
-00000080  128 128
-00000081  129 129
-00000082  130 130
+	Исходник > 
+		препроцессор (подключает прототипы функций из заголовочных файлов) > 
+			компилятор (сначало в асм?, потом в объектный/машинный код) > 
+				компоновщик (линкер, линковщик добавляет куски скомпилированных библиотек)
 
 
 
 
-Настройка для компиляции из саблайма.
-tools>build system
-{
-    "cmd": ["gcc", "${file}", "-o", "${file_base_name}.exe"],
-    "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
-    "working_dir": "${file_path}",
-    "selector": "source.c, source.c++",
-    "shell": true,
+	Про типы данных.
+	Тут есть некоторые вопросы с char. signed char и unsigned char.
+	char будет зависеть от ключей компиляции, вероятно.
 
-    "variants":
-    [
-        {
-            "name": "Run",
-            "cmd": ["start", "cmd", "/k", "${file_path}/${file_base_name}.exe"],
-            "shell": true
-        }
-    ]
-}
+	Массив из char или signed char
+	C:\Users\Qyb>a
+	0000007E  126 126
+	0000007F  127 127
+	FFFFFF80 -128 4294967168
+	FFFFFF81 -127 4294967169
+	FFFFFF82 -126 4294967170
+
+	C:\Users\Qyb>gcc test.c
+	unsigned char
+	C:\Users\Qyb>a
+	0000007E  126 126
+	0000007F  127 127
+	00000080  128 128
+	00000081  129 129
+	00000082  130 130
 
 
 
 
-@
-"Компилятор".
-#include <stdlib.h> 
-#include <stdio.h>
-#include <conio.h> 
-int main(){
-	system("gcc \"C:/GD/books/Coding/MinGW/CUBEC/test.c\" ");
-	printf("\n\n\n				End of LOG... Press ENTER.\n");
-	getchar();
-	system("a");
-	return 0;
-}
+	Настройка для компиляции из саблайма.
+	tools>build system
+	{
+	    "cmd": ["gcc", "${file}", "-o", "${file_base_name}.exe"],
+	    "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+	    "working_dir": "${file_path}",
+	    "selector": "source.c, source.c++",
+	    "shell": true,
+
+	    "variants":
+	    [
+	        {
+	            "name": "Run",
+	            "cmd": ["start", "cmd", "/k", "${file_path}/${file_base_name}.exe"],
+	            "shell": true
+	        }
+	    ]
+	}
+
+
+
+
+
+	"Компилятор".
+	#include <stdlib.h> 
+	#include <stdio.h>
+	#include <conio.h> 
+	int main(){
+		system("gcc \"C:/GD/books/Coding/MinGW/CUBEC/test.c\" ");
+		printf("\n\n\n				End of LOG... Press ENTER.\n");
+		getchar();
+		system("a");
+		return 0;
+	}
+
+
+
+
+
+
 
 
 
@@ -126,7 +132,7 @@ int main(){
 
 
 Введение
-We use the structured approach throughout the remainder of the C portion (используем структурированный подход на протяжении оставшейся части) of the text.
+We use the structured approach (подход) throughout the remainder (на протяжении оставшейся) of the C portion (части) of the text.
 
 Наступает великий миг: я утверждаю, что собранное нами
 устройство может с полным правом именоваться компьютером!
@@ -261,9 +267,17 @@ It contains some literal characters Sum is  to be displayed, and it contains the
 
 The second argument sum specifies (задает?) the value to be printed. 
 
+
 Secure print:
-	puts( "Welcome to C!" );
-	printf( "%s", "Welcome " );
+	Avoid Single-Argument printfs:
+	good:
+		puts( "Welcome to C!" );
+		printf( "%s", "Welcome " );
+	bad:
+		printf( "Welcome to C!\n" );
+		printf( "Welcome " );
+
+
 
 
 
@@ -277,6 +291,13 @@ In purely (чисто) functional programming, there are no statements; everythi
 Pseudocode consists only of action statements—those that are executed when the program has been converted from pseudocode to C and is run in C. Definitions are not executable statements—they’re simply messages to the compiler. For example, the definition tells the compiler the type of variable i and instructs the compiler to reserve space in memory for the variable. But this definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed. 
 
 
+
+
+
+
+
+
+
 Assignment Operators, Increment and Decrement Operators, стр 93.
 	
 	Statement c = c + 3; can be abbreviated (сокращена) with the addition assignment operator += as c += 3; 
@@ -287,7 +308,7 @@ Assignment Operators, Increment and Decrement Operators, стр 93.
 	++a преинкремент, увеличивает на 1, использует новое значение.
 	a++ постинкремент, использует значение, потом увеличивает на 1.  
 	Преинкремент работает быстрее. 
-
+	И обрати внимание на while.
 
 	a = 5;
 	printf("%d\n", ++a);	//6
@@ -304,14 +325,15 @@ Assignment Operators, Increment and Decrement Operators, стр 93.
 
 
 
-
-
-
 Operator precedence and associativity, стр 136.
+А понятнее
+	Associativity and Operator precedence (or Order of operations), потому что вот потому.
+
 	Operators								Associativity	Type 			My comment
-	()										left to right	parentheses 	просто скобки или function call operator?
-	++ (postfix) -- (postfix)				right to left	postfix			unary
-	+ - ! ++ (prefix) -- (prefix) (type)	right to left	unary			+5,-7, unary
+	
+	()	[]									left to right	parentheses 	() function call operator, [] to enclose the subscript of an array
+	++(postfix) --(postfix)					right to left					type длинный: postfix, unary, highest			
+	+ - ! ++(prefix) --(prefix) (type)		right to left	unary			+5,-7, !(grade != sum), cast operator a(float) 
 	* / %									left to right	multiplicative	binary
 	+ -										left to right	additive		binary
 	< <= > >=								left to right	relational
@@ -320,11 +342,12 @@ Operator precedence and associativity, стр 136.
 	||										left to right	logical OR 		binary
 	?:										right to left	conditional		ternary
 	= += -= *= /= %=						right to left	assignment 		binary
-	,										left to right	comma 			см. 4.4 for Repetition Statement
+	,										left to right	comma 			смотри 119 стр. for Repetition Statement, Comma-Separated Lists of Expressions и 121 стр.  could actually be merged into
 
-	Unary cast operator (одноместный унарный приведения оператор) типа (float)a. 
-
-
+	
+	7 - 4 + 2 распознается как (7 - 4) + 2 = 5 , а не 7 - (4 + 2) = 1.
+	a = b = c = 0 распознается как a = (b = (c = 0))
+	Причем, a < b < c  распознается как ( a < b ) && ( b < c ).
 
 
 Keywords
@@ -345,9 +368,7 @@ Keywords
 
 
 
-Data type 
-	printf conversion specification 
-	scanf conversion specification
+	Data type/printf conversion specification/scanf conversion specification
 
 	Floating-point types
 	long double %Lf %Lf
@@ -358,44 +379,60 @@ Data type
 	unsigned long long int %llu %llu
 	long long int %lld %lld
 	unsigned long int %lu %lu
-	long int %ld %ld
+	long int %ld %ld  +2147483647 4 байта
 	unsigned int %u %u
 	int %d %d
 	unsigned short %hu %hu
-	short %hd %hd
-	char %c %c
+	short %hd %hd +32767 2 байта
+	char %c %c 
+	signed char +127 1 байт (разница между чарами хз)
+
 	Fig. 5.5 | Arithmetic data types and their conversion specifications.
 
 
 
 
 Явные - неявные преобразования???
-	printf("%d_%d_%f_%f\n", A/B, B/A, A/B, B/A );
-	Даст нули. Отбросит дробную часть. Не будет округлять. 
+	int A = 2; int B = 5;
+	float C = 7;
+	int p; float g;
+	printf("%d_%d\n", A/B, B/A );//0 2 0.000000 -1.#QNAN0 ; если %f единственный - то 5/2 или 2/5 даст 0.00000
+	printf("%f %f\n", A/B, B/A );//0 2 0.000000 -1.#QNAN0 ; если %f единственный - то 5/2 или 2/5 даст 0.00000
+	printf("%f\n", 3/2 );		//Выдаст ноль... 
+	printf("%f\n", 3.0/2.0 );	//или хотя бы один с .0 вызовет преобразование и будет ок.
+	printf("%f\n", 3/2*3.14 );	//3.140000
+	printf("%f\n", 2/3*3.14 );	//0.000000.
+	printf("%f\n", 3.0/2*3.14 );//4.710000
+	printf("%f\n", A/C) ;		//0.285714 - выполнит неявное преобразование (создаст копию) int A во float.
+	printf("%f\n", (float) A/B );//0.50 - выполнит явное преобразование int A во float, что потом неявно возведёт int B до float.
+	printf("%f\n", x>2 && x <5);//Тоже выдает ноль, вне зависимости от истинности... Похоже, что %f при работе с int выдет бред.
+	
+	p=4; 
+	g=4.35;
+	printf ("%d\n", p);//4
+	printf ("%f\n", p);//-1.#QNAN0
+	printf ("%d\n", g);//1610612736
+	printf ("%f\n", g);//4.350000
 
-		printf("%f\n", 3/2 ); 
-	Выдаст ноль... 
+	p=4; 
+	g=4.35;
+	p = g;
+	printf ("p=g\n");
 
-		printf("%f\n", x>2 && x <5); 
-	Тоже выдает ноль, вне зависимости от истинности...
-	Похоже, что %f выдет 0 при работе с int.
+	printf ("%d\n", p);//4
+	printf ("%f\n", p);//4.349998
 
-		printf("%f_%f\n", 3/2*3.14, 2/3*3.14 );
-	3.140000_0.000000.
-		
-		printf("%f\n", A/C) ;
-	0.33 - выполнит неявное преобразование (создаст копию) int A во float.
-		
-		printf("%f\n", (float) A/B );
-	0.50 - выполнит явное преобразование int A во float, что потом неявно возведёт int B до float.
+	p=4; 
+	g=4.35;
+	g = p;
+	printf ("g=p\n");
 
-	Avoid Single-Argument printfs:
-	good:
-		puts( "Welcome to C!" );
-		printf( "%s", "Welcome " );
-	bad:
-		printf( "Welcome to C!\n" );
-		printf( "Welcome " );
+	printf ("%d\n", g);//0
+	printf ("%f\n", g);//4.000000
+
+
+
+
 
 
 
@@ -458,17 +495,17 @@ The equality operators have a lower level of precedence than the relational oper
 Составную инструкцию можно помещать где угодно. 
 Так же можно использовать пустой оператор ";" на месте, обычно занимаемым некоторым оператором. 
 
-int main(){	
-	int A;
-	scanf ("%d", &A);
-	if (A >= 2){
-		printf(">=2\n");
+	int main(){	
+		int A;
+		scanf ("%d", &A);
+		if (A >= 2){
+			printf(">=2\n");
+		}
+		if (A < 2){
+			printf("<2\n");
+			printf("LOL\n");
+		}
 	}
-	if (A < 2){
-		printf("<2\n");
-		printf("LOL\n");
-	}
-}
 
 
 
@@ -548,31 +585,31 @@ lvalues can also be used as rvalues, but not vice versa.
 
 The while Repetition Statement.
 
-	int stud = 0; //stud = 0  - initialized
-	while (stud < 3){
-		printf("AAA");
-		stud = stud + 1;
-	}
-AAA
-AAA
-AAA
+		int stud = 0; //stud = 0  - initialized
+		while (stud < 3){
+			printf("AAA");
+			stud = stud + 1;
+		}
+	AAA
+	AAA
+	AAA
 
-	int counter = 0;
-	while (++counter <= 2) // 0 + 1 ; 1 <= 2 ; print 1
+		int counter = 0;
+		while (++counter <= 2) // 0 + 1 ; 1 <= 2 ; print 1
+			printf("%d\n", counter);
 		printf("%d\n", counter);
-	printf("%d\n", counter);
-1
-2
-3
+	1
+	2
+	3
 
-	int counter = 0;
-	while (counter++ <= 2)	// 0 <= 2 ; 0+1 ; print 1
-		printf("%d\n", counter);
-	printf("%d\n", counter);	
-1
-2
-3
-4
+		int counter = 0;
+		while (counter++ <= 2)	// 0 <= 2 ; 0+1 ; print 1
+			printf("%d\n", counter);
+		printf("%d\n", counter);	
+	1
+	2
+	3
+	4
 
 
 
@@ -595,13 +632,13 @@ In most cases, the for statement can be represented with an equivalent while sta
 		expression3;
 	}
 
-int main(){
-	int i;
-	for (i = 0; i <= 2; ++i){//постинкремент выглядит естественнее, но прединкремент здесь эквивалентен и выполняется быстрее.
-		printf("%d\n", i );
+	int main(){
+		int i;
+		for (i = 0; i <= 2; ++i){//постинкремент выглядит естественнее, но прединкремент здесь эквивалентен и выполняется быстрее.
+			printf("%d\n", i );
+		}
+		return 0;
 	}
-	return 0;
-}
 
 
 В стандарте С99 добавили возможность объявления и инициализации переменной внутри цикла for. 
@@ -624,32 +661,32 @@ Switch, a multiple-selection statement (с множественным выбор
 
 The switch statement consists of a series of case labels, an optional default case and statements to execute for each case. 
 
-int main(){
-	int grade;
-	while ( ( grade = getchar() ) != EOF ) 
-	{
-		switch (x)	//Keyword switch is followed by the variable name grade in parentheses. This is called the controlling expression. 
-					//The value of this expression is compared with each of the case labels (метками каждого кейса). 
+	int main(){
+		int grade;
+		while ( ( grade = getchar() ) != EOF ) //считывает введенный символ; enter = 10;
 		{
-			case 'A' : case 'a' : //A character constant can be represented as the specific character in single quotes ' '.
-				printf("this is A or a \n");
-				break;
+			switch (x)	//Keyword switch is followed by the variable name grade in parentheses. This is called the controlling expression. 
+						//The value of this expression is compared with each of the case labels (метками каждого кейса). 
+			{
+				case 'A' : case 'a' : //A character constant can be represented as the specific character in single quotes ' '.
+					printf("this is A or a \n");
+					break;
 
-			case 66 : 
-				printf("this is B \n");
-				break;
+				case 66 : 
+					printf("this is B \n");
+					break;
 
-			case '\n' : case ' ' : case '\t': // игнор символа переноса, пробела и табов, если работа с символами.
-				break;
+				case '\n' : case ' ' : case '\t': // игнор символа переноса, пробела и табов, если работа с символами.
+					break;
 
-			default : // все остальные случаи.
-				printf("this is other \n");
-				break;
+				default : // все остальные случаи.
+					printf("this is other \n");
+					break;
+			}
 		}
-	}
-	printf("\n End");
-	return 0;
-}	
+		printf("\n End");
+		return 0;
+	}	
 
 При отсутсвии brake будет выполнять все следующие операторы до brake или до конца. 
 case '\n' : case 10 - будет ошибка duplicate case value.
@@ -663,17 +700,15 @@ case '\n' : case 10 - будет ошибка duplicate case value.
 
 
 
-do/while
+Do While
 
-int main(){
-	int counter = 1;
-	do {
-		printf("%d\n", counter);
-	}	while ( ++counter <= 10);
-	return 0;
-}
-
-
+	int main(){
+		int counter = 1;
+		do {
+			printf("%d\n", counter);
+		}	while ( ++counter <= 10);
+		return 0;
+	}
 
 
 
@@ -681,32 +716,34 @@ int main(){
 
 
 
-break/continue
+
+
+Break Continue
 
 The break statement, when executed in a while, for, do…while or switch statement, causes an immediate exit from that statement. 
 The continue statement, when executed in a while, for or do…while statement, skips the remaining statements in the body of that control statement and performs the next iteration of the loop. 
 
-int main(){
-	int  x;
-	for (x = 1; x <= 10; x++){
-		if(x == 5)
-			break; // break досрочно выводит из цикла, есть и другие структурные способы это сделать.
-		printf("%d ", x );
+	int main(){
+		int  x;
+		for (x = 1; x <= 10; x++){
+			if(x == 5)
+				break; // break досрочно выводит из цикла, есть и другие структурные способы это сделать.
+			printf("%d ", x );
+		}
+		printf("End %d\n", x);
+		return 0;
 	}
-	printf("End %d\n", x);
-	return 0;
-}
 
-int main(){
-	int  x;
-	for (x = 1; x <= 10; x++){
-		if(x == 5)
-			continue; // continue пропускает оставшийся код, переходит к следующей итерации.
-		printf("%d ", x );
+	int main(){
+		int  x;
+		for (x = 1; x <= 10; x++){
+			if(x == 5)
+				continue; // continue пропускает оставшийся код, переходит к следующей итерации.
+			printf("%d ", x );
+		}
+		printf("End %d\n", x);
+		return 0;
 	}
-	printf("End %d\n", x);
-	return 0;
-}
 
 
 
@@ -732,21 +769,19 @@ In expressions using operator &&, make the condition that’s most likely to be 
 In expressions using operator ||, make the condition that’s most likely to be true the leftmost condition. 
 This can reduce a program’s execution time.
  
-int main(){
-	int  a, b, c;
-	scanf("%d%d%d", &a, &b, &c);
-	if ( a == 2 )	
-		printf("%d==2\n", a);
+	int main(){
+		int  a, b, c;
+		scanf("%d%d%d", &a, &b, &c);
+		if ( a == 2 )	
+			printf("%d==2\n", a);
 
-	if ( !(a == 2) )	
-		printf("!(%d==2)\n", a);
-	
-	if ( b == 1 && c >= 10)//Слева от && стараться ставить более вероятное условие, чтобы раньше перестать считать. 
-		printf("%d == 1 && %d >= 10", b, c);
-	return 0;
-}
-
-
+		if ( !(a == 2) )	
+			printf("!(%d==2)\n", a);
+		
+		if ( b == 1 && c >= 10)//Слева от && стараться ставить более вероятное условие, чтобы раньше перестать считать. 
+			printf("%d == 1 && %d >= 10", b, c);
+		return 0;
+	}
 
 
 
@@ -754,9 +789,11 @@ int main(){
 
 
 
-	Булева алгебра. 
-	Короче, вся эта муть дальше, потому что Петцольд не объяснил, что множества и логические высказывания - это две разных вещи. Факт принадлежности кошки к множеству Рыжих - это логическое высказывание, которое может быть истинным или ложным!!! На матпрофи - сначала идут множества, чтобы описать что это такое, а уже ПОТОМ идет логика.
-{
+
+
+Булева алгебра. 
+Короче, вся эта муть дальше, потому что Петцольд не объяснил, что множества и логические высказывания - это две разных вещи. Факт принадлежности кошки к множеству Рыжих - это логическое высказывание, которое может быть истинным или ложным!!! На матпрофи - сначала идут множества, чтобы описать что это такое, а уже ПОТОМ идет логика.
+
 	Рациональное мышление происходит по законам логики. Если описать эти законы средствами математики - то получится описание мышления. 
 	Для обозначения чисел используются операнды (буквы). Для указания способа объединения чисел используются операторы, например, + или х.
 
@@ -879,7 +916,7 @@ int main(){
 	0 х 1 = 0 ; 0 + 1 = 1
 	1 х 0 = 0 ; 1 + 0 = 1
 	1 х 1 = 1 ; 1 + 1 = 1
-}
+
 
 
 
@@ -891,37 +928,37 @@ int main(){
 
 Задание 4.14. Факториал интеративный.
 
-int main(){
-	int x,i;
-	scanf ("%d", &x);
-	i = 1;
-	while (x > 1){
-		i *= x;
-		--x;
+	int main(){
+		int x,i;
+		scanf ("%d", &x);
+		i = 1;
+		while (x > 1){
+			i *= x;
+			--x;
+		}
+		printf("%d\n", i );
+		return 0;
 	}
-	printf("%d\n", i );
-	return 0;
-}
 
 
-mov 5, r0
-call fact
-stop
+	mov 5, r0
+	call fact
+	stop
 
-fact:
-push r1; бекап регистра r1
+	fact:
+	push r1; бекап регистра r1
 
-mov 1, r1 ; понеслась
+	mov 1, r1 ; понеслась
 
-a:
-mul r0, r1 ; 5 * 1 = 5 , поместить в r1
-sub 1, r0 ;  5 - 1 = 4 , поместить в r0
-jnz a
+	a:
+	mul r0, r1 ; 5 * 1 = 5 , поместить в r1
+	sub 1, r0 ;  5 - 1 = 4 , поместить в r0
+	jnz a
 
-mov r1, r0
+	mov r1, r0
 
-pop r1 ; применение бэкапа
-ret
+	pop r1 ; применение бэкапа
+	ret
 
 
 
@@ -933,29 +970,29 @@ ret
 
 Побитовые операции.
 
-PORTX |= (1 << 2);
-PORTX = PORTX | (1 << 2);
+	PORTX |= (1 << 2);
+	PORTX = PORTX | (1 << 2);
 
-PORTX &= ~(1 << 2);
-PORTX = PORTX & ~(1 << 2);
+	PORTX &= ~(1 << 2);
+	PORTX = PORTX & ~(1 << 2);
 
-| - побитовое ИЛИ;
-	PORTX =  PORTX | 4; устанавливает 2-й бит числа PORTX в единицу;
-	остальные биты не трогаются.
+	| - побитовое ИЛИ;
+		PORTX =  PORTX | 4; устанавливает 2-й бит числа PORTX в единицу;
+		остальные биты не трогаются.
 
-& - И;
-	PORTX & 4 "извлекает" 2-й бит из числа:
-	PORTX & 4 == 0 когда 2-й бит равен 0; 
-	PORTX & 4 != 0 когда 2-й бит равен 1;
-	остальные биты обнуляются.
+	& - И;
+		PORTX & 4 "извлекает" 2-й бит из числа:
+		PORTX & 4 == 0 когда 2-й бит равен 0; 
+		PORTX & 4 != 0 когда 2-й бит равен 1;
+		остальные биты обнуляются.
 
-<< - побитовый сдвиг, сдвигает биты на 2 влево у числа 1; 
-	(1 << 2) == 4;
-	0000 0001
-	0000 0100
-	PORTX | 0000 0100.
+	<< - побитовый сдвиг, сдвигает биты на 2 влево у числа 1; 
+		(1 << 2) == 4;
+		0000 0001
+		0000 0100
+		PORTX | 0000 0100.
 
-~ - побитовое НЕ,  инвертирует биты.
+	~ - побитовое НЕ,  инвертирует биты.
 
 
 
@@ -1000,45 +1037,45 @@ All variables defined in function definitions are local variables. They can be a
 Each time a function calls another function, an entry is pushed onto the stack. This entry, called a stack frame, contains the return address that the called function needs in order to return to the calling function. Most functions have automatic variables. When a called function returns to its caller, the called function’s automatic variables need to “go away.” When that function returns—and no longer needs its local automatic variables — its stack frame is popped from the stack, and those local automatic variables are no longer known to the program.
 
 
-float FUNC(int);
-int main(){
-	printf("%.3f", FUNC(3));
-	return 0;
-}
-float FUNC(int x){
-	float tmp = x / 2.0 ;
-	return tmp;
-}
+	float FUNC(int);
+	int main(){
+		printf("%.3f", FUNC(3));
+		return 0;
+	}
+	float FUNC(int x){
+		float tmp = x / 2.0 ;
+		return tmp;
+	}
 
 
-void funk (void);
-int main (void) {
-	funk();	// если void - то в скобках должно быть пусто.
-	return 0;
-}
-void funk(void){
-	printf("HELLO\n");
-	return;	// return здесь можно не писать .
-}
+	void funk (void);
+	int main (void) {
+		funk();	// если void - то в скобках должно быть пусто.
+		return 0;
+	}
+	void funk(void){
+		printf("HELLO\n");
+		return;	// return здесь можно не писать .
+	}
 
 
-int AAA(int);
-int BBB(int);
+	int AAA(int);
+	int BBB(int);
 
-int main(){
-	int ZZZ;
-	scanf ("%d", &ZZZ );
-	printf("%d", AAA(ZZZ) );
-	return 0;
-}
+	int main(){
+		int ZZZ;
+		scanf ("%d", &ZZZ );
+		printf("%d", AAA(ZZZ) );
+		return 0;
+	}
 
-int AAA(int aaa){
-	return BBB(aaa);
-}
+	int AAA(int aaa){
+		return BBB(aaa);
+	}
 
-int BBB(int aaa){
-	return aaa * 1000;
-}
+	int BBB(int aaa){
+		return aaa * 1000;
+	}
 
 
 
@@ -1058,35 +1095,11 @@ int BBB(int aaa){
 	которые содержат много всего, в том числе - прототипы функций.
 
 #include <stdio.h> printf(), scanf() 
-#include <stdlib.h> system()
+#include <stdlib.h> system(), rand()
 #include <math.h> 
 #include <conio.h> getchar()
 #include <time.h> time(NULL)
 #include <unistd.h> sleep()
-
-
-
-
-
-
-
-
-
-define 
-Умеют много чего, не путать с функцией, это именно символьная замена, с которой работает препроцессор.
-#include <stdio.h>
-#define SIZE 10
-#define MASK(x) x&0xFF
-int main(){
-	printf("%d\n", SIZE);//равносильно написанию:
-	printf("%d\n", 10);	
-	printf("%d\n", MASK(4095)	);//равносильно написанию:
-	printf("%d\n", 4095 & 0xFF	);
-	return 0;
-}
-4095	1111 1111 1111
-0xFF	0000 1111 1111
-AND=	0000 1111 1111
 
 
 
@@ -1114,25 +1127,21 @@ In C, all arguments are passed by value. As we’ll see in Chapter 7, it’s pos
 
 
 
+An enumeration, introduced by the keyword enum, is a set of integer constants represented by identifiers. Enumeration constants are sometimes called symbolic constants. Values in an enum start with 0 and are incremented by 1. The constant CONTINUE has the value 0, WON has the value 1 and LOST has the value 2. It’s also possible to assign an integer value to each identifier in an enum (see Chapter 10; WON = 34,). The identifiers in an enumeration must be unique, but the values may be duplicated.	
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-enum Status { CONTINUE, WON, LOST };//a programmer-defined type called an enumeration. 
-
-An enumeration, introduced by the keyword enum, is a set of integer constants represented by identifiers. Enumeration constants are sometimes called symbolic constants. Values in an enum start with 0 and are incremented by 1. The constant CONTINUE has the value 0, WON has the value 1 and LOST has the value 2. It’s also possible to assign an integer value to each identifier in an enum (see Chapter 10). The identifiers in an enumeration must be unique, but the values may be duplicated.
-
-int main()
-{
-	enum Status gameStatus; // Variable gameStatus, defined to be of a new type — enum Status — stores the current status. 
-	printf("%d\n", CONTINUE );//0
-	printf("%d\n", WON );//1
-	printf("%d\n", LOST );//2
-	printf("%d\n", gameStatus );//
-gameStatus = WON; 
-	printf("%d\n", gameStatus );//1
-}
+	#include <stdio.h>
+	enum Status { CONTINUE, WON, LOST };//a programmer-defined type called an enumeration. 
+	int main()
+	{
+		enum Status gameStatus; // Variable gameStatus, defined to be of a new type — enum Status — stores the current status. 
+		printf("%d\n", CONTINUE );//0
+		printf("%d\n", WON );//1
+		printf("%d\n", LOST );//2
+		printf("%d\n", gameStatus );//
+		
+		gameStatus = WON; 
+		printf("%d\n", gameStatus );//1
+	}
 
 
 
@@ -1236,36 +1245,49 @@ int main(){
 	
 
 В стандарте С99 добавили возможность инициализации и объявления переменной внутри цикла for:
-int main(){
-	int i = 10;
-	for(i = 0; i <=2; i++ ){		//i доступна для блока for.
-		printf("%d\n", i);			//0	1	2
+	int main(){
+		int i = 10;
+		for(i = 0; i <=2; i++ ){		//i доступна для блока for.
+			printf("%d\n", i);			//0	1	2
+		}
+		printf("%d\n", i);				//3
+		return 0;
 	}
-	printf("%d\n", i);				//3
-	return 0;
-}
 
-int main(){
-	int i = 10;
-	for(int i = 0, i <=2, i++ ){	//i из main скрывается для блока с for.
-		printf("%d\n", i);			//0	1	2
+	int main(){
+		int i = 10;
+		for(int i = 0, i <=2, i++ ){	//i из main скрывается для блока с for.
+			printf("%d\n", i);			//0	1	2
+		}
+		printf("%d\n", i);				//10
+		return 0;
 	}
-	printf("%d\n", i);				//10
-	return 0;
-}
 
-int main(){
-	int i = 10;
-	for(; i <=2; i++)				//можно и так.
-		printf("%d\n", i);
-	return 0;
-}
+	int main(){
+		int i = 10;
+		for(; i <=2; i++)				//можно и так.
+			printf("%d\n", i);
+		return 0;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 Пример с демонстрацией scope.
-{
+
 	// Fig. 5.16: fig05_16.c
 	// Scoping.
 	void useLocal( void ); // function prototype
@@ -1349,7 +1371,7 @@ int main(){
 	global x is 100 on exiting useGlobal
 
 	local x in main is 5
-}
+
 
 
 
@@ -1363,28 +1385,28 @@ int main(){
 Всё, что можно написать рекурсией - можно написать и итерацией. 
 Нужно выбирать подход в зависимости от обстоятельств. Рекурсия требует больше ресурсов. 
 
-int FUNC(int);
+	int FUNC(int);
 
-int main(){
-	int number;
-	scanf("%d", &number);
-	printf("%d!=%d\n", number, FUNC(number) );
-}
-
-int FUNC(int x){
-	if(x <= 1){
-		return 1;
+	int main(){
+		int number;
+		scanf("%d", &number);
+		printf("%d!=%d\n", number, FUNC(number) );
 	}
-	else{
-		return( x*FUNC(x-1) );
-	}	
-}
+
+	int FUNC(int x){
+		if(x <= 1){
+			return 1;
+		}
+		else{
+			return( x*FUNC(x-1) );
+		}	
+	}
 
 
 Или рекурсивная функция
-int fact(int x) {
-    return x<2?1:x*fact(x-1);
-}
+	int fact(int x) {
+	    return x<2?1:x*fact(x-1);
+	}
 
 
 
@@ -1394,7 +1416,7 @@ int fact(int x) {
 
 
 
-@
+
 Стохастическая игра
 
 	#include <stdio.h>
@@ -1455,7 +1477,7 @@ int fact(int x) {
 
 
 
-@
+
 Вывод с задержкой в секунду.
 	#include <stdio.h>
 	#include <stdlib.h> 
@@ -1479,10 +1501,48 @@ int fact(int x) {
 		}
 	}
 
+	или так
+	int main(){
+
+		for(int i=0; i != EOF; ){
+			system("cls");
+			for(int i=0; i<4; i++)
+				printf("1111\n");
+			sleep(1);
+			
+			system("cls");
+			for(int i=0; i<4; i++)
+				printf("0000\n");
+			sleep(1);
+			
+		}
+	}
 
 
 
-@
+Секундомер
+
+	#include <stdio.h>
+	#include <time.h>
+
+
+	int main(void)
+	{
+		int i = 0;
+		while ( i != EOF)
+		{
+			if (i != time(NULL) )
+			{
+				i = time(NULL);	
+				printf ("%d\n", i);
+			}
+		}
+		
+	}
+
+
+
+
 Перевод в двоичную систему.
 
 	#include <stdio.h>
@@ -1521,7 +1581,7 @@ int fact(int x) {
 
 
 
-@
+
 putchar.
 
 	#include <stdio.h>
@@ -1537,8 +1597,8 @@ putchar.
 
 
 
-@
-Опыты с getchar и putchar
+
+getchar и putchar.
 
 	#include <stdio.h>
 	int main(){
@@ -1580,6 +1640,101 @@ putchar.
 
 
 
+
+a^b
+	int integerPower (int a, int b )
+	{
+		int z = a;
+		while ( b != 1 )
+		{
+			z *= a;
+			--b; 
+		}
+		return z;
+	}
+
+
+
+
+
+
+
+#include <stdio.h>	
+
+	int q (int z, int b);
+
+	int main()
+	{
+		int a = 562;
+		int f;
+		for (int i = 10000; i > 0; i/=10)
+		{
+			f = q(a,i); //4000
+			printf ("%10d", f/i);//4
+			a = a - f;//4562-4000=562
+		}
+	}
+
+	int q (int z, int b)
+	{
+		return z-z % b; //возвращает 4000
+	}
+
+
+
+
+
+
+
+
+
+
+Число разрядов
+	int numberOfDigits (int number)
+	{
+		int step = 1;
+		int digit = 0;
+		while ( (number % b) != number  )
+			{
+				step*=10;
+				++digit;
+			}
+		return digit;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+define 
+	Умеют много чего, не путать с функцией, это именно символьная замена, с которой работает препроцессор.
+	#include <stdio.h>
+	#define SIZE 10
+	#define MASK(x) x&0xFF
+	int main(){
+		printf("%d\n", SIZE);//равносильно написанию:
+		printf("%d\n", 10);	
+		printf("%d\n", MASK(4095)	);//равносильно написанию:
+		printf("%d\n", 4095 & 0xFF	);
+		return 0;
+	}
+	4095	1111 1111 1111
+	0xFF	0000 1111 1111
+	AND=	0000 1111 1111
 
 
 

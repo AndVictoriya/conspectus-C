@@ -54,26 +54,7 @@ utf8
 
 
 
-	Про типы данных.
-	Тут есть некоторые вопросы с char. signed char и unsigned char.
-	char будет зависеть от ключей компиляции, вероятно.
 
-	Массив из char или signed char
-	C:\Users\Qyb>a
-	0000007E  126 126
-	0000007F  127 127
-	FFFFFF80 -128 4294967168
-	FFFFFF81 -127 4294967169
-	FFFFFF82 -126 4294967170
-
-	C:\Users\Qyb>gcc test.c
-	unsigned char
-	C:\Users\Qyb>a
-	0000007E  126 126
-	0000007F  127 127
-	00000080  128 128
-	00000081  129 129
-	00000082  130 130
 
 
 
@@ -281,16 +262,23 @@ Secure print:
 
 
 
-
-In computer programming, a statement is a syntactic unit of an imperative programming language that expresses (выражает) some action to be carried out (которые необходимо выполнить). 
-A program written in such a language (imperative) is formed (сформирована чем) by a sequence of one or more statements. A statement may have internal components (e.g. например, expressions). Many imperative languages (e.g. C) make a distinction (делают различие) between statements and definitions, with (причем) a statement only containing executable code and a definition instantiating an identifier (определение, создающее экземпляр идентификатора), while (тогда как) an expression evaluates (оценивается) to a value only. 
-A distinction (различие) can also be made between simple and compound statements; the latter may contain statements as components. 
-{} блок, if, assigment это тоже стайтменты как и многие другие.
-In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. a = b = c = 0 - выражение оценивается справа налево, сначала с, потом b, потом a.
+wiki
+In computer programming, a statement is a syntactic unit of an imperative programming language that expresses (выражает) some action to be carried out (которые необходимо выполнить). A program written in such (таком) a language is formed (сформирована чем) by a sequence of one or more statements. A statement may have internal components (e.g. например, expressions). Many imperative languages (e.g. C) make a distinction (делают различие) between statements and definitions, with (причем) a statement only containing executable code and a definition instantiating an identifier (определение, создающее экземпляр идентификатора), while (тогда как) an expression evaluates (оценивается) to a value only. A distinction (различие) can also be made between simple and compound statements; the latter may contain statements as components. 
+Simple statements a = a + b; return z;
+Compound statements {} блок, if, for.
+In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction (различие) is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. a = b = c = 0 - выражение оценивается справа налево, сначала с, потом b, потом a.
 In purely (чисто) functional programming, there are no statements; everything is an expression.
+
+how to program
 Pseudocode consists only of action statements—those that are executed when the program has been converted from pseudocode to C and is run in C. Definitions are not executable statements—they’re simply messages to the compiler. For example, the definition tells the compiler the type of variable i and instructs the compiler to reserve space in memory for the variable. But this definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed. 
 
+wiki
+An expression in a programming language is a combination of one or more constants, variables, operators, and functions that the programming language interprets (according (в соответсвтии с) to its particular rules of precedence and of association) and computes (вычисляет) to produce (производства) ("to return", in a stateful environment (в состояние среды??)) another value. This process, as for mathematical expressions, is called evaluation.
 
+хз откуда
+An expression (выражение) is a sequence of operators.
+Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). 
+The body of any function is a compound (составная) statement which in turn is a sequence of statements and declarations (объявлений).
 
 
 
@@ -325,7 +313,7 @@ Assignment Operators, Increment and Decrement Operators, стр 93.
 
 
 
-Operator precedence and associativity, стр 136.
+Operator precedence and associativity (ассоциативность), стр 136.
 А понятнее
 	Associativity and Operator precedence (or Order of operations), потому что вот потому.
 
@@ -337,7 +325,7 @@ Operator precedence and associativity, стр 136.
 	* / %									left to right	multiplicative	binary
 	+ -										left to right	additive		binary
 	< <= > >=								left to right	relational
-	== !=									left to right	equality
+	== !=									left to right	equality		The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см if и logical)
 	&&										left to right	logical AND 	binary
 	||										left to right	logical OR 		binary
 	?:										right to left	conditional		ternary
@@ -345,9 +333,24 @@ Operator precedence and associativity, стр 136.
 	,										left to right	comma 			смотри 119 стр. for Repetition Statement, Comma-Separated Lists of Expressions и 121 стр.  could actually be merged into
 
 	
-	7 - 4 + 2 распознается как (7 - 4) + 2 = 5 , а не 7 - (4 + 2) = 1.
+	7 - 4  + 2 распознается как (7 - 4) + 2 = 5 , а не 7 - (4 + 2) = 1.
+
+	8 / 16 / 2 распознается как 1/2 / 2 = 1/4   , а не 8 / 8 = 1
+		4/8/2/3 = 4 / (8*2*3)
+		4/8/2/3 нужно следить за associativity , а если в виде дробей 4 * 1/8 * 1/2 * 1/3 то необязательно.
+
 	a = b = c = 0 распознается как a = (b = (c = 0))
+
 	Причем, a < b < c  распознается как ( a < b ) && ( b < c ).
+
+	a = 2    b = 1    c = 3
+	a == b 0
+	a != b 1
+	b <= c 1
+	a == b <= c 0
+	(a == b) <= c 1
+	a != b <= c 1
+	a != b <= c 1
 
 
 Keywords
@@ -388,6 +391,30 @@ Keywords
 	signed char +127 1 байт (разница между чарами хз)
 
 	Fig. 5.5 | Arithmetic data types and their conversion specifications.
+
+
+
+
+Про типы данных.
+	Тут есть некоторые вопросы с char. signed char и unsigned char.
+	char будет зависеть от ключей компиляции, вероятно.
+
+	Массив из char или signed char
+	C:\Users\Qyb>a
+	0000007E  126 126
+	0000007F  127 127
+	FFFFFF80 -128 4294967168
+	FFFFFF81 -127 4294967169
+	FFFFFF82 -126 4294967170
+
+	C:\Users\Qyb>gcc test.c
+	unsigned char
+	C:\Users\Qyb>a
+	0000007E  126 126
+	0000007F  127 127
+	00000080  128 128
+	00000081  129 129
+	00000082  130 130
 
 
 
@@ -448,18 +475,16 @@ Keywords
 
 
 
-Control structures (управляющие структуры). В другом переводе операторы, в нормальном мире конструкции или инструкции.
+Control structures (управляющие структуры). Структуры - это из датасаенс, общее понятие. 
+В C эти структуры реализованы в виде инструкций.
 
-В основе лежит структурное программирование и отказ от goto. Суть в том, что бы любая структура подключалась к остальным как блок со входом и выходом. Это отлично видно в flowcharts.
+В основе лежит структурное программирование и отказ от goto. Суть в том, что бы любая структура подключалась к остальным как блок со входом и выходом. Это отлично видно в flowcharts!
 
 All programs could be written in terms of only three control structures: the sequence structure, the selection structure and the repetition structure.
 	1. The sequence structure (любой тип действий, вычисление, ввод/вывод) is simple — unless directed otherwise, the computer executes C statements one after the other in the order in which they’re written. 
 	2. C provides three types of selection structures in the form of statements: if, if/else, switch.
 	3. Repetition Statements, three types of in the form of statements: while, for, do/while.
 
-		An expression (выражение) is a sequence of operators.
-		Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). 
-		The body of any function is a compound (составная) statement which in turn is a sequence of statements and declarations (объявлений).
 
 
 
@@ -477,8 +502,8 @@ The if Statement, single-selection statement (с одиночным выборо
 		}
 
 Conditions in if statements are formed by using the equality operators and relational (отношения) operators. 
-Если condition = constant, то условие всегда будет возвращать истину.
-The relational operators all have the same level of precedence and associate left to right. 
+Если condition есть constant, то условие всегда будет возвращать истину.
+The relational operators all have the same level of precedence and associate (ассоциируется) left to right. 
 The equality operators have a lower level of precedence than the relational operators and they also associate left to right. 
 
 	scanf ("%d", &x); 
@@ -487,7 +512,7 @@ The equality operators have a lower level of precedence than the relational oper
 Напечатает 0 или 1 в зависимости от истинности.
 
 Совокупность инструкций внутри {} скобок называтеся составной инструкцией или блоком:
-	if(/* condition */) {//condition представляет собой, я так понимаю, expression, то есть выражение.
+	if(/* condition */) {//condition представляет собой, я так понимаю, expression, то есть выражение; хотя там же есть getchar()=, значит и statement.
 		инструкция1;
 		инструкция2;
 	}
@@ -779,6 +804,7 @@ This can reduce a program’s execution time.
 			printf("!(%d==2)\n", a);
 		
 		if ( b == 1 && c >= 10)//Слева от && стараться ставить более вероятное условие, чтобы раньше перестать считать. 
+			//The equality operators have a lower level of precedence than the relational operators and they also associate left to right
 			printf("%d == 1 && %d >= 10", b, c);
 		return 0;
 	}
@@ -1380,42 +1406,6 @@ int main(){
 
 
 
-Рекурсия.
-
-Всё, что можно написать рекурсией - можно написать и итерацией. 
-Нужно выбирать подход в зависимости от обстоятельств. Рекурсия требует больше ресурсов. 
-
-	int FUNC(int);
-
-	int main(){
-		int number;
-		scanf("%d", &number);
-		printf("%d!=%d\n", number, FUNC(number) );
-	}
-
-	int FUNC(int x){
-		if(x <= 1){
-			return 1;
-		}
-		else{
-			return( x*FUNC(x-1) );
-		}	
-	}
-
-
-Или рекурсивная функция
-	int fact(int x) {
-	    return x<2?1:x*fact(x-1);
-	}
-
-
-
-
-
-
-
-
-
 
 Стохастическая игра
 
@@ -1469,6 +1459,81 @@ int main(){
 		}
 		return 0;
 	}
+
+
+
+
+
+
+
+
+
+
+
+Рекурсия.
+
+Всё, что можно написать рекурсией - можно написать и итерацией. 
+Нужно выбирать подход в зависимости от обстоятельств. Рекурсия требует больше ресурсов. 
+
+Факториал рекурсивный.
+
+	int FUNC(int);
+
+	int main(){
+		int number;
+		scanf("%d", &number);
+		printf("%d!=%d\n", number, FUNC(number) );
+	}
+
+	int FUNC(int x){
+		if(x <= 1){
+			return 1;
+		}
+		else{
+			return( x*FUNC(x-1) );
+		}	
+	}
+
+
+Или рекурсивная функция
+	int fact(int x) {
+	    return x<2?1:x*fact(x-1);
+	}
+
+
+
+
+	int FUNC(int);
+
+	int main()
+	{
+		int number = 10;
+		FUNC(number);
+				
+	}
+
+	int FUNC(int x)
+	{
+		printf ("%d\n", x);//получен х
+		if(x <= 1)
+		{
+			return 1;
+		}
+		else
+		{
+			return( FUNC(x-1) );//вычесть 1 из х и передать его в функцию
+		}	
+	}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1642,6 +1707,7 @@ getchar и putchar.
 
 
 a^b
+
 	int integerPower (int a, int b )
 	{
 		int z = a;
@@ -1659,42 +1725,36 @@ a^b
 
 
 
-#include <stdio.h>	
+	#include <stdio.h>	
 
-	int q (int z, int b);
+	int integerPower (int a, int b );
+	int numberOfDigits (int number);
 
 	int main()
 	{
-		int a = 562;
+		int a = 23562;
 		int f;
-		for (int i = 10000; i > 0; i/=10)
+		int i = integerPower ( 10, numberOfDigits(a) - 1 ) ;
+		
+		while (i > 0)
 		{
-			f = q(a,i); //4000
-			printf ("%10d", f/i);//4
-			a = a - f;//4562-4000=562
+			// f = a - a % i;
+			// printf ("%2d", f/i);
+			// a = a - f;
+			// i/=10;
+			
+			printf ("%2d", (a - a % i) /i);
+			a = a - (a - a % i);
+			i/=10;
 		}
 	}
 
-	int q (int z, int b)
-	{
-		return z-z % b; //возвращает 4000
-	}
 
-
-
-
-
-
-
-
-
-
-Число разрядов
 	int numberOfDigits (int number)
 	{
 		int step = 1;
 		int digit = 0;
-		while ( (number % b) != number  )
+		while ( (number % step) != number  )
 			{
 				step*=10;
 				++digit;
@@ -1703,7 +1763,16 @@ a^b
 	}
 
 
-
+	int integerPower (int a, int b )
+		{
+			int z = a;
+			while ( b != 1 )
+			{
+				z *= a;
+				--b; 
+			}
+			return z;
+		}
 
 
 

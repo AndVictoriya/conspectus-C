@@ -86,7 +86,7 @@ utf8
 	#include <stdlib.h> 
 	#include <stdio.h>
 	#include <conio.h> 
-	int main(){
+	int main (void){
 		system("gcc \"C:/GD/books/Coding/MinGW/CUBEC/test.c\" ");
 		printf("\n\n\n				End of LOG... Press ENTER.\n");
 		getchar();
@@ -133,7 +133,7 @@ We explain the contents of headers in more detail in Chapter 5 and 13.
 
 
 
-2	int main(void)//int main() 
+2	int main (void)//int main () 
 	{
 
 	}
@@ -183,7 +183,7 @@ For readers using the Microsoft Visual C++ compiler, note that we’re placing o
 Recall that the Microsoft Visual C++ compiler requires variable definitions to be placed after the left brace { of a function and before any executable statements. Therefore, in the program in Fig. 2.5, inserting the definition of integer1 after the first printf would cause a syntax error in Visual C++. 
 
 Вдобавок объявления могут быть внутри выделенных блоков, см. области действия. 
-	int main(){
+	int main (void){
 			int x = 1;
 			printf("%d\n", x);//1
 		{
@@ -218,7 +218,7 @@ The %d conversion specifier (спецификатор преобразовани
 The % in this context is treated (рассматривается) by scanf (and printf as we’ll see) as a special character (специальный символ, как esq-код) that begins a conversion specifier. 
 The letter d stands for “decimal integer”. 
 
-The second argument &integer1 of scanf begins with an ampersand & address operator followed by the variable name. 
+The second argument &integer1 of scanf begins with an ampersand & (address operator) followed by the variable name (& (адрес оператор) за которым следует имя переменной). 
 The &, when combined with the variable name integer1, tells scanf the location (or address) in memory at which the variable integer1 is stored. 
 The computer then stores the value that the user enters for integer1 at that location. 
 
@@ -269,7 +269,7 @@ Compound statements {} блок, if, for.
 In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction (различие) is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. a = b = c = 0 - выражение оценивается справа налево, сначала с, потом b, потом a.
 In purely (чисто) functional programming, there are no statements; everything is an expression.
 
-how to program
+C how to program
 Pseudocode consists only of action statements—those that are executed when the program has been converted from pseudocode to C and is run in C. Definitions are not executable statements—they’re simply messages to the compiler. For example, the definition tells the compiler the type of variable i and instructs the compiler to reserve space in memory for the variable. But this definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed. 
 
 wiki
@@ -319,13 +319,13 @@ Operator precedence and associativity (ассоциативность), стр 1
 
 	Operators								Associativity	Type 			My comment
 	
-	()	[]									left to right	parentheses 	() function call operator, [] to enclose the subscript of an array
+	() () []								left to right	parentheses 	(expression) in parentheses evaluated first, name() function call operator, [] for to enclose (заключить) the subscript (индекс) of an array
 	++(postfix) --(postfix)					right to left					type длинный: postfix, unary, highest			
 	+ - ! ++(prefix) --(prefix) (type)		right to left	unary			+5,-7, !(grade != sum), cast operator a(float) 
 	* / %									left to right	multiplicative	binary
 	+ -										left to right	additive		binary
 	< <= > >=								left to right	relational
-	== !=									left to right	equality		The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см if и logical)
+	== !=									left to right	equality		The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см ниже, в if и в logical)
 	&&										left to right	logical AND 	binary
 	||										left to right	logical OR 		binary
 	?:										right to left	conditional		ternary
@@ -337,7 +337,7 @@ Operator precedence and associativity (ассоциативность), стр 1
 
 	8 / 16 / 2 распознается как 1/2 / 2 = 1/4   , а не 8 / 8 = 1
 		4/8/2/3 = 4 / (8*2*3)
-		4/8/2/3 нужно следить за associativity , а если в виде дробей 4 * 1/8 * 1/2 * 1/3 то необязательно.
+		4/8/2/3 в реале нужно следить за associativity , а если в реале в виде дробей 4 * 1/8 * 1/2 * 1/3 то необязательно (в си везде следить нужно).
 
 	a = b = c = 0 распознается как a = (b = (c = 0))
 
@@ -371,7 +371,7 @@ Keywords
 
 
 
-	Data type/printf conversion specification/scanf conversion specification
+Data type/printf conversion specification/scanf conversion specification
 
 	Floating-point types
 	long double %Lf %Lf
@@ -520,7 +520,7 @@ The equality operators have a lower level of precedence than the relational oper
 Составную инструкцию можно помещать где угодно. 
 Так же можно использовать пустой оператор ";" на месте, обычно занимаемым некоторым оператором. 
 
-	int main(){	
+	int main (void){	
 		int A;
 		scanf ("%d", &A);
 		if (A >= 2){
@@ -610,27 +610,27 @@ lvalues can also be used as rvalues, but not vice versa.
 
 The while Repetition Statement.
 
-		int stud = 0; //stud = 0  - initialized
-		while (stud < 3){
-			printf("AAA");
-			stud = stud + 1;
+	int stud = 0; //stud = 0  - initialized
+	while (stud < 3){
+		printf("AAA");
+		stud = stud + 1;
 		}
 	AAA
 	AAA
 	AAA
 
-		int counter = 0;
-		while (++counter <= 2) // 0 + 1 ; 1 <= 2 ; print 1
-			printf("%d\n", counter);
+	int counter = 0;
+	while (++counter <= 2) // 0 + 1 ; 1 <= 2 ; print 1
 		printf("%d\n", counter);
+	printf("%d\n", counter);
 	1
 	2
 	3
 
-		int counter = 0;
-		while (counter++ <= 2)	// 0 <= 2 ; 0+1 ; print 1
-			printf("%d\n", counter);
-		printf("%d\n", counter);	
+	int counter = 0;
+	while (counter++ <= 2)	// 0 <= 2 ; 0+1 ; print 1
+		printf("%d\n", counter);
+	printf("%d\n", counter);	
 	1
 	2
 	3
@@ -657,7 +657,7 @@ In most cases, the for statement can be represented with an equivalent while sta
 		expression3;
 	}
 
-	int main(){
+	int main (void){
 		int i;
 		for (i = 0; i <= 2; ++i){//постинкремент выглядит естественнее, но прединкремент здесь эквивалентен и выполняется быстрее.
 			printf("%d\n", i );
@@ -686,7 +686,7 @@ Switch, a multiple-selection statement (с множественным выбор
 
 The switch statement consists of a series of case labels, an optional default case and statements to execute for each case. 
 
-	int main(){
+	int main (void){
 		int grade;
 		while ( ( grade = getchar() ) != EOF ) //считывает введенный символ; enter = 10;
 		{
@@ -727,7 +727,7 @@ case '\n' : case 10 - будет ошибка duplicate case value.
 
 Do While
 
-	int main(){
+	int main (void){
 		int counter = 1;
 		do {
 			printf("%d\n", counter);
@@ -748,7 +748,7 @@ Break Continue
 The break statement, when executed in a while, for, do…while or switch statement, causes an immediate exit from that statement. 
 The continue statement, when executed in a while, for or do…while statement, skips the remaining statements in the body of that control statement and performs the next iteration of the loop. 
 
-	int main(){
+	int main (void){
 		int  x;
 		for (x = 1; x <= 10; x++){
 			if(x == 5)
@@ -759,7 +759,7 @@ The continue statement, when executed in a while, for or do…while statement, s
 		return 0;
 	}
 
-	int main(){
+	int main (void){
 		int  x;
 		for (x = 1; x <= 10; x++){
 			if(x == 5)
@@ -794,7 +794,7 @@ In expressions using operator &&, make the condition that’s most likely to be 
 In expressions using operator ||, make the condition that’s most likely to be true the leftmost condition. 
 This can reduce a program’s execution time.
  
-	int main(){
+	int main (void){
 		int  a, b, c;
 		scanf("%d%d%d", &a, &b, &c);
 		if ( a == 2 )	
@@ -954,7 +954,7 @@ This can reduce a program’s execution time.
 
 Задание 4.14. Факториал интеративный.
 
-	int main(){
+	int main (void){
 		int x,i;
 		scanf ("%d", &x);
 		i = 1;
@@ -1050,11 +1050,11 @@ The general format for a function definition is
 	}
 	
 	тип_возвращаемых_значений ИМЯ_функции (тип_принимаемых_значений/список_параметров)
-	float FUNC(int, double);		//прототип; лучше float FUNC(int x, double y);
+	float FUNC(int, double);		//прототип; лучше float FUNC(int x, double y);		
 	float FUNC(int x, double y) {}	//тело функции
 
 All variables defined in function definitions are local variables — they can be accessed only in the function in which they’re defined.
-The definitions and statements within braces form the function body, which is also referred to as a block. 
+The definitions and statements within braces form the function body, which is also referred (называться, упоминаются, передается) to as a block. 
 Variables can be declared in any block, and blocks can be nested. 
 All variables defined in function definitions are local variables. They can be accessed only in the function in which they’re defined.
 
@@ -1064,7 +1064,7 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 
 
 	float FUNC(int);
-	int main(){
+	int main (void){
 		printf("%.3f", FUNC(3));
 		return 0;
 	}
@@ -1075,7 +1075,7 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 
 
 	void funk (void);
-	int main (void) {
+	int main (void){
 		funk();	// если void - то в скобках должно быть пусто.
 		return 0;
 	}
@@ -1088,7 +1088,7 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 	int AAA(int);
 	int BBB(int);
 
-	int main(){
+	int main (void){
 		int ZZZ;
 		scanf ("%d", &ZZZ );
 		printf("%d", AAA(ZZZ) );
@@ -1135,7 +1135,7 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 
 
 
-Passing Arguments By Value and By Reference ("вызов функций", лооол).
+Passing Arguments By Value and By Reference (ссылке) ("вызов функций", лооол).
 	When arguments are passed by value ("когда аргумент исполь в вызове по значению", лооол).
 
 
@@ -1157,7 +1157,7 @@ An enumeration, introduced by the keyword enum, is a set of integer constants re
 
 	#include <stdio.h>
 	enum Status { CONTINUE, WON, LOST };//a programmer-defined type called an enumeration. 
-	int main()
+	int main (void)
 	{
 		enum Status gameStatus; // Variable gameStatus, defined to be of a new type — enum Status — stores the current status. 
 		printf("%d\n", CONTINUE );//0
@@ -1231,7 +1231,7 @@ Actually, each identifier in a program has other attributes:
 	7. Scope.
 		The four identifier scopes:
 
-			function (labels (identifiers followed by a colon such as start:) are the only identifiers with function scope. Labels can be used anywhere in the function in which they appear, but cannot be referenced outside the function body. Labels are used in switch statements (as case labels) and in goto statements (see Chapter 14)),
+			function (labels (identifiers followed by a colon such as start:) are the only identifiers with function scope. Labels can be used anywhere in the function in which they appear, but cannot be referenced (не доступны для обращения, не могут передаваться, не могут быть сосланы) outside the function body. Labels are used in switch statements (as case labels) and in goto statements (see Chapter 14)),
 
 			file (an identifier declared outside any function, gloobal variables, function definitions, and function prototypes), 
 
@@ -1251,27 +1251,27 @@ Actually, each identifier in a program has other attributes:
 	Атрибуты по-разному переплетаются в зависимости от ключевых слов и местоположения. 
 	Глобальная переменная X будет "скрыта" для функции, если в функции будет объявлена переменная X.
 	Локальные скрываются аналогично:
-int main(){
-	int a = 1;
-	{
-		printf ("%d\n", a);		//1
-		a = 5;
-		printf ("%d\n", a);		//5
-	}
-	printf ("%d\n", a);			//5
-	{
-		int a = 3;
-		printf ("%d\n", a);		//3
-	}
-	printf ("%d\n", a);			//5
-	}
+	int main (void){
+		int a = 1;
+		{
+			printf ("%d\n", a);		//1
+			a = 5;
+			printf ("%d\n", a);		//5
+		}
+		printf ("%d\n", a);			//5
+		{
+			int a = 3;
+			printf ("%d\n", a);		//3
+		}
+		printf ("%d\n", a);			//5
+		}
 
 
 Локальная переменная с классом static используется, например, в теле функции или массивах.
 	
 
 В стандарте С99 добавили возможность инициализации и объявления переменной внутри цикла for:
-	int main(){
+	int main (void){
 		int i = 10;
 		for(i = 0; i <=2; i++ ){		//i доступна для блока for.
 			printf("%d\n", i);			//0	1	2
@@ -1280,7 +1280,7 @@ int main(){
 		return 0;
 	}
 
-	int main(){
+	int main (void){
 		int i = 10;
 		for(int i = 0, i <=2, i++ ){	//i из main скрывается для блока с for.
 			printf("%d\n", i);			//0	1	2
@@ -1289,7 +1289,7 @@ int main(){
 		return 0;
 	}
 
-	int main(){
+	int main (void){
 		int i = 10;
 		for(; i <=2; i++)				//можно и так.
 			printf("%d\n", i);
@@ -1323,7 +1323,7 @@ int main(){
 	int x = 1;
 
 	// function main begins program execution
-	int main( void )
+	int main ( void )
 	{
 		int x = 5; // local variable to main
 		printf("local x in outer scope of main is %d\n", x ); 
@@ -1344,7 +1344,7 @@ int main(){
 		useGlobal(); // global x also retains its value
 
 		printf( "\nlocal x in main is %d\n", x );
-	} // end main
+	} 
 
 	// useLocal reinitializes local variable x during each call
 	void useLocal( void )
@@ -1353,18 +1353,18 @@ int main(){
 		printf( "\nlocal x in useLocal is %d after entering useLocal\n", x );
 		++x;
 		printf( "local x in useLocal is %d before exiting useLocal\n", x );
-	} // end function useLocal
+	} 
 
 	// useStaticLocal initializes static local variable x only the first time
 	// the function is called; value of x is saved between calls to this
 	// function
 	void useStaticLocal( void )
 	{
-		static int x = 50;
+		static int x = 50;//то есть суть в том, что эта инструкция выполняется только один раз при запуске
 		printf( "\nlocal static x is %d on entering useStaticLocal\n", x );
 		++x;
 		printf( "local static x is %d on exiting useStaticLocal\n", x );
-	} // end function useStaticLocal
+	} 
 
 	// function useGlobal modifies global variable x during each call
 	void useGlobal( void )
@@ -1372,7 +1372,7 @@ int main(){
 		printf( "\nglobal x is %d on entering useGlobal\n", x );
 		x *= 10;
 		printf( "global x is %d on exiting useGlobal\n", x );
-	} // end function useGlobal
+	} 
 
 	local x in outer scope of main is 5
 	local x in inner scope of main is 7
@@ -1413,7 +1413,7 @@ int main(){
 	#include <stdlib.h>
 	#include <time.h>
 
-	int main(){
+	int main (void){
 		int x, y, z=0, sum;
 		srand( time(NULL) );
 		x = rand () % 6 +1;
@@ -1479,7 +1479,7 @@ int main(){
 
 	int FUNC(int);
 
-	int main(){
+	int main (void){
 		int number;
 		scanf("%d", &number);
 		printf("%d!=%d\n", number, FUNC(number) );
@@ -1505,7 +1505,7 @@ int main(){
 
 	int FUNC(int);
 
-	int main()
+	int main (void)
 	{
 		int number = 10;
 		FUNC(number);
@@ -1547,7 +1547,7 @@ int main(){
 	#include <stdio.h>
 	#include <stdlib.h> 
 	#include <unistd.h> 
-	int main(){
+	int main (void){
 
 		for(int i=0; i < 100; i++){
 			system("cls");
@@ -1567,7 +1567,7 @@ int main(){
 	}
 
 	или так
-	int main(){
+	int main (void){
 
 		for(int i=0; i != EOF; ){
 			system("cls");
@@ -1591,7 +1591,7 @@ int main(){
 	#include <time.h>
 
 
-	int main(void)
+	int main (void)
 	{
 		int i = 0;
 		while ( i != EOF)
@@ -1614,7 +1614,7 @@ int main(){
 	#include <math.h>
 	#include <stdlib.h>
 	void FUNC (int);
-	int main(){
+	int main (void){
 		int number = 0;
 
 		while ( number != 999){
@@ -1650,7 +1650,7 @@ int main(){
 putchar.
 
 	#include <stdio.h>
-	int main(){    
+	int main (void){    
 		int s = 90; 
 		putchar (s);
 		putchar (90);
@@ -1666,14 +1666,14 @@ putchar.
 getchar и putchar.
 
 	#include <stdio.h>
-	int main(){
+	int main (void){
 		int c;
 		while ( ( c = getchar() ) != 113 )
 			printf("%d\n", c);
 			putchar (c);
 	}
 
-	int main(){
+	int main (void){
 		char enter;
 		scanf ("%d", &enter);
 		printf("%c , code=%d\n", enter, enter);// берет целое, приравнивает к переменной char, выводит как символ или целое. 
@@ -1681,7 +1681,7 @@ getchar и putchar.
 	}
 
 
-	int main(){
+	int main (void){
 		int c;
 
 		while ( ( c = getchar() ) != 113 ){
@@ -1691,7 +1691,7 @@ getchar и putchar.
 		}
 	}
 
-	int main(){
+	int main (void){
 		int c;
 		
 		while ( ( c = getchar() ) != 113 ){
@@ -1730,7 +1730,7 @@ a^b
 	int integerPower (int a, int b );
 	int numberOfDigits (int number);
 
-	int main()
+	int main (void)
 	{
 		int a = 23562;
 		int f;
@@ -1789,12 +1789,12 @@ a^b
 
 
 
-define 
+#define preprocessor directive
 	Умеют много чего, не путать с функцией, это именно символьная замена, с которой работает препроцессор.
 	#include <stdio.h>
-	#define SIZE 10
+	#define SIZE 10// symbolic constant SIZE
 	#define MASK(x) x&0xFF
-	int main(){
+	int main (void){
 		printf("%d\n", SIZE);//равносильно написанию:
 		printf("%d\n", 10);	
 		printf("%d\n", MASK(4095)	);//равносильно написанию:
@@ -1805,6 +1805,7 @@ define
 	0xFF	0000 1111 1111
 	AND=	0000 1111 1111
 
+0x1234 - шестнадцатиричная. 4095 - десятичная.
 
 
 
@@ -1822,162 +1823,129 @@ define
 
 
 
-
-Массивы.
+Arrays.
+Arrays are data structures consisting of related (связанных) data items of the same (одного) type. In Chapter 10, we discuss C’s notion of struct (structure) — a data structure consisting of related data items of possibly different types.
+Arrays and structures are “static” entities (remain the same size throughout program execution). They may be of automatic storage class.
+	
 
 Массив с 3 ячейками типа int с нулями: 
-int MAS[3] = {0};
+	int MAS[3] = {0};//A subscripted array name is an lvalue — it can be used on the left side of an assignment.
 	Номера ячеек: 0, 1, 2.
 	{0} поместит нули во все ячейки.
 	{1} поместит единицу только в нулевую ячейку, а в остальные - нули.
 
-Можно перечислять переменные по отдельности:
-int MAS[3] = {1, 2, 3};
-Можно перечислять переменные по отдельности и размер будет указан автоматически:
-int MAS[] = {1, 2, 3};
+	int MAS[3] = {1, 2, 3};//Можно перечислять переменные по отдельности
+	int MAS[] = {1, 2, 3};//Можно перечислять переменные по отдельности и размер будет указан автоматически
+
 Число перечисленных членов не должно превышать размер массива [], если записать его вручную.
 Программа может выйти за пределы массива, этого нельзя допускать.
 
-Имя массива - это адрес первой ячейки. Адрес первой ячейки - это имя массива.
-Адрес ячейки:
-printf("%p\n", &string[i] );
-& - взять адрес ячейки i и вывести его с помощью %p.
-printf("%p\n", string ); равносильно printf("%p\n", &string[0] );
-
-В массивах могут содержаться данные любого типа. 
-
-Символьный массив на 20 ячеек, где 20 ячейка - \0 (символ окончания строки):
-char string[20]; 
-
-Строка "hello"  является массивом символов (или символьным литералом):
-char string[] = "hello";
-	\0 символ и размер подставятся автоматически.
-	 
-Тоже самое посимвольно:
-char string[] = { 'h', 'e', 'l', 'l', 'o', '\0' }; 
-			
-			что будет если не написать символ???
-			этот символ останавливает printf
-			этот символ безразличен scanf, scanf считывает до первого space-а.
-
-Вывод строкой:
-char string[] = "ABCD"; // \0 тут будет подставлен автоматически.
-printf("%s\n", string); - символы выводятся до тех пор, пока не будет встречен \0.
-ABCD
-
-char string[] = {'A', 'B', '\0', 'C', 'D','E','\0'};
-printf("%s\n", string);
-AB
-
-Вывод посимвольно циклом с условием != '\0':
-char string[] = "ABCD";
-for (int i = 0; string[i] != '\0' ; ++i){
-	printf("%c\n", string[i]);
-}	
-ABCD
-
-Ввод строки:
-char string[4];
-scanf("%s", string);				//& не нужен.
-
-char string[] = {'A', 'B', '\0', 'C', 'D','E','\0'};
-scanf ("%s", string); - scanf перезапишет всё, \0 его не остановит.
-			
-Ввод посимвольно:
-char string[SIZE];
-for (int i = 0; i < SIZE ; ++i){
-	scanf("%c", &string[i]);	//& нужен.
-}	
-
-
-
-
-
-
-
-
-
-Статические массивы static.
 	
-static int A[3]; - массив не будет всякий раз создаваться при вызове функции и
-уничтожаться после выхода из неё. Это уменьшает время работы.
-Статический массив по умолчанию инициализируется нулями.
+	printf ("%s\n", "Hello" );//раньше было так a string with printf
 
-По сути, с практической точки зрения, static инициализирует
-	нули по умолчанию или иные перечисленные вручную значения, 
-	и при последующих вызовах не "обнуляет" их в исходные значения.
-В примере ниже эта фича используется внутри функции. 
-
-void A (void);
-void S (void);
-
-int main(){
-printf("first\n");	
-	A();
-	S();
-printf("second\n");
-	A();
-	S();
-	return 0;
-}
-void A (void){
-	int a[] = {1,2,3};
-
-	printf("A\n");
-	for (int i = 0; i < 3; ++i)
-		printf("i=%d____p=%p____%d\n", i, &a[i], a[i] );
+	char string1 [] = "first";//cимвольный массив инициированный строковым литералом. The string "first" contains 5 characters plus a special string-termination character called the null character '\0'. 
+	char string1 [] = { 'f', 'i', 'r', 's', 't', '\0' };//эквивалентно предыдущему.
 	
-	printf("A+5\n");
-	for (int i = 0; i < 3; ++i)
-		printf("i=%d____p=%p____%d\n", i, &a[i], a[i]+=5);
-}
-void S(void){
-	static int a[3];
+	char string[] = "ABCD";
+	for (int i = 0; string[i] != '\0' ; ++i)
+	{
+		printf("%c\n", string[i]);//вывод посимвольно.
+	}
 
-	printf("S\n");
-	for (int i = 0; i < 3; ++i)
-		printf("i=%d____p=%p____%d\n", i, &a[i], a[i]);
+
+	scanf( "%5s", string1);// & не нужен, потому что имя массива - это адрес первой ячейки. Адрес первой ячейки - это имя массива. 5s введет строку не длиннее 5 символов. scanf может выйти за пределы массива.
+	???scanf( "%5s", &string1); 
+	scanf("%c", &string[i]);//& нужен.
+
+	printf("%p\n", &string[i] );//Адрес ячейки:
+	printf("%p\n", string );// равносильно printf("%p\n", &string[0] );
+
+
+
+
+
+
+
+
+
+Static Local Arrays and Automatic Local Arrays.
 	
-	printf("S+5\n");
-	for (int i = 0; i < 3; ++i)
-		printf("i=%d____p=%p____%d\n", i, &a[i], a[i]+=5);
-}
+static int A[3]; - массив не будет всякий раз создаваться при вызове функции и уничтожаться после выхода из неё. Все тоже самое, что и с static переменными в примере про scope. Только еще static array автоматически инициализируются нулями, если не указано иное.
 
-first
-	A
-i=0____p=0028FF0C____1
-i=1____p=0028FF10____2
-i=2____p=0028FF14____3
-	A+5
-i=0____p=0028FF0C____6
-i=1____p=0028FF10____7
-i=2____p=0028FF14____8
-	S
-i=0____p=0040E020____0
-i=1____p=0040E024____0
-i=2____p=0040E028____0
-	S+5
-i=0____p=0040E020____5
-i=1____p=0040E024____5
-i=2____p=0040E028____5
+	void A (void);
+	void S (void);
 
-second
-	A
-i=0____p=0028FF0C____1
-i=1____p=0028FF10____2
-i=2____p=0028FF14____3
-	A+5
-i=0____p=0028FF0C____6
-i=1____p=0028FF10____7
-i=2____p=0028FF14____8
-	S
-i=0____p=0040E020____5
-i=1____p=0040E024____5
-i=2____p=0040E028____5
-	S+5
-i=0____p=0040E020____10
-i=1____p=0040E024____10
-i=2____p=0040E028____10
+	int main (void)
+	{
+		printf("first\n");	
+		A();
+		S();
+		
+		printf("second\n");
+		A();
+		S();
+		return 0;
+	}
+	void A (void)
+	{
+		int a[] = {1,2,3};
+
+		printf("A\n");
+		for (int i = 0; i < 3; ++i)
+			printf("i=%d____p=%p____%d\n", i, &a[i], a[i] );
+		
+		printf("A+5\n");
+		for (int i = 0; i < 3; ++i)
+			printf("i=%d____p=%p____%d\n", i, &a[i], a[i]+=5);
+	}
+	void S(void)
+	{
+		static int a[3];
+
+		printf("S\n");
+		for (int i = 0; i < 3; ++i)
+			printf("i=%d____p=%p____%d\n", i, &a[i], a[i]);
+		
+		printf("S+5\n");
+		for (int i = 0; i < 3; ++i)
+			printf("i=%d____p=%p____%d\n", i, &a[i], a[i]+=5);
+	}
+
+	first
+		A
+	i=0____p=0028FF0C____1
+	i=1____p=0028FF10____2
+	i=2____p=0028FF14____3
+		A+5
+	i=0____p=0028FF0C____6
+	i=1____p=0028FF10____7
+	i=2____p=0028FF14____8
+		S
+	i=0____p=0040E020____0
+	i=1____p=0040E024____0
+	i=2____p=0040E028____0
+		S+5
+	i=0____p=0040E020____5
+	i=1____p=0040E024____5
+	i=2____p=0040E028____5
+
+	second
+		A
+	i=0____p=0028FF0C____1
+	i=1____p=0028FF10____2
+	i=2____p=0028FF14____3
+		A+5
+	i=0____p=0028FF0C____6
+	i=1____p=0028FF10____7
+	i=2____p=0028FF14____8
+		S
+	i=0____p=0040E020____5
+	i=1____p=0040E024____5
+	i=2____p=0040E028____5
+		S+5
+	i=0____p=0040E020____10
+	i=1____p=0040E024____10
+	i=2____p=0040E028____10
 
 
 
@@ -2025,7 +1993,7 @@ void modA (int [], int);
 void modE (int);
 void printMAS(int [], int);
 
-int main(){
+int main (void){
 	int MAS[SIZE] = {0,1,2,3,4};
 	printMAS (MAS, SIZE);
 
@@ -2065,7 +2033,7 @@ void printMAS (int b[], int size){
 #include <stdio.h>
 #define  SIZE 5
 
-int main(){
+int main (void){
 	int hold;
 	int M[SIZE] = {0,4,3,2,1};
 	for (int i=0; i < SIZE; i++)
@@ -2102,7 +2070,7 @@ int main(){
 
 int findM(int [], int, int);
 
-int main(){
+int main (void){
 	int key;
 	int M[SIZE] = {0,1,2,3,4};
 	scanf("%d", &key);
@@ -2158,7 +2126,7 @@ int M[2][2] = { 1,2,3 };
 	соответствующее число блоков памяти.
 
 void printM(int [][3]);		//первый индекс не требуется, последующие - требуются.
-int main(){
+int main (void){
 	int M[2][3] = {0,1,2,3,4};
 	printM (M);							
 	return 0;
@@ -2227,7 +2195,7 @@ yPtr	 дает адрес ячейки, на которую указывает �
 &*yPtr дает адрес ячейки, на которую указывает указатель (или *&yPtr).
 &yPtr  дает адрес указателя, судя по всему.
 
-int main(){
+int main (void){
 	int y = 999;
 	int *yPrt;
 	yPrt = &y;
@@ -2267,7 +2235,7 @@ int main(){
 #include <stdio.h>
 void Fnc (int *);
 
-int main(){
+int main (void){
 	int x = 5;
 	printf("%p____%d\n", &x, x );
 	Fnc(&x);		//передаем адрес в функцию.
@@ -2303,7 +2271,7 @@ void Fnc (int *nPtr){
 		Нужно помнить, что ожидает и что нужно передавать в функцию -
 			адрес или значение.
 		Ну и вообще(см. указатель-константа на не-констатные данные):
-		int main(){
+		int main (void){
 			int s[] = {4,5,6};
 			printf("%p_%d\n", &s[0],s[0]);//0028FF34_4
 			printf("%p\n", s );				//0028FF34
@@ -2330,7 +2298,7 @@ void Fnc (int *nPtr){
 
 Не-константный указатель на не-констатные данные:
 void Fnc (char *);
-int main(){
+int main (void){
 	char M[]= "hello";
 	printf("%s\n", M);
 	Fnc(M);
@@ -2347,7 +2315,7 @@ void Fnc (char *s){
 
 Не-константный указатель на данные-константы:
 void Fnc (const char *);
-int main(){
+int main (void){
 	char M[] = "hello";
 	Fnc(M);
 	return 0;
@@ -2366,7 +2334,7 @@ void Fnc (const char *s){
 	а расположенные там данные могут изменяться.
 Такой указатель назначается по умолчанию для имени массива.
 Имя массива является указателем-константой на начало массива.
-int main(){
+int main (void){
 	int s[] = {4,5};
 	printf("%p	%d\n", &s[0],s[0]);	//0028FF38	4
 	printf("%p	%d\n", &s[1],s[1]);	//0028FF3C	5
@@ -2379,7 +2347,7 @@ int main(){
 
 Попытка изменения указателя-константы, ссылающегося на не-константные данные 
 	приведет к ошибке:
-int main(){
+int main (void){
 	int x, y;
 	int *const ptr = &x;//такие указатели необходимо инициализировать при объявлении.
 	//Если такой указатель передается функции, то он инициализируется переданным значением.
@@ -2391,7 +2359,7 @@ int main(){
 Такой указатель всегда указывает на то же самое место в памяти,
 	а расположенные по этому адресу данные не могут модифицироваться.
 Приведет к ошибкам:
-int main(){
+int main (void){
 	int x = 5; y;
 	const int *const ptr = &x;
 	*ptr = 7;
@@ -2410,7 +2378,7 @@ int main(){
 #define SIZE 10
 void bubbleSort(int *array, int size);
 
-int main(){
+int main (void){
 int i, a[SIZE] = {2,6,4,8,10,12,89,68,45,37};
 	for (int i = 0; i < SIZE; ++i)
 		printf("%4d\n", a[i]);

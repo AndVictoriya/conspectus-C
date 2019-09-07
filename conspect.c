@@ -246,7 +246,7 @@ This printf has two arguments, "Sum is %d\n" and sum.
 The first argument "Sum is %d\n" is the format control string. 
 It contains some literal characters Sum is  to be displayed, and it contains the conversion specifier %d indicating that an integer will be printed. 
 
-The second argument sum specifies (задает?) the value to be printed. 
+The second argument sum specifies (задает, указывает) the value to be printed. 
 
 
 Secure print:
@@ -330,7 +330,7 @@ Operator precedence and associativity (ассоциативность), стр 1
 	||										left to right	logical OR 		binary
 	?:										right to left	conditional		ternary
 	= += -= *= /= %=						right to left	assignment 		binary
-	,										left to right	comma 			смотри 119 стр. for Repetition Statement, Comma-Separated Lists of Expressions и 121 стр.  could actually be merged into
+	,										left to right	comma 			смотри 119 стр for Repetition Statement, Comma-Separated Lists of Expressions и 122 стр could actually be merged into
 
 	
 	7 - 4  + 2 распознается как (7 - 4) + 2 = 5 , а не 7 - (4 + 2) = 1.
@@ -1706,25 +1706,8 @@ getchar и putchar.
 
 
 
-a^b
 
-	int integerPower (int a, int b )
-	{
-		int z = a;
-		while ( b != 1 )
-		{
-			z *= a;
-			--b; 
-		}
-		return z;
-	}
-
-
-
-
-
-
-
+	
 	#include <stdio.h>	
 
 	int integerPower (int a, int b );
@@ -1743,7 +1726,7 @@ a^b
 			// a = a - f;
 			// i/=10;
 			
-			printf ("%2d", (a - a % i) /i);
+			printf ("%2d", (a - a % i) /i);//2 3 5 6 2
 			a = a - (a - a % i);
 			i/=10;
 		}
@@ -1763,7 +1746,7 @@ a^b
 	}
 
 
-	int integerPower (int a, int b )
+	int integerPower (int a, int b )//a^b
 		{
 			int z = a;
 			while ( b != 1 )
@@ -1773,6 +1756,9 @@ a^b
 			}
 			return z;
 		}
+
+
+
 
 
 
@@ -1826,7 +1812,7 @@ a^b
 Arrays.
 Arrays are data structures consisting of related (связанных) data items of the same (одного) type. In Chapter 10, we discuss C’s notion of struct (structure) — a data structure consisting of related data items of possibly different types.
 Arrays and structures are “static” entities (remain the same size throughout program execution). They may be of automatic storage class.
-	
+size_t - an unsigned integral type <stddef.h>.
 
 Массив с 3 ячейками типа int с нулями: 
 	int MAS[3] = {0};//A subscripted array name is an lvalue — it can be used on the left side of an assignment.
@@ -1836,9 +1822,9 @@ Arrays and structures are “static” entities (remain the same size throughout
 
 	int MAS[3] = {1, 2, 3};//Можно перечислять переменные по отдельности
 	int MAS[] = {1, 2, 3};//Можно перечислять переменные по отдельности и размер будет указан автоматически
+	int MAS[3];//Будут заняты 3 ячейки, в них будет мусор.
 
-Число перечисленных членов не должно превышать размер массива [], если записать его вручную.
-Программа может выйти за пределы массива, этого нельзя допускать.
+Число перечисленных членов не должно превышать размер массива [], если записать его вручную. Программа может выйти за пределы массива, этого нельзя допускать.
 
 	
 	printf ("%s\n", "Hello" );//раньше было так a string with printf
@@ -1854,12 +1840,16 @@ Arrays and structures are “static” entities (remain the same size throughout
 
 
 	scanf( "%5s", string1);// & не нужен, потому что имя массива - это адрес первой ячейки. Адрес первой ячейки - это имя массива. 5s введет строку не длиннее 5 символов. scanf может выйти за пределы массива.
-	???scanf( "%5s", &string1); 
+	scanf( "%5s", &string);//??? 
 	scanf("%c", &string[i]);//& нужен.
 
-	printf("%p\n", &string[i] );//Адрес ячейки:
-	printf("%p\n", string );// равносильно printf("%p\n", &string[0] );
 
+	printf("%p\n", &string[i] );//Адрес ячейки. %p conversion specifier.
+Следующие три инструкции выведут одно и то же:
+	printf("%p\n", string );
+	printf("%p\n", &string );
+	printf("%p\n", &string[0] );
+	
 
 
 
@@ -1955,69 +1945,53 @@ static int A[3]; - массив не будет всякий раз создав
 
 
 
-Передача массива в функции Стр. 264 Дейтл.
-
-int MAS[10];	- массив объявлен
-func(MAS, 10);	- оператор вызова функции передает массив MAS и его размер в функцию.
+Передача массива в функции С
 	
-Си передаёт массив в функцию путём имитации передачи параметра по ссылке,
-	вызываемые функции могут изменять значения элементов массива. 
-	Передача по значению требует копию, это неэффективно.
-	Но такая возможно есть.
-Отдельные значения (скаляры) передются по значению. 
-	Но можно имитировать ссылку для скаляров.
-	
-	Чем имитация отличается от передачи по ссылке - пока хз.
+	int hourlyTemperatures[ HOURS_IN_A_DAY ];//массив объявлен
+	modifyArray( hourlyTemperatures, HOURS_IN_A_DAY );//оператор вызова функции передает массив MAS и его размер в функцию.
 
-void func (int b[], int size)	
-Функция ожидает приём массива целых чисел в параметре b 
-	и числа элементов массива в параметре size. 
-	Размер массива не требуется. 
-Поскольку массивы автоматически передаются путем имитации передачи по ссылке, 
-	то,	когда функция использует имя массива b, 
-	она на самом деле ссылается 
-	на фактическисуществующий массив в вызывающей функции.
-В главе 7 будут подробности. 
+Recall that all arguments in C are passed by value. 
 
-Прототип:
-void func (int [], int);
+C automatically passes arrays to functions by reference — the called functions can modify the element values in the callers’ original arrays. The name of the array evaluates (соответствует) to the address of the first element of the array. It’s possible to pass an array by value (by using a simple trick we explain in Chapter 10). Си передаёт массив в функцию путём имитации передачи параметра по ссылке, вызываемые функции могут изменять значения элементов массива.
 
-Для предотвращения изменения значений массива в функции используется const.
-Любая попытка изменить элемент const даст ошибку при компиляции.
-void modA (const int b[])
+Individual array elements (scalars) are passed by value exactly as simple variables are. In Chapter 7, we show how to pass scalars (i.e., individual variables and array elements) to functions by reference. Отдельные значения (скаляры) передются по значению. Но можно имитировать ссылку для скаляров. Чем имитация отличается от передачи по ссылке - пока хз.
 
-Передача массива или элемента.
-#include <stdio.h>
-#define SIZE 5
-void modA (int [], int);
-void modE (int);
-void printMAS(int [], int);
 
-int main (void){
-	int MAS[SIZE] = {0,1,2,3,4};
-	printMAS (MAS, SIZE);
+	void modifyArray( int b[], int size ){}//modifyArray expects to receive an array of integers in parameter b and the number of array elements in parameter size. The size of the array is not required between the array brackets. If it’s included, the compiler checks that it’s greater than zero, then ignores it. 
 
-	modA(MAS, SIZE);
-	printMAS (MAS, SIZE);
+	void modifyArray( const int b[] ){}//any attempt to modify an element of the array in the function body results in a compile-time error. 
 
-	modE (MAS[4]);
-	printMAS (MAS, SIZE);
 
-	return 0;
-}
-void modA (int b[], int size){
-	for (int i = 0; i <= size - 1; i++)
-		b[i] *= 2;
-}
-void modE (int e){
-	printf("%d\n", e*=2 );
-	printf("\n");
-}
-void printMAS (int b[], int size){
-	for (int i=0; i<= size-1; i++)
-		printf("%d\n", b[i]);
-	printf("\n");
-}
+Передача массива и элемента.
+	#include <stdio.h>
+	#define SIZE 5
+	void modA (int [], int);
+	void modE (int);
+	void printMAS(int [], int);
+
+	int main (void){
+		int MAS[SIZE] = {0,1,2,3,4};
+		printMAS (MAS, SIZE);// 0 1 2 3 4
+		modA(MAS, SIZE);
+		printMAS (MAS, SIZE);//0 2 4 6 8
+		modE (MAS[4]);//16
+		printMAS (MAS, SIZE);//0 2 4 6 8
+
+		return 0;
+	}
+	void modA (int b[], int size){//умножить каждый элемент массива
+		for (int i = 0; i <= size - 1; i++)
+			b[i] *= 2;
+	}
+	void modE (int e){//умножить элемент
+		printf("%2d", e*=2 );
+		printf("\n");
+	}
+	void printMAS (int b[], int size){//печать
+		for (int i=0; i<= size-1; i++)
+			printf("%2d", b[i]);
+		printf("\n");
+	}
 
 
 
@@ -2030,29 +2004,36 @@ void printMAS (int b[], int size){
 Сортировка массивов.
 
 Пузырьковая сортировка - меньшие значения всплывают вверх.
-#include <stdio.h>
-#define  SIZE 5
+	#include <stdio.h>
+	#define  SIZE 5
 
-int main (void){
-	int hold;
-	int M[SIZE] = {0,4,3,2,1};
-	for (int i=0; i < SIZE; i++)
-		printf("%d\n", M[i]);
+	int main (void)
+	{
+		int hold;
+		int M[SIZE] = {0,4,3,2,1};
+		for (int i=0; i < SIZE; i++)
+			printf("%d\n", M[i]);
 
-	for (int pass = 1; pass < SIZE; pass++	)
-		for (int i = 0; i < SIZE-1	; i++		)
-			if (M[ i ]	> M[ i+1 ])	{
-				hold	= M[ i ]			;
-				M[ i ]	= M[ i+1 ]	;
-				M[ i+1 ]= hold			;
-			}
-			
-	for (int i=0; i < SIZE; i++)
-		printf("%d\n", M[i]);
-	return 0;
-}
+		for (int pass = 1; pass < SIZE; pass++ )
+		{
+			for (int i = 0; i < SIZE-1	; i++)
+			{
+				if (M[ i ]	> M[ i+1 ])	
+				{
+					hold	= M[ i ] ;
+					M[ i ]	= M[ i+1 ] ;
+					M[ i+1 ]= hold ;
+				}
+			}	
+		}
+				
+		for (int i=0; i < SIZE; i++)
+			printf("%d\n", M[i]);
+					
+		return 0;
+	}
 
-Среднее, медиана и наиболее вероятное - стр.270.
+Среднее, медиана и наиболее вероятное - стр 270.
 
 
 
@@ -2064,83 +2045,141 @@ int main (void){
 
 Поиск в массивах.
 
-Последовательный перебор.
-#include <stdio.h>
-#define SIZE 5
+Linear Search
 
-int findM(int [], int, int);
+	#include <stdio.h>
+	#define SIZE 5
 
-int main (void){
-	int key;
-	int M[SIZE] = {0,1,2,3,4};
-	scanf("%d", &key);
-	printf("element=%d\n", findM (M, SIZE, key)	);
-	return 0;
-}
+	int findM(int [], int, int);
 
-int findM (int array[], int size, int key){
+	int main (void){
+		int key;
+		int M[SIZE] = {0,1,2,3,4};
+		scanf("%d", &key);
+		printf("element=%d\n", findM (M, SIZE, key)	);
+		return 0;
+	}
 
-	for(int i=0; i <= size - 1; i++)
-		if (array[i]==key)
-			return i;
-		return -1;
-}
+	int findM (int array[], int size, int key){
 
-
-Двоичный поиск, стр 275
+		for(int i=0; i <= size - 1; i++)
+			if (array[i]==key)
+				return i;
+			return -1;
+	}
 
 
-
+Двоичный поиск, стр 245
 
 
 
 
 
 
-22. Многомерные массивы.
 
-M[строка][столбец] 
+
+
+Multidimensional Arrays.
+
+M[число строк][число столбцов (по сути - длина строки)] 
 Значения группирируются в фигурных скобках по строкам.
+	int A[2][3] = {	{1,2,3}, 
+					{4,5,6};
 
-int M[2][2] = {	{1,2} , {3,4} };
-				0стлбц  1стлбц
-	0стрк  //1//   //2//
-	1стрк  //3//   //4//
+	int M[2][2] = {	{1,2} , {3,4} };
+			0стлбц	1стлбц
+		0стрк//1//	//2//
+		1стрк//3//	//4//
 
-int M[2][2] = {	{1} , {3,4} };
-				0стлбц  1стлбц
-	0стрк  //1//   //0//
-	1стрк  //3//   //4//
+	int M[2][2] = {	{1} , {3,4} };`
+			0стлбц	1стлбц
+		0стрк//1//	//0//
+		1стрк//3//	//4//
 
-int M[2][2] = { 1,2,3 };
-				0стлбц  1стлбц
-	0стрк  //1//   //2//
-	1стрк  //3//   //0//
+	int M[2][2] = { 1,2,3 };
+			0стлбц	1стлбц
+		0стрк//1//	//2//
+		1стрк//3//	//0//
+
+	int M[][3] = {1,2,3,4,};//число строк = 1 + число элементов % длину строки, но это дичъ; без указания длины вообще работать не будет, что логично.
+			0стлбц	1стлбц	2стлбц
+		0стрк//1//	//2//	//3//	
+		1стрк//4//	//0//	//0//
+
 
 Вывод многомерного массива и передача в функцию.
 
-В памяти строка идет за строкой.
-Каждая строка - по сути одномерный массив.
-Компилятор должен знать сколько элементов в каждой строке,
-	чтобы при обращении к массиву он мог пропустить
-	соответствующее число блоков памяти.
+В памяти строка идет за строкой. Каждая строка - по сути одномерный массив. When accessing a[1][2] in our example, the compiler knows to skip the 3 elements of the 1 row (row 0) to get to the 2 row (row 1). Then, the compiler accesses element 2 of that row. 
 
-void printM(int [][3]);		//первый индекс не требуется, последующие - требуются.
-int main (void){
-	int M[2][3] = {0,1,2,3,4};
-	printM (M);							
-	return 0;
-}
-void printM (int M[][3]){	//первый индекс не требуется, последующие - требуются.
-	for(int i=0; i < 2; i++){
-		for (int j = 0; j < 3; j++)
-			printf("%d ", M[i][j] );
-		printf("\n");
+	void printM(int [][3]);//первый индекс не требуется и бесполезен, последующие - обязательно требуются.
+
+	int main (void)
+	{
+		int M[2][3] = {0,1,2,3,4};
+		printM (M);//передаем массив в функцию без сложностей.
+		return 0;
 	}
-}
+
+	void printM (int M[][3])//первый индекс не требуется и бесполезен, последующие - обязательно требуются.
+	{	
+		for(int i=0; i < 2; i++)//2 число строк.
+		{
+			for (int j = 0; j < 3; j++)//3 длина строки.
+			{
+				printf("%d ", M[i][j] );//i номер строки row, j номер столбца column.
+			}
+			printf("\n");
+		}
+	}
+
+
+
+
+
+
+
+Упрощенная версия Fig. 6.22: fig06_22.c . Передача строки массива как одномерного массива в функцию.
+
+	#include <stdio.h>
+	#define LONG 4
+	#define ROWS 3
+
+	void average(const int A[], int size)//size=LONG
+	{
+		for (int i = 0; i < size; ++i)
+		{
+			printf ("%d\n", A[i] );
+		}
+	}	
+	int main (void)
+	{
+		int M[ROWS][LONG] = {0,1,2,3,4,5,6,7,8,9,10,11};
+		for (int i = 0; i < ROWS; ++i)//равно числу 3 строк М. Проход по каждой строке массива.
+		{
+			average( M[i], LONG );//LONG для size. i равно номеру строки. The argument M[1] is the starting address of row 1 of the array.
+			puts ("");
+		}
+	}
+
+
+
+
+
+
+
 
 
 23. Сколько там еще задач всяких.......
+
+
+
+
+
+
+
+
+
+
 
 
 

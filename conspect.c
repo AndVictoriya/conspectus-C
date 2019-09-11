@@ -313,44 +313,47 @@ Assignment Operators, Increment and Decrement Operators, стр 93.
 
 
 
-Operator precedence and associativity (ассоциативность), стр 136.
-А понятнее
-	Associativity and Operator precedence (or Order of operations), потому что вот потому.
+Operator precedence (приоритетность, старшинство) and associativity (ассоциативность), стр 136, 218, 281.
+	А понятнее Associativity and Operator precedence (or Order of operations), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
 
-	Operators								Associativity	Type 			My comment
+	Operators								Associativity	Type			My comment
 	
-	() () []								left to right	parentheses 	(expression) in parentheses evaluated first, func() function call operator, [] for to enclose (заключить) the subscript (индекс) of an array
-	++(postfix) --(postfix)					right to left					type длинный: postfix, unary, highest			
-	+ - ! ++(prefix) --(prefix) (type)		right to left	unary			+5,-7, !(grade != sum), cast operator a(float) 
-	* / %									left to right	multiplicative	binary
-	+ -										left to right	additive		binary
-	< <= > >=								left to right	relational
-	== !=									left to right	equality		The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см ниже, в if и в logical)
-	&&										left to right	logical AND 	binary
-	||										left to right	logical OR 		binary
-	?:										right to left	conditional		ternary
-	= += -= *= /= %=						right to left	assignment 		binary
-	,										left to right	comma 			119 стр for Repetition Statement, Comma-Separated Lists (списки) of Expressions; 122 стр could actually be merged into
+1	() () []								left to right	parentheses		(expression) in parentheses evaluated first, func() function call operator, [] for to enclose (заключить) the subscript (индекс) of an array
+2	++(postfix) --(postfix)					right to left					type длинный: postfix, unary, highest; возможно имеет одинаковую приоритетность со строчкой выше; a++, b--			
+3	+ - ! ++(prefix) --(prefix) (type) & *	right to left	unary			унарные версии (+5,-7), !(grade != sum), ++a, --b, cast operator a(float),  address operator, indirection Operator
+4	* / %									left to right	multiplicative	binary
+5	+ -										left to right	additive		binary
+6	< <= > >=								left to right	relational
+7	== !=									left to right	equality		The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см ниже, в if и в logical)
+8	&&										left to right	logical AND		binary
+9	||										left to right	logical OR		binary
+10	?:										right to left	conditional		ternary
+11	= += -= *= /= %=						right to left	assignment		binary
+12	,										left to right	comma			119 стр for Repetition Statement, Comma-Separated Lists (списки) of Expressions; 122 стр could actually be merged into
 
-	
-	7 - 4  + 2 распознается как (7 - 4) + 2 = 5 , а не 7 - (4 + 2) = 1.
+https://en.wikipedia.org/wiki/Order_of_operations
+https://en.wikipedia.org/wiki/Operator_associativity
 
-	8 / 16 / 2 распознается как 1/2 / 2 = 1/4   , а не 8 / 8 = 1
+2:	Therefore you should use increment or decrement operators only in statements in which one variable is incremented or decremented by itself (использовать в отдельных инструкциях). 
+
+4:	8 / 16 / 2 распознается как 1/2 / 2 = 1/4   , а не 8 / 8 = 1
 		4/8/2/3 = 4 / (8*2*3)
 		4/8/2/3 в реале нужно следить за associativity , а если в реале в виде дробей 4 * 1/8 * 1/2 * 1/3 то необязательно (в си везде следить нужно).
 
-	a = b = c = 0 распознается как a = (b = (c = 0))
+5:	7 - 4  + 2 из-за левоассоциативности распознается как (7 - 4) + 2 = 5 ; если бы эти операции были правоассоциативными, то 7 - (4 + 2) = 1.
 
-	Причем, a < b < c  распознается как ( a < b ) && ( b < c ).
+6:	a < b < c  распознается как ( a < b ) && ( b < c ). wiki.
 
 	a = 2    b = 1    c = 3
-	a == b 0
-	a != b 1
-	b <= c 1
-	a == b <= c 0
-	(a == b) <= c 1
-	a != b <= c 1
-	a != b <= c 1
+	a == b 			0
+	a != b 			1
+	b <= c 			1
+	a == b <= c 	0
+	(a == b) <= c 	1
+	a != b <= c 	1
+	a != b <= c 	1
+
+11:	a = b = c = 0 распознается как a = (b = (c = 0))
 
 
 Keywords
@@ -1124,12 +1127,13 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 Директивы сообщают препроцессору о необходимости включения заголовочных файлов, 
 	которые содержат много всего, в том числе - прототипы функций.
 
-#include <stdio.h> printf(), scanf() 
+#include <stdio.h> printf(), scanf(), NULL
 #include <stdlib.h> system(), rand()
 #include <math.h> 
 #include <conio.h> getchar()
 #include <time.h> time(NULL)
 #include <unistd.h> sleep()
+#include <stddef.h> NULL
 
 
 
@@ -1138,18 +1142,11 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 
 
 
+Passing Arguments By Value (значению) and By Reference (ссылке).	("вызов функций", лооол; "когда аргумент исполь в вызове по значению", when arguments are passed by value лооол).
 
-Passing Arguments By Value and By Reference (ссылке) ("вызов функций", лооол).
-	When arguments are passed by value ("когда аргумент исполь в вызове по значению", лооол).
-
-
-По значению - вызываемой функции передаётся копия значения аргумента.
-	Изменения с копией не отражаются на значении исходной переменной в вызывающей функции.
-По ссылке - вызывающая функция позволяет вызываемой функции изменять значение исходной переменной.
-
+In many programming languages, there are two ways to pass arguments—pass-by-value and pass-by-reference. 
+When arguments are passed by value, a copy of the argument’s value is made and passed to the called function. Changes to the copy do not affect an original variable’s value in the caller. When an argument is passed by reference, the caller allows the called function to modify the original variable’s value.
 In C, all arguments are passed by value. As we’ll see in Chapter 7, it’s possible to simulate pass-by-reference by using the address operator and the indirection operator. In Chapter 6, we’ll see that array arguments are automatically passed by reference for performance reasons.
-
-
 
 
 
@@ -2282,7 +2279,30 @@ Variable-Length Arrays
 
 
 
-23. Сколько там еще задач всяких.......
+
+
+
+
+
+
+
+
+
+Pointers.
+
+Pointers are variables whose values are memory addresses. 
+Normally, a variable directly contains a specific value. A pointer, on the other hand, contains an address of a variable that contains a specific value. In this sense, a variable name directly references (непосредственной ссылкой) a value, and a pointer indirectly references (косвенной ссылкой) a value. Referencing a value through (обращение/ссылка к/на значение через) a pointer is called indirection (косвенным доступом).
+
+	int *countPtr; //объявлет переменную, которая является указателем. The asterisk (*) notation used to declare pointer variables.
+
+A pointer may be initialized to NULL, 0 or an address. 
+Initializing a pointer to 0 is equivalent to initializing a pointer to NULL, but NULL is preferred. When 0 is assigned, it’s first converted to a pointer of the appropriate (соответствующего) type. The value 0 is the only integer value that can be assigned directly to a pointer variable.
+
+	int y = 5;
+	int *yPtr;
+	yPtr = &y;//assigns the address of the variable y to pointer variable yPtr. Variable yPtr is then said to “point to” y. The operand of the address operator must be a variable; the address operator cannot be applied to constants or expressions or register.
+	printf( "%p", yPtr );//0028FF38
+	printf( "%d", *yPtr );//5; The unary * Indirection Operator, commonly referred (часто называемый?) to as the indirection operator or dereferencing operator, returns the value of the object to which its operand (i.e., a pointer) points. Using * in this manner is called dereferencing a pointer (разыменованием указателя). 
 
 
 
@@ -2301,42 +2321,6 @@ Variable-Length Arrays
 
 
 
-
-Указатели.
-
-Указатель - это переменная, значением которой является адрес памяти.
-	Переменная непосредственно/прямо ссылается на значение,
-	а указатель косвенно ссылается на значение.
-Ссылка на значение через указатель называется косвенной адресацией.
-
-Своими словами. 
-Нельзя просто взять адрес и присвоить его переменной.
-Сначала нужно объявить переменную как указатель, 
-	а уже потом инициализировать каким-либо адресом.
-
-int *countPtr; //* объявлет переменную, которая является указателем.
-
-Указатели должны быть инициализированы при:
-	объявлении,
-	либо при помощи оператора присваивания. 
-	
-Указатель может быть инициализирован:
-	1. нулем,
-	2. макросом NULL (указывает ни на что),
-	3. значением адреса.
-
-Символическая константа NULL определяется в файле заголовка <stdio.h>
-	(и в некоторых других заголовочных файлах). Инициализация значением 
-	0 эквивалентна конастанте NULL, но NULL предпочтительнее.
-
-
-Операции над указателями.
-
-int y = 999; 
-int *yPrt;	//объявление указателя на целое.
-yPrt = &y;	//назначает переменной-указателю yPtr адрес переменной y. 
-Операндом взятия адреса должна быть переменная, эта операция не может
-	применяться к константам, выражениям или register-переменным.
 
 * - операция косвенной адресации/разыменовывания,
 	возвращает значение объекта, 

@@ -2301,8 +2301,10 @@ Initializing a pointer to 0 is equivalent to initializing a pointer to NULL, but
 	int y = 5;
 	int *yPtr;
 	yPtr = &y;//assigns the address of the variable y to pointer variable yPtr. Variable yPtr is then said to “point to” y. The operand of the address operator must be a variable; the address operator cannot be applied to constants or expressions or register.
-	printf( "%p", yPtr );//0028FF38
-	printf( "%d", *yPtr );//5; The unary * Indirection Operator, commonly referred (часто называемый?) to as the indirection operator or dereferencing operator, returns the value of the object to which its operand (i.e., a pointer) points. Using * in this manner is called dereferencing a pointer (разыменованием указателя). 
+	printf( "%p \n", yPtr );//0028FF38
+	printf( "%p \n", &y );//0028FF38
+	printf( "%d \n", *yPtr );//5; The unary * Indirection Operator, commonly referred (часто называемый?) to as the indirection operator or dereferencing operator, returns the value of the object to which its operand (i.e., a pointer) points. Using * in this manner is called dereferencing a pointer (разыменованием указателя). 
+	printf( "%d \n", y );//5
 
 
 
@@ -2322,14 +2324,8 @@ Initializing a pointer to 0 is equivalent to initializing a pointer to NULL, but
 
 
 
-* - операция косвенной адресации/разыменовывания,
-	возвращает значение объекта, 
-	на который операнд (то есть указатель) ссылается.
 
-yPtr	 дает адрес ячейки, на которую указывает указатель.
-*yPtr	 дает значение ячейки, на адрес которой указывает указатель.
-&*yPtr дает адрес ячейки, на которую указывает указатель (или *&yPtr).
-&yPtr  дает адрес указателя, судя по всему.
+
 
 int main (void){
 	int y = 999;

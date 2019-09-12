@@ -649,18 +649,21 @@ The while Repetition Statement.
 
 The for Repetition Statement.
 
-	for ( expression1; expression2; expression3 ) {
+	for ( expression1; expression2; expression3 )//header. 
+	{
 		statement
 	}
 In most cases, the for statement can be represented with an equivalent while statement as follows:
 
 	expression1;
-	while ( expression2 ) {
+	while ( expression2 ) 
+	{
 		statement
 		expression3;
 	}
 
-	int main (void){
+	int main (void)
+	{
 		int i;
 		for (i = 0; i <= 2; ++i){//постинкремент выглядит естественнее, но прединкремент здесь эквивалентен и выполняется быстрее.
 			printf("%d\n", i );
@@ -1050,7 +1053,7 @@ Functions.
 
 
 The general format for a function definition is
-	return-value-type function-name( parameter-list )
+	return-value-type function-name( parameter-list )//header.
 	{
 		definitions
 		statements
@@ -1833,6 +1836,8 @@ size_t - an unsigned integral type <stddef.h>.
 	printf ("%s\n", "Hello" );//раньше было так; a string with printf.
 
 
+
+
 ВАЖНЫЙ МОМЕНТ - printf ожидает работать просто с числами! Как вариант, в параметрах написано (int a). Поэтому здесь можно передавать все, что угодно. Адрес будет распознаваться просто как число. А вот в функцию, ождающую массив или переменную, так передавать нельзя!!! И об этом не было написано (стр 233)! Scanf работает с цифрами, как с адресами, поэтому ей тоже безразличен способ получения числа.
 
 printf не волнует способ передачи. Она рассматривает всех как просто числа.
@@ -1844,18 +1849,20 @@ printf не волнует способ передачи. Она рассмат�
 	printf("%p\n", &MAS[0] );//0028FF34
 	printf("%d\n", &MAS[1]);//следующий адрес после адреса MAS[0]. 
 	printf("%p\n", &MAS[1] );//0028FF38
+	printf("%p\n", &MAS[i] );
 
 	printf("%d\n", MAS[i]);//это уже конкретный член массива, и работа с ним, как с переменной.
-	printf("%p\n", &MAS[i] );
 	
 
 scanf не волнует способ передачи. Она рассматривает всех как адреса.
 	scanf("%5s", MAS);// & не нужен, см.выше. 5s введет строку не длиннее 5 символов. scanf может выйти за пределы массива.
 	scanf("%5s", &MAS);//взять адрес адреса, но это так. В функциях остальных это не работает.
 	scanf("%5s", &MAS[0]);//аналогично выше сказанному. MAS - это адрес первого элемента, но MAS[i] - это элемент! Так же, как a - это переменная, но &a - это адрес переменной. Не путать высокий язык с асмом. 
-	scanf("%d" , MAS[0]);//Запишет полученное значение по адресу равному значению ячейки номер MAS[0]!
 	scanf("%c" , &MAS[i]);//Алярам, %c будет распозновать ввод как символ конца строки!
+	scanf("%d" , MAS[0]);//Запишет полученное значение по адресу равному значению ячейки номер MAS[0]!
 	
+	
+
 
 	char MAS [] = "first";//cимвольный массив инициированный строковым литералом. The string "first" contains 5 characters plus a special string-termination character called the null character '\0'. 
 	char MAS [] = { 'f', 'i', 'r', 's', 't', '\0' };//эквивалентно предыдущему.
@@ -1989,26 +1996,24 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 
 		printMAS (MAS, SIZE);//   0   1   2   3   4
 	!!!	printMAS (&MAS, SIZE); Ошибка.
-	!!!	printMAS (MAS[0], SIZE); Ошибка. Потому что М одномерный. А вот одномерный массив (строка) двумерного массива передавался бы именно так!
 		printMAS (&MAS[0], SIZE);//   0   1   2   3   4
-		printMAS (&MAS[2], SIZE);//    2   3   4   0   0; printMAS внутри будет "иметь" массив b, который будет начинаться с адреса MAS[2].
+		printMAS (&MAS[2], SIZE);//   2   3   4   0   0; printMAS внутри будет "иметь" массив b, который будет начинаться с адреса MAS[2].
+	!!!	printMAS (MAS[0], SIZE); Ошибка, происходит передача значения. А вот одномерный массив (строка) двумерного массива передавался бы именно так!
+		
 
 
 		modifyArray(MAS, SIZE); 
 		printMAS (MAS, SIZE);//   0   2   4   6   8
-
 	!!!	modifyArray(&MAS, SIZE); Ошибка.
-		printMAS (MAS, SIZE);
-
+	
 		modifyArray(&MAS[0], SIZE);
 		printMAS (MAS, SIZE);//   0   4   8  12  16
-
 		modifyArray(&MAS[2], SIZE);//modifyArray внутри будет "иметь" массив b, который будет начинаться с адреса MAS[2].
 		printMAS (MAS, SIZE);//   0   4  16  24  32
 
 
-		modifyElement (MAS[4]);//16 ; 
-		printMAS (MAS, SIZE);//0 2 4 6 8
+		modifyElement (MAS[4]);//64 ; 
+		printMAS (MAS, SIZE);//   0   4  16  24  32
 
 		return 0;
 	}
@@ -2021,7 +2026,7 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 
 	void modifyElement (int e)
 	{
-		printf("%4d", e*=2 );
+		printf("%3d", e*=2 );
 		printf("\n");
 	}
 
@@ -2029,7 +2034,7 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 	{
 		for (int i=0; i < size; i++)
 		{	
-			printf("%4d", b[i]);
+			printf("%3d", b[i]);
 		}
 		printf("\n");
 	}
@@ -2202,11 +2207,10 @@ M[число строк][число столбцов (по сути - длина
 			//This causes (это приводит к тому) the address of one row of the double-subscripted array to be passed to average. The argument M[1] is the starting address of row 1 of the array. То есть снова - просто адрес! M=M[0], например.
 			puts ("");
 		}
-		average( M[0], LONG );//будет аналогично предыдущему.
+		average( M[0], LONG );//будет аналогично предыдущему; вызывающая функция ожидает одномерный массив, а не значение.
 	!!!	average( M, LONG ); это будет ошибкой, потому что M есть двумерный массив. А функция ожидает одномерный. Несмотря на то, что по логике, M есть адрес первого элемента. 
 	!!!	average( &M, LONG );  это будет ошибка по той же причине, что и выше.
 	!!!	average( &M[0], LONG ); и это будет ошибкой!
-	
 	}
 
 
@@ -2299,12 +2303,72 @@ A pointer may be initialized to NULL, 0 or an address.
 Initializing a pointer to 0 is equivalent to initializing a pointer to NULL, but NULL is preferred. When 0 is assigned, it’s first converted to a pointer of the appropriate (соответствующего) type. The value 0 is the only integer value that can be assigned directly to a pointer variable.
 
 	int y = 5;
-	int *yPtr;
+	int *yPtr;//definitions that yPtr is the pointer.
 	yPtr = &y;//assigns the address of the variable y to pointer variable yPtr. Variable yPtr is then said to “point to” y. The operand of the address operator must be a variable; the address operator cannot be applied to constants or expressions or register.
 	printf( "%p \n", yPtr );//0028FF38
 	printf( "%p \n", &y );//0028FF38
-	printf( "%d \n", *yPtr );//5; The unary * Indirection Operator, commonly referred (часто называемый?) to as the indirection operator or dereferencing operator, returns the value of the object to which its operand (i.e., a pointer) points. Using * in this manner is called dereferencing a pointer (разыменованием указателя). 
+	printf( "%d \n", *yPtr );//5; The unary * operator, commonly referred (часто называемый?) to as the Indirection Operator (оператор косвенного обращения) or Dereferencing Operator (оператор разыменовывания), returns the value of the object to which its operand (i.e., a pointer) points (объекта, на который его операнд (т.е. указатель) указывает). Using * in this manner is called dereferencing a pointer (разыменованием указателя). 
 	printf( "%d \n", y );//5
+	printf( "%d \n", y+*yPtr );//10
+
+
+We use pointers and the indirection operator to simulate pass-by-reference. When calling a function with arguments that should be modified, the addresses of the arguments are passed.
+
+	#include <stdio.h>
+	int cubeByValue( int n ); 
+	void cubeByReference( int *nPtr );
+
+	int main( void )
+	{
+		int number;
+
+		number = 5; 
+		number = cubeByValue( number );
+		printf( "\nThe new value of number is %d\n", number );//125
+
+		number = 5; 
+		cubeByReference( &number );//передача адреса.
+		printf( "\nThe new value of number is %d\n", number );//125
+	}
+	
+	int cubeByValue( int n )
+	{
+		return n * n * n;
+	}
+
+	void cubeByReference( int *nPtr )//pointer definitions; cubeByReference receives the address of an integer variable as an argument, stores the address locally in nPtr and does not return a value. 
+	{
+		*nPtr = *nPtr * *nPtr * *nPtr; //разыменовывает указатель; number = number * number * number
+	} 
+
+
+For a function that expects a single-subscripted array as an argument, the function’s prototype and header can use the pointer notation shown in the parameter list of function cubeByReference. The compiler does not differentiate between a function that receives a pointer and one that receives a single-subscripted array. 
+This, of course, means that the function must “know” when it’s receiving an array or simply a single variable for which it’s to perform pass-by-reference. When the compiler encounters a function parameter for a single-subscripted array of the form int b[], the compiler converts the parameter to the pointer notation int *b. The two forms are interchangeable.
+	
+	#include <stdio.h>
+	void arrayByReference1( int *nPtr );
+	void arrayByReference2( int b[] );
+
+	int main()
+	{
+		int MAS[] = {1,2,3,4,5};
+		arrayByReference1 (MAS);
+		arrayByReference2 (MAS);
+		return 0;
+	}
+	
+
+	void arrayByReference1( int *nPtr )
+	{
+		printf ("%d\n", nPtr );//2686764
+		printf ("%d\n", *nPtr );//1
+		printf ("%d\n", nPtr[3] );//4
+		printf ("%d\n", &nPtr[0] );//2686764
+	} 
+
+	void arrayByReference2( int b[] )
+	{
+	} 
 
 
 
@@ -2327,19 +2391,24 @@ Initializing a pointer to 0 is equivalent to initializing a pointer to NULL, but
 
 
 
-int main (void){
-	int y = 999;
-	int *yPrt;
-	yPrt = &y;
-	printf("%p	\n",	&y			);	//0028FF3C		%p
 
-	printf("%p	\n",	yPrt		);	//0028FF3C		%p
-	printf("%d	\n",	*yPrt		);	//999				%d
-	printf("%p	\n",	&*yPrt	);	//0028FF3C		%p
-	printf("%p	\n",	&yPrt		);	//0028FF38		%p
 
-	return 0;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Передача параметра по ссылке.

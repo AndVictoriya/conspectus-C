@@ -1130,7 +1130,7 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 Директивы сообщают препроцессору о необходимости включения заголовочных файлов, 
 	которые содержат много всего, в том числе - прототипы функций.
 
-#include <stdio.h> printf(), scanf(), NULL
+#include <stdio.h> printf(), scanf(), NULL, sizeof(type or name)
 #include <stdlib.h> system(), rand()
 #include <math.h> 
 #include <conio.h> getchar()
@@ -1995,16 +1995,16 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 		int MAS[SIZE] = {0,1,2,3,4};
 
 		printMAS (MAS, SIZE);//   0   1   2   3   4
-	!!!	printMAS (&MAS, SIZE); Ошибка.
+	!!!	printMAS (&MAS, SIZE);// Ошибка.
 		printMAS (&MAS[0], SIZE);//   0   1   2   3   4
 		printMAS (&MAS[2], SIZE);//   2   3   4   0   0; printMAS внутри будет "иметь" массив b, который будет начинаться с адреса MAS[2].
-	!!!	printMAS (MAS[0], SIZE); Ошибка, происходит передача значения. А вот одномерный массив (строка) двумерного массива передавался бы именно так!
+	!!!	printMAS (MAS[0], SIZE);// Ошибка, происходит передача значения. А вот одномерный массив (строка) двумерного массива передавался бы именно так!
 		
 
 
 		modifyArray(MAS, SIZE); 
 		printMAS (MAS, SIZE);//   0   2   4   6   8
-	!!!	modifyArray(&MAS, SIZE); Ошибка.
+	!!!	modifyArray(&MAS, SIZE);// Ошибка.
 	
 		modifyArray(&MAS[0], SIZE);
 		printMAS (MAS, SIZE);//   0   4   8  12  16
@@ -2042,10 +2042,39 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 
 
 
-	void modifyArray2( const int b[] )//any attempt to modify an element of the array in the function body results in a compile-time error. 
-	{
+Const Qualifier. 
 
+	#include <stdio.h>
+	void modA (const int x , const int c[] );
+	void modB (int x, int c[] );
+
+	int main()
+	{
+		int a = 2;
+		int const b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
+	!!!	b = 7;// Ошибка.
+		
+		int MASA [] = {1,2,3};
+		const int MASB [] = {4,5,6};
+	!!!	MASB [2] = 33;// Ошибка.
+
+		modA(a, MASA);
+	!!!	modB(b, MASB);// Ошибка, требует const int c[]! Не даст передать даже несмотря на отсутствие модифицирующих его инструкций в функции. 
 	}
+
+	void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
+	{
+	!!!	x = 2;// Ошибка.
+	!!! c[2]= 99;// Ошибка.
+	}
+
+	void modB (int x, int c[] )
+	{
+		x = 2;//Ошибки нет 
+	}
+
+	
+	
 
 
 
@@ -2164,7 +2193,7 @@ M[число строк][число столбцов (по сути - длина
 	{
 		int M[2][3] = {0,1,2,3,4};
 		printM (M);//передаем адрес первого элемента в функцию, работа с двумерным. 
-	!!!	Иные варианты не работают, потому что в параметрах функции идет речь о двумерном массиве. В примере ниже в параметрах функции речь идет об одномерном массиве.
+	!!!	//Иные варианты не работают, потому что в параметрах функции идет речь о двумерном массиве. В примере ниже в параметрах функции речь идет об одномерном массиве.
 
 		return 0;
 	}
@@ -2190,6 +2219,22 @@ M[число строк][число столбцов (по сути - длина
 	#define LONG 4
 	#define ROWS 3
 
+
+	int main (void)
+	{
+		int M[ROWS][LONG] = {0,1,2,3,4,5,6,7,8,9,10,11};
+		for (int i = 0; i < ROWS; ++i)//Проход по каждой строке массива.
+		{
+			average( M[i], LONG );//Передача одномерного массива (одной строки многомерного), это не значение ячейки в данном случае!
+			//This causes (это приводит к тому) the address of one row of the double-subscripted array to be passed to average. The argument M[1] is the starting address of row 1 of the array.
+			puts ("");
+		}
+		average( M[0], LONG );//будет аналогично предыдущему; вызывающая функция ожидает одномерный массив, а не значение.
+	!!!	average( M, LONG );// это будет ошибкой, потому что M есть двумерный массив. А функция ожидает одномерный. Несмотря на то, что по логике, M есть адрес первого элемента. 
+	!!!	average( &M, LONG );//  это будет ошибка по той же причине, что и выше.
+	!!!	average( &M[0], LONG );// и это будет ошибкой!
+	}
+
 	void average(const int A[], int size)// Принимает одномерные массивы.
 	{
 		for (int i = 0; i < size; ++i)
@@ -2198,20 +2243,6 @@ M[число строк][число столбцов (по сути - длина
 		}
 		puts ("");
 	}	
-	int main (void)
-	{
-		int M[ROWS][LONG] = {0,1,2,3,4,5,6,7,8,9,10,11};
-		for (int i = 0; i < ROWS; ++i)//Проход по каждой строке массива.
-		{
-			average( M[i], LONG );//Передача одномерного массива (одной строки многомерного), это не значение ячейки в данном случае!
-			//This causes (это приводит к тому) the address of one row of the double-subscripted array to be passed to average. The argument M[1] is the starting address of row 1 of the array. То есть снова - просто адрес! M=M[0], например.
-			puts ("");
-		}
-		average( M[0], LONG );//будет аналогично предыдущему; вызывающая функция ожидает одномерный массив, а не значение.
-	!!!	average( M, LONG ); это будет ошибкой, потому что M есть двумерный массив. А функция ожидает одномерный. Несмотря на то, что по логике, M есть адрес первого элемента. 
-	!!!	average( &M, LONG );  это будет ошибка по той же причине, что и выше.
-	!!!	average( &M[0], LONG ); и это будет ошибкой!
-	}
 
 
 
@@ -2312,7 +2343,9 @@ Initializing a pointer to 0 is equivalent to initializing a pointer to NULL, but
 	printf( "%d \n", y+*yPtr );//10
 
 
-We use pointers and the indirection operator to simulate pass-by-reference. When calling a function with arguments that should be modified, the addresses of the arguments are passed.
+
+
+In C, you use pointers and the indirection operator to simulate pass-by-reference (имитации передачи по ссылке). When calling a function with arguments that should be modified, the addresses of the arguments are passed.
 
 	#include <stdio.h>
 	int cubeByValue( int n ); 
@@ -2342,12 +2375,14 @@ We use pointers and the indirection operator to simulate pass-by-reference. When
 	} 
 
 
+
+
 For a function that expects a single-subscripted array as an argument, the function’s prototype and header can use the pointer notation shown in the parameter list of function cubeByReference. The compiler does not differentiate between a function that receives a pointer and one that receives a single-subscripted array. 
 This, of course, means that the function must “know” when it’s receiving an array or simply a single variable for which it’s to perform pass-by-reference. When the compiler encounters a function parameter for a single-subscripted array of the form int b[], the compiler converts the parameter to the pointer notation int *b. The two forms are interchangeable.
 	
 	#include <stdio.h>
-	void arrayByReference1( int *nPtr );
-	void arrayByReference2( int b[] );
+	void cubeByReference( int *nPtr );
+	void cubeByReference2( int b[] );
 
 	int main()
 	{
@@ -2357,7 +2392,6 @@ This, of course, means that the function must “know” when it’s receiving a
 		return 0;
 	}
 	
-
 	void arrayByReference1( int *nPtr )
 	{
 		printf ("%d\n", nPtr );//2686764
@@ -2366,7 +2400,7 @@ This, of course, means that the function must “know” when it’s receiving a
 		printf ("%d\n", &nPtr[0] );//2686764
 	} 
 
-	void arrayByReference2( int b[] )
+	void cubeByReference2( int b[] )
 	{
 	} 
 
@@ -2378,8 +2412,88 @@ This, of course, means that the function must “know” when it’s receiving a
 
 
 
+The Const Qualifier with Pointers.
+Six possibilities exist for using (or not using) const with function parameters: 2 with pass-by-value parameter passing and 4 with pass-by-reference parameter passing.
 
+Представьте функцию, которая ожидает массив и переменную для его размеры. И эти параметры не должны меняться в функции, даже не смотря на то, что и так передаются по значению. Обе инструкции будут ошибкой.
+См. Const Qualifier. ранее.
 
+There are 4 ways to pass a pointer to a function: 
+
+1. a non-constant pointer to non-constant data. 
+	
+	#include <stdio.h>
+	#include <ctype.h>
+
+	void convertToUppercase( char *sPtr );
+
+	int main( void )
+	{
+		char string1[] = "cHaRaCters and $32.98";//массив можно изменять
+
+		printf("%s \n", string1 );//cHaRaCters and $32.98
+		convertToUppercase( string1 );
+		printf("%s \n", string1 );//CHARACTERS AND $32.98
+	}
+
+	void convertToUppercase( char *sPtr )
+	{
+		while( *sPtr != '\0' )
+		{
+			*sPtr = toupper( *sPtr );
+			++sPtr; // увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт.
+		} 
+	}
+
+2. a constant pointer to non-constant data. 
+	
+	#include <stdio.h>
+	#include <ctype.h>
+
+	void printCharacters( const char *sPtr );
+
+	int main( void )
+	{
+		char string2[] = "print characters of a string";//массив можно изменять
+
+		printCharacters( string2 );
+	}
+
+	void printCharacters( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"
+	{	
+		for ( ; *sPtr != '\0'; ++sPtr ) 
+		{ 
+			printf( "%c", *sPtr );
+		} 
+		
+		char x;
+		sPtr += 99;//нет ошибки
+		sPtr = &x;//нет ошибки
+	!!!	*sPtr = 'L';// Ошибка
+
+	}
+
+3. a non-constant pointer to constant data. 
+
+		int x;
+		int y;
+		int *const ptr = &x;//ptr - константный указатель на целое число, которое можно изменить посредством ptr, но ptr всегда указывает на один и тот же адрес; необходимо инициализировать в момент объявления с const.
+		*ptr = 7; // допустимо: *ptr не является константой
+	!!!	ptr = &y;// Ошибка: ptr - константа; нельзя присвоить новый адрес
+
+4. and a constant pointer to constant data. 
+
+		int n = 5;
+		int m;
+		const int *const ptr = &n;//константный указатель на целочисленную константу; ptr всегда указывает на один и тот же адрес; целое число по этому адресу не может быть изменено.
+		printf( "%d\n", *ptr );
+		*ptr = 7; // ошибка: *ptr - константа; нельзя присвоить новое значение
+		ptr = &m; // ошибка: ptr - константа; нельзя присвоить новый адрес
+	}
+
+	
+
+	
 
 
 
@@ -2567,6 +2681,43 @@ int main (void){
 	ptr = &y;
 	return 0;
 }	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Программа пузырьковой сортировки, использующая вызов по ссылке.
 Функция вызывает функцию. 

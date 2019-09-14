@@ -2042,42 +2042,6 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 
 
 
-Const Qualifier. 
-
-	#include <stdio.h>
-	void modA (const int x , const int c[] );
-	void modB (int x, int c[] );
-
-	int main()
-	{
-		int a = 2;
-		int const b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
-	!!!	b = 7;// Ошибка.
-		
-		int MASA [] = {1,2,3};
-		const int MASB [] = {4,5,6};
-	!!!	MASB [2] = 33;// Ошибка.
-
-		modA(a, MASA);
-	!!!	modB(b, MASB);// Ошибка, требует const int c[]! Не даст передать даже несмотря на отсутствие модифицирующих его инструкций в функции. 
-	}
-
-	void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
-	{
-	!!!	x = 2;// Ошибка.
-	!!! c[2]= 99;// Ошибка.
-	}
-
-	void modB (int x, int c[] )
-	{
-		x = 2;//Ошибки нет 
-	}
-
-	
-	
-
-
-
 
 
 
@@ -2213,7 +2177,7 @@ M[число строк][число столбцов (по сути - длина
 
 
 
-Упрощенная версия Fig. 6.22: fig06_22.c . Передача строки массива как одномерного массива в функцию.
+Передача строки массива как одномерного массива в функцию. Упрощенная версия fig06_22.c . 
 
 	#include <stdio.h>
 	#define LONG 4
@@ -2235,7 +2199,7 @@ M[число строк][число столбцов (по сути - длина
 	!!!	average( &M[0], LONG );// и это будет ошибкой!
 	}
 
-	void average(const int A[], int size)// Принимает одномерные массивы.
+	void average( int A[], int size )// Принимает одномерные массивы.
 	{
 		for (int i = 0; i < size; ++i)
 		{
@@ -2304,16 +2268,6 @@ Variable-Length Arrays
 		print2DArray( row1, col1, d2 );
 
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2412,11 +2366,56 @@ This, of course, means that the function must “know” when it’s receiving a
 
 
 
+
+Const Qualifier. 
+
+Опечатки: en fig06_16 unsigned const int answer[] , en as const int a[][3] и ru объявляется как const int a[][3] (хотя везде в коде без const, демонстрируются [][size] многомерных массивов) , 
+
+	#include <stdio.h>
+	void modA (const int x , const int c[] );
+	void modB (int x, int c[] );
+
+	int main()
+	{
+		int a = 2;
+		int MASA [] = {1,2,3};
+		
+		const int b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
+	!!!	b = 7;// Ошибка.
+		const int MASB [] = {4,5,6};
+	!!!	MASB [2] = 33;// Ошибка.
+
+		modA(a, MASA);
+	!!!	modB(b, MASB);// Ошибка, требует const int c[]! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
+	}
+
+	void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
+	{
+	!!!	x = 2;// Ошибка.
+	!!! c[2]= 99;// Ошибка.
+	}
+
+	void modB (int x, int c[] )
+	{
+		x = 2;//Ошибки нет 
+	}
+
+
+
+
+
+
+
+
+
 The Const Qualifier with Pointers.
+См. Const Qualifier. ранее.
 Six possibilities exist for using (or not using) const with function parameters: 2 with pass-by-value parameter passing and 4 with pass-by-reference parameter passing.
 
 Представьте функцию, которая ожидает массив и переменную для его размеры. И эти параметры не должны меняться в функции, даже не смотря на то, что и так передаются по значению. Обе инструкции будут ошибкой.
-См. Const Qualifier. ранее.
+
+
+
 
 There are 4 ways to pass a pointer to a function: 
 
@@ -2429,11 +2428,14 @@ There are 4 ways to pass a pointer to a function:
 
 	int main( void )
 	{
-		char string1[] = "cHaRaCters and $32.98";//массив можно изменять
+		char string1[] = "cHaRaCters and $32.98";//массив можно изменять;
+		const char string2[] = "Hello";
 
 		printf("%s \n", string1 );//cHaRaCters and $32.98
 		convertToUppercase( string1 );
 		printf("%s \n", string1 );//CHARACTERS AND $32.98
+
+	!!!	convertToUppercase( string2 );// Ошибка, требует const char *sPtr ! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
 	}
 
 	void convertToUppercase( char *sPtr )
@@ -2445,22 +2447,26 @@ There are 4 ways to pass a pointer to a function:
 		} 
 	}
 
-2. a constant pointer to non-constant data. 
+
+
+
+2. a non-constant pointer to constant data.
 	
 	#include <stdio.h>
 	#include <ctype.h>
 
-	void printCharacters( const char *sPtr );
-
+	void printCharacters1( const char *sPtr );
+	
 	int main( void )
 	{
-		char string2[] = "print characters of a string";//массив можно изменять
-
-		printCharacters( string2 );
+		char string1[] = "print characters of a string";// non-constant массив можно изменять; но в этом примере это constant data почему-то.
+		printCharacters1( string1 );
 	}
 
-	void printCharacters( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"
+	void printCharacters1( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"; аналогично свойствам const int b[].
 	{	
+		!!!	*sPtr = 'L';// Ошибка
+
 		for ( ; *sPtr != '\0'; ++sPtr ) 
 		{ 
 			printf( "%c", *sPtr );
@@ -2469,19 +2475,31 @@ There are 4 ways to pass a pointer to a function:
 		char x;
 		sPtr += 99;//нет ошибки
 		sPtr = &x;//нет ошибки
-	!!!	*sPtr = 'L';// Ошибка
-
 	}
 
-3. a non-constant pointer to constant data. 
+	
 
-		int x;
-		int y;
-		int *const ptr = &x;//ptr - константный указатель на целое число, которое можно изменить посредством ptr, но ptr всегда указывает на один и тот же адрес; необходимо инициализировать в момент объявления с const.
-		*ptr = 7; // допустимо: *ptr не является константой
-	!!!	ptr = &y;// Ошибка: ptr - константа; нельзя присвоить новый адрес
 
-4. and a constant pointer to constant data. 
+3. a constant pointer to non-constant data. 
+
+		int x = 1;
+		int y = 2;
+		int *const aPtr = &x;//constant pointer; нельзя менять адрес указателя.
+		const int *bPtr = &y;//нельзя менять значение через dereferencing.
+
+		printf ("%d  %d\n", aPtr, *aPtr );//
+		printf ("%d  %d\n", bPtr, *bPtr );//
+
+	!!!	aPtr = &y;// Ошибка.
+		bPtr = &x;
+		
+		*aPtr = 5;
+	!!!	*bPtr = 7;// Ошибка.
+
+
+
+
+4. a constant pointer to constant data. 
 
 		int n = 5;
 		int m;
@@ -2489,7 +2507,7 @@ There are 4 ways to pass a pointer to a function:
 		printf( "%d\n", *ptr );
 		*ptr = 7; // ошибка: *ptr - константа; нельзя присвоить новое значение
 		ptr = &m; // ошибка: ptr - константа; нельзя присвоить новый адрес
-	}
+	
 
 	
 

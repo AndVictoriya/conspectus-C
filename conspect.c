@@ -2369,336 +2369,62 @@ This, of course, means that the function must “know” when it’s receiving a
 
 Const Qualifier. 
 
-Опечатки: en fig06_16 unsigned const int answer[] , en as const int a[][3] и ru объявляется как const int a[][3] (хотя везде в коде без const, демонстрируются [][size] многомерных массивов) , 
-
-	#include <stdio.h>
-	void modA (const int x , const int c[] );
-	void modB (int x, int c[] );
-
-	int main()
-	{
-		int a = 2;
-		int MASA [] = {1,2,3};
-		
-		const int b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
-	!!!	b = 7;// Ошибка.
-		const int MASB [] = {4,5,6};
-	!!!	MASB [2] = 33;// Ошибка.
-
-		modA(a, MASA);
-	!!!	modB(b, MASB);// Ошибка, требует const int c[]! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
-	}
-
-	void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
-	{
-	!!!	x = 2;// Ошибка.
-	!!! c[2]= 99;// Ошибка.
-	}
-
-	void modB (int x, int c[] )
-	{
-		x = 2;//Ошибки нет 
-	}
-
-
-
-
-
-
-
-
-
-The Const Qualifier with Pointers.
-См. Const Qualifier. ранее.
-Six possibilities exist for using (or not using) const with function parameters: 2 with pass-by-value parameter passing and 4 with pass-by-reference parameter passing.
-
-Представьте функцию, которая ожидает массив и переменную для его размеры. И эти параметры не должны меняться в функции, даже не смотря на то, что и так передаются по значению. Обе инструкции будут ошибкой.
-
-
-
-
-There are 4 ways to pass a pointer to a function: 
-
-1. a non-constant pointer to non-constant data. 
-	
-	#include <stdio.h>
-	#include <ctype.h>
-
-	void convertToUppercase( char *sPtr );
-
 	int main( void )
 	{
-		char string1[] = "cHaRaCters and $32.98";//массив можно изменять;
-		const char string2[] = "Hello";
-
-		printf("%s \n", string1 );//cHaRaCters and $32.98
-		convertToUppercase( string1 );
-		printf("%s \n", string1 );//CHARACTERS AND $32.98
-
-	!!!	convertToUppercase( string2 );// Ошибка, требует const char *sPtr ! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
-	}
-
-	void convertToUppercase( char *sPtr )
-	{
-		while( *sPtr != '\0' )
-		{
-			*sPtr = toupper( *sPtr );
-			++sPtr; // увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт.
-		} 
-	}
-
-
-
-
-2. a non-constant pointer to constant data.
-	
-	#include <stdio.h>
-	#include <ctype.h>
-
-	void printCharacters1( const char *sPtr );
-	
-	int main( void )
-	{
-		char string1[] = "print characters of a string";// non-constant массив можно изменять; но в этом примере это constant data почему-то.
-		printCharacters1( string1 );
-	}
-
-	void printCharacters1( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"; аналогично свойствам const int b[].
-	{	
-		!!!	*sPtr = 'L';// Ошибка
-
-		for ( ; *sPtr != '\0'; ++sPtr ) 
-		{ 
-			printf( "%c", *sPtr );
-		} 
-		
-		char x;
-		sPtr += 99;//нет ошибки
-		sPtr = &x;//нет ошибки
-	}
-
-	
-
-
-3. a constant pointer to non-constant data. 
-
 		int x = 1;
-		int y = 2;
-		int *const aPtr = &x;//constant pointer; нельзя менять адрес указателя.
-		const int *bPtr = &y;//нельзя менять значение через dereferencing.
+		const int y = 2;//нельзя менять значение переменной.
 
-		printf ("%d  %d\n", aPtr, *aPtr );//
-		printf ("%d  %d\n", bPtr, *bPtr );//
+		int MAS[] = {1,2,3};
+		const int MASC[] = {4,5,6};//нельзя менять значения ячеек.
 
-	!!!	aPtr = &y;// Ошибка.
-		bPtr = &x;
-		
-		*aPtr = 5;
-	!!!	*bPtr = 7;// Ошибка.
+		int *aPtr;//все можно.
+		const int *bPtr;//нельзя менять значение через dereferencing.
+		int const *cPtr = &y;;//нельзя менять адрес указателя.
+		const int const *dPtr;//все нельзя.
+	}
 
+	void func( int x, const int y, int MAS[], const MASC[], int *aPtr, const int *bPtr; int const *cPtr = &y; const int const *dPtr  )
+	//Если передавать const сущность в non-const параметр функции, то будет ошибка.
+	{
 
-
-
-4. a constant pointer to constant data. 
-
-		int n = 5;
-		int m;
-		const int *const ptr = &n;//константный указатель на целочисленную константу; ptr всегда указывает на один и тот же адрес; целое число по этому адресу не может быть изменено.
-		printf( "%d\n", *ptr );
-		*ptr = 7; // ошибка: *ptr - константа; нельзя присвоить новое значение
-		ptr = &m; // ошибка: ptr - константа; нельзя присвоить новый адрес
-	
-
-	
-
-	
+	}
 
 
 
 
+Короче все эта муть на 10 страниц:
+	Опечатки: en fig06_16 unsigned const int answer[] , en as const int a[][3] и ru объявляется как const int a[][3] (хотя везде в коде без const, демонстрируются [][size] многомерных массивов) , 
 
+	Из главы про массивы.
 
+		#include <stdio.h>
+		void modA (const int x , const int c[] );
+		void modB (int x, int c[] );
 
+		int main()
+		{
+			int a = 2;
+			int MASA [] = {1,2,3};
+			
+			const int b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
+		!!!	b = 7;// Ошибка.
+			const int MASB [] = {4,5,6};
+		!!!	MASB [2] = 33;// Ошибка.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Передача параметра по ссылке.
-
-Есть два способа передачи параметров функции:
-	по значению, 
-	по ссылке. 
-
-Все вызовы фукций в С являются вызовами по значению.
-	С помощью return можно возвратить единственное значение или вернуть управление. 
-
-Однако, во многих случаях нужно иметь возможность изменять не одну,
-	а несколько переменных в вызывающей функции 
-	или передавать указатель на большой объект данных, 
-	чтобы избежать задержек связанных с передачей параметра по значению 
-	(так как в этом случае создается и потом передается копия объекта).
-Для этих целей существует возможность вызова функции по ссылке.
-	Для этого используют указатели и операции косвенной адресации. 
-
-Если вызывается функция, аргументы которой должны изменять, то в этом случае 
-	ей передаются адреса аргументов.
-Если в качестве аргумента передается массив - то функция получает
-	адрес начала массива.
-
-#include <stdio.h>
-void Fnc (int *);
-
-int main (void){
-	int x = 5;
-	printf("%p____%d\n", &x, x );
-	Fnc(&x);		//передаем адрес в функцию.
-	printf("%p____%d\n", &x, x );
-	return 0;
-}
-
-void Fnc (int *nPtr){
-	printf("%p\n", nPtr );
-	*nPtr = *nPtr * *nPtr;		//разыменовывание указателя. Будто x = x*x только в main.
-	printf("%p\n", nPtr );
-}
-0028FF3C____5
-0028FF3C
-0028FF3C
-0028FF3C____25
-
-Заголовок функции void Fnc (int *nPtr) показывает, что функция 
-	получает	в качестве аргумента адрес целой переменной, 
-	помещает его в локальную переменную nPtr и 
-	не возвращает значения.
-
-Если функция может получить в качестве аргумента одномерный массив,
-	то в заголовке соответствующий параметр может быть определен как указатель.
-
-Когда компилятор встречает одномерный массив в качестве параметра функции, 
-	заданный в форме int b[], 
-	то компилятор преобразует это параметр к виду int *b.
-	Эти две формы взаимозаменяемы. 
-		В чем прикол? Можно в параметрах функции объявить указатель *x, 
-			а внутри функции работать с массивом x[].
-		Нужно помнить, что имя массива - это адрес первого элемента.
-		Нужно помнить, что ожидает и что нужно передавать в функцию -
-			адрес или значение.
-		Ну и вообще(см. указатель-константа на не-констатные данные):
-		int main (void){
-			int s[] = {4,5,6};
-			printf("%p_%d\n", &s[0],s[0]);//0028FF34_4
-			printf("%p\n", s );				//0028FF34
-			printf("%d\n", *s );				//4
-			return 0;
+			modA(a, MASA);
+		!!!	modB(b, MASB);// Ошибка, требует const int c[]! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
 		}
 
-	
-27. Использование модификатора const с указателями/////////////////////////////////////////
+		void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
+		{
+		!!!	x = 2;// Ошибка.
+		!!! c[2]= 99;// Ошибка.
+		}
 
-Модификатор const сообщает компилятору о том, что значение переменной не должно изменяться.
-Существует 6 вариантов использования const: 2 по значению и 4 по ссылке.
-При вызове функции ей передается копия аргумента. Первоначальное значение аргумента
-	в вызвавшей функции остается без изменения. 
-	Однако, в некоторых случаях, 
-	переданное значение не должно изменяться, несмотря на то, 
-	что функция	оперирует лишь копией.
-
-Существует 4 способа передать функции указатель:
-	изменяемый		указатель на изменяемые		данные, 
-	изменяемый		указатель на неизменяемые	данные,
-	неизменяемый	указатель на изменяемые		данные,
-	неизменяемый	указатель на неизменяемые	данные.
-
-Не-константный указатель на не-констатные данные:
-void Fnc (char *);
-int main (void){
-	char M[]= "hello";
-	printf("%s\n", M);
-	Fnc(M);
-	printf("%s\n", M);	
-	return 0;
-}
-void Fnc (char *s){
-	while ( *s != '\0'){
-		if (*s >= 'a' && *s <= 'z')
-			*s -= 32;
-		++s;
-	}
-}
-
-Не-константный указатель на данные-константы:
-void Fnc (const char *);
-int main (void){
-	char M[] = "hello";
-	Fnc(M);
-	return 0;
-}
-void Fnc (const char *s){	//s-указатель на символ-константу.
-	for (; *s != '\0'; s++)	//добавляем единицу к адресу.
-		putchar(*s);			
-}
-А такая функция вызовет ошибку:
-void Fnc (const char *s){
-	*s = 100 ;			//потому что *s это уже значение по адресу s.
-}
-
-Указатель-константа на не-констатные данные.
-Указатель, который всегда указывает на одно и то же место в памяти,
-	а расположенные там данные могут изменяться.
-Такой указатель назначается по умолчанию для имени массива.
-Имя массива является указателем-константой на начало массива.
-int main (void){
-	int s[] = {4,5};
-	printf("%p	%d\n", &s[0],s[0]);	//0028FF38	4
-	printf("%p	%d\n", &s[1],s[1]);	//0028FF3C	5
-	printf("%p	%d\n", s, *s );		//0028FF38	4 
-	*s = 7;
-	printf("%p	%d\n", s, *s );		//0028FF38	7
-	s = &s; // или иное - уже даст ошибку.
-	return 0;
-}
-
-Попытка изменения указателя-константы, ссылающегося на не-константные данные 
-	приведет к ошибке:
-int main (void){
-	int x, y;
-	int *const ptr = &x;//такие указатели необходимо инициализировать при объявлении.
-	//Если такой указатель передается функции, то он инициализируется переданным значением.
-	ptr = &y
-	return 0;
-}
-
-Указатель-константа на константные данные.
-Такой указатель всегда указывает на то же самое место в памяти,
-	а расположенные по этому адресу данные не могут модифицироваться.
-Приведет к ошибкам:
-int main (void){
-	int x = 5; y;
-	const int *const ptr = &x;
-	*ptr = 7;
-	ptr = &y;
-	return 0;
-}	
+		void modB (int x, int c[] )
+		{
+			x = 2;//Ошибки нет 
+		}
 
 
 
@@ -2707,28 +2433,104 @@ int main (void){
 
 
 
+	Из главы про указатели.
+
+	The Const Qualifier with Pointers.
+	Six possibilities exist for using (or not using) const with function parameters: 2 with pass-by-value parameter passing and 4 with pass-by-reference parameter passing. Представьте функцию, которая ожидает массив и переменную для его размеры. И эти параметры не должны меняться в функции, даже не смотря на то, что и так передаются по значению.
 
 
 
 
+	There are 4 ways to pass a pointer to a function: 
+
+	1. a non-constant pointer to non-constant data. 
+		
+		#include <stdio.h>
+		#include <ctype.h>
+
+		void convertToUppercase( char *sPtr );
+
+		int main( void )
+		{
+			char string1[] = "cHaRaCters and $32.98";//массив можно изменять;
+			const char string2[] = "Hello";
+
+			printf("%s \n", string1 );//cHaRaCters and $32.98
+			convertToUppercase( string1 );
+			printf("%s \n", string1 );//CHARACTERS AND $32.98
+
+		!!!	convertToUppercase( string2 );// Ошибка, требует const char *sPtr ! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
+		}
+
+		void convertToUppercase( char *sPtr )
+		{
+			while( *sPtr != '\0' )
+			{
+				*sPtr = toupper( *sPtr );
+				++sPtr; // увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт.
+			} 
+		}
 
 
 
 
+	2. a non-constant pointer to constant data.
+		
+		#include <stdio.h>
+		#include <ctype.h>
+
+		void printCharacters1( const char *sPtr );
+		
+		int main( void )
+		{
+			char string1[] = "print characters of a string";// non-constant массив можно изменять; но с точки зрения функции это constant данные.
+			printCharacters1( string1 );
+		}
+
+		void printCharacters1( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"; аналогично свойствам const int b[]; non-constant указатель - потому что можно менять его адрес.
+		{	
+			!!!	*sPtr = 'L';// Ошибка
+
+			for ( ; *sPtr != '\0'; ++sPtr ) 
+			{ 
+				printf( "%c", *sPtr );
+			} 
+			
+			char x;
+			sPtr += 99;//нет ошибки
+			sPtr = &x;//нет ошибки
+		}
+
+		
+
+
+	3. a constant pointer to non-constant data. 
+
+			int x = 1;
+			int y = 2;
+			int *const aPtr = &x;//constant pointer; нельзя менять адрес указателя.
+			const int *bPtr = &y;//нельзя менять значение через dereferencing.
+
+			printf ("%d  %d\n", aPtr, *aPtr );//
+			printf ("%d  %d\n", bPtr, *bPtr );//
+
+		!!!	aPtr = &y;// Ошибка.
+			bPtr = &x;
+			
+			*aPtr = 5;
+		!!!	*bPtr = 7;// Ошибка.
 
 
 
 
+	4. a constant pointer to constant data. 
 
-
-
-
-
-
-
-
-
-
+			int n = 5;
+			int m;
+			const int *const ptr = &n;//константный указатель на целочисленную константу (с точки зрения указателя или функции); ptr всегда указывает на один и тот же адрес; целое число по этому адресу не может быть изменено.
+			printf( "%d\n", *ptr );
+			*ptr = 7; // ошибка: *ptr - константа; нельзя присвоить новое значение
+			ptr = &m; // ошибка: ptr - константа; нельзя присвоить новый адрес
 
 
 

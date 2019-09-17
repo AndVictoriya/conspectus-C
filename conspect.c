@@ -329,7 +329,7 @@ Operator precedence (приоритетность, старшинство) and a
 9	||										left to right	logical OR		binary
 10	?:										right to left	conditional		ternary
 11	= += -= *= /= %=						right to left	assignment		binary
-12	,										left to right	comma			119 стр for Repetition Statement, Comma-Separated Lists (списки) of Expressions; 122 стр could actually be merged into
+12	,										left to right	comma			119 стр for repetition (итерация) statement, Comma-Separated Lists (списки) of Expressions; 122 стр could actually be merged into
 
 https://en.wikipedia.org/wiki/Order_of_operations
 https://en.wikipedia.org/wiki/Operator_associativity
@@ -515,7 +515,8 @@ The equality operators have a lower level of precedence than the relational oper
 Напечатает 0 или 1 в зависимости от истинности.
 
 Совокупность инструкций внутри {} скобок называтеся составной инструкцией или блоком:
-	if(/* condition */) {//condition представляет собой, я так понимаю, expression, то есть выражение; хотя там же есть getchar()=, значит и statement.
+	if(/* condition */) //condition представляет собой, я так понимаю, expression, то есть выражение; хотя там же есть getchar()=, значит и statement.
+	{
 		инструкция1;
 		инструкция2;
 	}
@@ -1053,15 +1054,12 @@ Functions.
 
 
 The general format for a function definition is
-	return-value-type function-name( parameter-list )//header.
-	{
+	return-value-type function-name( parameter-list )//header 
+	//тип_возвращаемых_значений ИМЯ_функции (тип_принимаемых_значений/список_параметров)
+	{//тело функции
 		definitions
 		statements
 	}
-	
-	тип_возвращаемых_значений ИМЯ_функции (тип_принимаемых_значений/список_параметров)
-	float FUNC(int, double);		//прототип; лучше float FUNC(int x, double y);		
-	float FUNC(int x, double y) {}	//тело функции
 
 All variables defined in function definitions are local variables — they can be accessed only in the function in which they’re defined.
 The definitions and statements within braces form the function body, which is also referred (называться, упоминаются, передается) to as a block. 
@@ -1073,46 +1071,72 @@ All variables defined in function definitions are local variables. They can be a
 Each time a function calls another function, an entry is pushed onto the stack. This entry, called a stack frame, contains the return address that the called function needs in order to return to the calling function. Most functions have automatic variables. When a called function returns to its caller, the called function’s automatic variables need to “go away.” When that function returns—and no longer needs its local automatic variables — its stack frame is popped from the stack, and those local automatic variables are no longer known to the program.
 
 
+	void print (void);
+	int main (void)
+	{
+		pint();	// если void - то в скобках должно быть пусто.
+		return 0;
+	}
+	void print(void)
+	{
+		printf("HELLO\n");
+		return;	// return здесь можно не писать .
+	}
+	
+
 	float FUNC(int);
-	int main (void){
+	int main (void)
+	{
 		printf("%.3f", FUNC(3));
 		return 0;
 	}
-	float FUNC(int x){
+	float FUNC(int x)
+	{
 		float tmp = x / 2.0 ;
 		return tmp;
 	}
 
 
-	void funk (void);
-	int main (void){
-		funk();	// если void - то в скобках должно быть пусто.
-		return 0;
-	}
-	void funk(void){
-		printf("HELLO\n");
-		return;	// return здесь можно не писать .
-	}
 
 
-	int AAA(int);
+	int AAA(int);//без прототипов функция должна идти роньше вызывающей функции.
 	int BBB(int);
 
-	int main (void){
+	int main (void)
+	{
 		int ZZZ;
 		scanf ("%d", &ZZZ );
 		printf("%d", AAA(ZZZ) );
 		return 0;
 	}
-
-	int AAA(int aaa){
+	int AAA(int aaa)
+	{
 		return BBB(aaa);
 	}
-
-	int BBB(int aaa){
-		return aaa * 1000;
+	int BBB(int bbb)
+	{
+		return bbb * 1000;
 	}
 
+К бабл в указателях, сокрытие прототипа.
+
+	int AAA(int);
+	int main (void)
+	{
+		int ZZZ;
+		scanf ("%d", &ZZZ );
+		printf("%d", AAA(ZZZ) );
+		return 0;
+	}
+	int AAA(int aaa)
+	{
+		int BBB(int);//прототип BBB находится в AAA, скрыт от main.
+		return BBB(aaa);
+	}
+	int BBB(int bbb)
+	{
+		return bbb * 1000;
+	}
 
 
 
@@ -1145,7 +1169,8 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 
 
 
-Passing Arguments By Value (значению) and By Reference (ссылке).	("вызов функций", лооол; "когда аргумент исполь в вызове по значению", when arguments are passed by value лооол).
+Passing Arguments By Value (значению) and By Reference (ссылке). 
+("вызов функций", лооол; "когда аргумент исполь в вызове по значению", when arguments are passed by value лооол).
 
 In many programming languages, there are two ways to pass arguments—pass-by-value and pass-by-reference. 
 When arguments are passed by value, a copy of the argument’s value is made and passed to the called function. Changes to the copy do not affect an original variable’s value in the caller. When an argument is passed by reference, the caller allows the called function to modify the original variable’s value.
@@ -1273,7 +1298,6 @@ Actually, each identifier in a program has other attributes:
 
 Локальная переменная с классом static используется, например, в теле функции или массивах.
 	
-
 В стандарте С99 добавили возможность инициализации и объявления переменной внутри цикла for:
 	int main (void){
 		int i = 10;
@@ -1299,19 +1323,6 @@ Actually, each identifier in a program has other attributes:
 			printf("%d\n", i);
 		return 0;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1479,43 +1490,44 @@ Actually, each identifier in a program has other attributes:
 Всё, что можно написать рекурсией - можно написать и итерацией. 
 Нужно выбирать подход в зависимости от обстоятельств. Рекурсия требует больше ресурсов. 
 
-Факториал рекурсивный.
-
-	int FUNC(int);
-
-	int main (void){
-		int number;
-		scanf("%d", &number);
-		printf("%d!=%d\n", number, FUNC(number) );
-	}
-
-	int FUNC(int x){
-		if(x <= 1){
-			return 1;
-		}
-		else{
-			return( x*FUNC(x-1) );
-		}	
-	}
-
-
-Или рекурсивная функция
-	int fact(int x) {
-	    return x<2?1:x*fact(x-1);
-	}
-
-
-
-
+Факториал рекурсивный:
 	int FUNC(int);
 
 	int main (void)
 	{
-		int number = 10;
-		FUNC(number);
-				
+		int number 10;
 	}
 
+	int FUNC(int x)
+	{
+		if(x <= 1)
+		{
+			return 1;
+		}
+		else
+		{
+			return( x*FUNC(x-1) );
+		}	
+	}
+
+Или так:
+	int fact(int x)
+	{
+	    return x<2 ? 1: x * fact(x-1);
+	}
+
+	int main (void)
+	{
+		printf ("%d\n", fact (5) );
+	}
+
+Просто для понимания:
+	int FUNC(int);
+	int main (void)
+	{
+		int number = 10;
+		FUNC(number);
+	}	}
 	int FUNC(int x)
 	{
 		printf ("%d\n", x);//получен х
@@ -1552,16 +1564,13 @@ Actually, each identifier in a program has other attributes:
 	#include <stdlib.h> 
 	#include <unistd.h> 
 	int main (void){
-
 		for(int i=0; i < 100; i++){
 			system("cls");
-
 			if( (i % 2) != 0){	
 				for(int i=0; i<4; i++)
 					printf("1111\n");
 				sleep(1);
 			}
-
 			if( (i % 2) == 0){	
 				for(int i=0; i<4; i++)
 					printf("0000\n");
@@ -1569,32 +1578,23 @@ Actually, each identifier in a program has other attributes:
 			}
 		}
 	}
-
-	или так
+или так
 	int main (void){
-
 		for(int i=0; i != EOF; ){
 			system("cls");
 			for(int i=0; i<4; i++)
 				printf("1111\n");
 			sleep(1);
-			
 			system("cls");
 			for(int i=0; i<4; i++)
 				printf("0000\n");
 			sleep(1);
-			
 		}
 	}
 
-
-
 Секундомер
-
 	#include <stdio.h>
 	#include <time.h>
-
-
 	int main (void)
 	{
 		int i = 0;
@@ -1606,21 +1606,16 @@ Actually, each identifier in a program has other attributes:
 				printf ("%d\n", i);
 			}
 		}
-		
 	}
 
-
-
-
 Перевод в двоичную систему.
-
 	#include <stdio.h>
 	#include <math.h>
 	#include <stdlib.h>
 	void FUNC (int);
-	int main (void){
+	int main (void)
+	{
 		int number = 0;
-
 		while ( number != 999){
 			printf("Enter chislo:");
 			scanf("%d", &number);
@@ -1631,7 +1626,6 @@ Actually, each identifier in a program has other attributes:
 	void FUNC (int x){
 		int ZOP[8]={0};
 		int I = 0;
-		
 		while ( x != 0){
 			ZOP[I]=x%2;
 			x = x / 2 ;
@@ -1640,19 +1634,13 @@ Actually, each identifier in a program has other attributes:
 				break;
 			I=I+1;
 		}
-		
 		while ( I >= 0){
 			printf("%d", ZOP[I]);
 			I = I-1;
 		}
 	}
 
-
-
-
-
 putchar.
-
 	#include <stdio.h>
 	int main (void){    
 		int s = 90; 
@@ -1663,80 +1651,63 @@ putchar.
 		return 0;
 	}
 
-
-
-
-
 getchar и putchar.
-
 	#include <stdio.h>
-	int main (void){
+	int main (void)
+	{
 		int c;
 		while ( ( c = getchar() ) != 113 )
 			printf("%d\n", c);
 			putchar (c);
 	}
-
-	int main (void){
+	int main (void)
+	{
 		char enter;
 		scanf ("%d", &enter);
 		printf("%c , code=%d\n", enter, enter);// берет целое, приравнивает к переменной char, выводит как символ или целое. 
 		return 0;
 	}
 
-
-	int main (void){
+	#include <stdio.h>	
+	int main (void)
+	{
 		int c;
-
 		while ( ( c = getchar() ) != 113 ){
 			printf("=%d\n", c);
 			putchar (c);
 			putchar ('\n'); //по второму кругу забавно выводит пустую строку как символ новой строки 10
 		}
 	}
-
-	int main (void){
+	int main (void)
+	{
 		int c;
-		
-		while ( ( c = getchar() ) != 113 ){
+		while ( ( c = getchar() ) != 113 )
+		{
 			printf("%d\n", c);
 		}
 		putchar (c); //забавно, что тут путчар выведет в случае q только q
 	}
-
-
-
-
-
-
-
-
 	
+Количество разрядов числа.	
 	#include <stdio.h>	
-
 	int integerPower (int a, int b );
 	int numberOfDigits (int number);
-
 	int main (void)
 	{
 		int a = 23562;
 		int f;
 		int i = integerPower ( 10, numberOfDigits(a) - 1 ) ;
-		
 		while (i > 0)
 		{
 			// f = a - a % i;
 			// printf ("%2d", f/i);
 			// a = a - f;
 			// i/=10;
-			
 			printf ("%2d", (a - a % i) /i);//2 3 5 6 2
 			a = a - (a - a % i);
 			i/=10;
 		}
 	}
-
-
 	int numberOfDigits (int number)
 	{
 		int step = 1;
@@ -1748,8 +1719,6 @@ getchar и putchar.
 			}
 		return digit;
 	}
-
-
 	int integerPower (int a, int b )//a^b
 		{
 			int z = a;
@@ -2000,8 +1969,6 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 		printMAS (&MAS[2], SIZE);//   2   3   4   0   0; printMAS внутри будет "иметь" массив b, который будет начинаться с адреса MAS[2].
 	!!!	printMAS (MAS[0], SIZE);// Ошибка, происходит передача значения. А вот одномерный массив (строка) двумерного массива передавался бы именно так!
 		
-
-
 		modifyArray(MAS, SIZE); 
 		printMAS (MAS, SIZE);//   0   2   4   6   8
 	!!!	modifyArray(&MAS, SIZE);// Ошибка.
@@ -2010,7 +1977,6 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 		printMAS (MAS, SIZE);//   0   4   8  12  16
 		modifyArray(&MAS[2], SIZE);//modifyArray внутри будет "иметь" массив b, который будет начинаться с адреса MAS[2].
 		printMAS (MAS, SIZE);//   0   4  16  24  32
-
 
 		modifyElement (MAS[4]);//64 ; 
 		printMAS (MAS, SIZE);//   0   4  16  24  32
@@ -2277,6 +2243,16 @@ Variable-Length Arrays
 
 
 
+
+
+
+
+
+
+
+
+
+
 Pointers.
 
 Pointers are variables whose values are memory addresses. 
@@ -2331,8 +2307,7 @@ In C, you use pointers and the indirection operator to simulate pass-by-referenc
 
 
 
-For a function that expects a single-subscripted array as an argument, the function’s prototype and header can use the pointer notation shown in the parameter list of function cubeByReference. The compiler does not differentiate between a function that receives a pointer and one that receives a single-subscripted array. 
-This, of course, means that the function must “know” when it’s receiving an array or simply a single variable for which it’s to perform pass-by-reference. When the compiler encounters a function parameter for a single-subscripted array of the form int b[], the compiler converts the parameter to the pointer notation int *b. The two forms are interchangeable.
+For a function that expects a single-subscripted array as an argument, the function’s prototype and header can use the pointer notation shown in the parameter list of function cubeByReference. The compiler does not differentiate between a function that receives a pointer and one that receives a single-subscripted array. This, of course, means that the function must “know” when it’s receiving an array or simply a single variable for which it’s to perform pass-by-reference. When the compiler encounters a function parameter for a single-subscripted array of the form int b[], the compiler converts the parameter to the pointer notation int *b. The two forms are interchangeable.
 	
 	#include <stdio.h>
 	void cubeByReference( int *nPtr );
@@ -2356,6 +2331,7 @@ This, of course, means that the function must “know” when it’s receiving a
 
 	void cubeByReference2( int b[] )
 	{
+
 	} 
 
 
@@ -2389,149 +2365,182 @@ Const Qualifier.
 
 	}
 
+	Вся эта муть на 10 страниц и см. увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт:
+		Опечатки: en fig06_16 unsigned const int answer[] , en as const int a[][3] и ru объявляется как const int a[][3] (хотя везде в коде без const, демонстрируются [][size] многомерных массивов) , 
 
+		Из главы про массивы.
 
+			#include <stdio.h>
+			void modA (const int x , const int c[] );
+			void modB (int x, int c[] );
 
-Короче все эта муть на 10 страниц:
-	Опечатки: en fig06_16 unsigned const int answer[] , en as const int a[][3] и ru объявляется как const int a[][3] (хотя везде в коде без const, демонстрируются [][size] многомерных массивов) , 
-
-	Из главы про массивы.
-
-		#include <stdio.h>
-		void modA (const int x , const int c[] );
-		void modB (int x, int c[] );
-
-		int main()
-		{
-			int a = 2;
-			int MASA [] = {1,2,3};
-			
-			const int b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
-		!!!	b = 7;// Ошибка.
-			const int MASB [] = {4,5,6};
-		!!!	MASB [2] = 33;// Ошибка.
-
-			modA(a, MASA);
-		!!!	modB(b, MASB);// Ошибка, требует const int c[]! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
-		}
-
-		void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
-		{
-		!!!	x = 2;// Ошибка.
-		!!! c[2]= 99;// Ошибка.
-		}
-
-		void modB (int x, int c[] )
-		{
-			x = 2;//Ошибки нет 
-		}
-
-
-
-
-
-
-
-
-	Из главы про указатели.
-
-	The Const Qualifier with Pointers.
-	Six possibilities exist for using (or not using) const with function parameters: 2 with pass-by-value parameter passing and 4 with pass-by-reference parameter passing. Представьте функцию, которая ожидает массив и переменную для его размеры. И эти параметры не должны меняться в функции, даже не смотря на то, что и так передаются по значению.
-
-
-
-
-	There are 4 ways to pass a pointer to a function: 
-
-	1. a non-constant pointer to non-constant data. 
-		
-		#include <stdio.h>
-		#include <ctype.h>
-
-		void convertToUppercase( char *sPtr );
-
-		int main( void )
-		{
-			char string1[] = "cHaRaCters and $32.98";//массив можно изменять;
-			const char string2[] = "Hello";
-
-			printf("%s \n", string1 );//cHaRaCters and $32.98
-			convertToUppercase( string1 );
-			printf("%s \n", string1 );//CHARACTERS AND $32.98
-
-		!!!	convertToUppercase( string2 );// Ошибка, требует const char *sPtr ! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
-		}
-
-		void convertToUppercase( char *sPtr )
-		{
-			while( *sPtr != '\0' )
+			int main()
 			{
-				*sPtr = toupper( *sPtr );
-				++sPtr; // увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт.
-			} 
-		}
+				int a = 2;
+				int MASA [] = {1,2,3};
+				
+				const int b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
+			!!!	b = 7;// Ошибка.
+				const int MASB [] = {4,5,6};
+			!!!	MASB [2] = 33;// Ошибка.
+
+				modA(a, MASA);
+			!!!	modB(b, MASB);// Ошибка, требует const int c[]! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
+			}
+
+			void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
+			{
+			!!!	x = 2;// Ошибка.
+			!!! c[2]= 99;// Ошибка.
+			}
+
+			void modB (int x, int c[] )
+			{
+				x = 2;//Ошибки нет 
+			}
 
 
+		Из главы про указатели.
+
+		The Const Qualifier with Pointers.
+		Six possibilities exist for using (or not using) const with function parameters: 2 with pass-by-value parameter passing and 4 with pass-by-reference parameter passing. Представьте функцию, которая ожидает массив и переменную для его размеры. И эти параметры не должны меняться в функции, даже не смотря на то, что и так передаются по значению.
+
+		There are 4 ways to pass a pointer to a function: 
+
+		1. a non-constant pointer to non-constant data. 
+			
+			#include <stdio.h>
+			#include <ctype.h>
+
+			void convertToUppercase( char *sPtr );
+
+			int main( void )
+			{
+				char string1[] = "cHaRaCters and $32.98";//массив можно изменять;
+				const char string2[] = "Hello";
+
+				printf("%s \n", string1 );//cHaRaCters and $32.98
+				convertToUppercase( string1 );
+				printf("%s \n", string1 );//CHARACTERS AND $32.98
+
+			!!!	convertToUppercase( string2 );// Ошибка, требует const char *sPtr ! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
+			}
+
+			void convertToUppercase( char *sPtr )
+			{
+				while( *sPtr != '\0' )
+				{
+					*sPtr = toupper( *sPtr );
+					++sPtr; // увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт.
+				} 
+			}
 
 
-	2. a non-constant pointer to constant data.
-		
-		#include <stdio.h>
-		#include <ctype.h>
+		2. a non-constant pointer to constant data.
+			
+			#include <stdio.h>
+			#include <ctype.h>
 
-		void printCharacters1( const char *sPtr );
-		
-		int main( void )
-		{
-			char string1[] = "print characters of a string";// non-constant массив можно изменять; но с точки зрения функции это constant данные.
-			printCharacters1( string1 );
-		}
+			void printCharacters1( const char *sPtr );
+			
+			int main( void )
+			{
+				char string1[] = "print characters of a string";// non-constant массив можно изменять; но с точки зрения функции это constant данные.
+				printCharacters1( string1 );
+			}
 
-		void printCharacters1( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"; аналогично свойствам const int b[]; non-constant указатель - потому что можно менять его адрес.
-		{	
+			void printCharacters1( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"; аналогично свойствам const int b[]; non-constant указатель - потому что можно менять его адрес.
+			{	
 			!!!	*sPtr = 'L';// Ошибка
 
-			for ( ; *sPtr != '\0'; ++sPtr ) 
-			{ 
-				printf( "%c", *sPtr );
-			} 
+				for ( ; *sPtr != '\0'; ++sPtr ) 
+				{ 
+					printf( "%c", *sPtr );
+				} 
+				
+				char x;
+				sPtr += 99;//нет ошибки
+				sPtr = &x;//нет ошибки
+			}
+
 			
-			char x;
-			sPtr += 99;//нет ошибки
-			sPtr = &x;//нет ошибки
+		3. a constant pointer to non-constant data. 
+
+				int x = 1;
+				int y = 2;
+				int *const aPtr = &x;//constant pointer; нельзя менять адрес указателя.
+				const int *bPtr = &y;//нельзя менять значение через dereferencing.
+
+				printf ("%d  %d\n", aPtr, *aPtr );//
+				printf ("%d  %d\n", bPtr, *bPtr );//
+
+			!!!	aPtr = &y;// Ошибка.
+				bPtr = &x;
+				
+				*aPtr = 5;
+			!!!	*bPtr = 7;// Ошибка.
+
+
+		4. a constant pointer to constant data. 
+
+				int n = 5;
+				int m;
+				const int *const ptr = &n;//константный указатель на целочисленную константу (с точки зрения указателя или функции); ptr всегда указывает на один и тот же адрес; целое число по этому адресу не может быть изменено.
+				printf( "%d\n", *ptr );
+				*ptr = 7; // ошибка: *ptr - константа; нельзя присвоить новое значение
+				ptr = &m; // ошибка: ptr - константа; нельзя присвоить новый адрес
+
+
+
+
+
+
+
+
+Bubble Sort Using Pass-by-Reference.
+
+Функция вызывает функцию. Бабл передает свопу элементы по ссылке. При использовании имени массива в качестве аргумента передается весь массив целиком, индивидуальные элементы являются скалярами и	передаются по значению.
+
+	#include <stdio.h>
+	#define SIZE 10
+	void bubbleSort(int *const array, const int size);//прототипа swap нет здесь.
+	int main (void)
+	{
+		int a[SIZE] = {2,6,4,8,10,12,89,68,45,37};
+		for (int i = 0; i < SIZE; ++i)
+		{
+			printf("%4d\n", a[i]);
 		}
-
-		
-
-
-	3. a constant pointer to non-constant data. 
-
-			int x = 1;
-			int y = 2;
-			int *const aPtr = &x;//constant pointer; нельзя менять адрес указателя.
-			const int *bPtr = &y;//нельзя менять значение через dereferencing.
-
-			printf ("%d  %d\n", aPtr, *aPtr );//
-			printf ("%d  %d\n", bPtr, *bPtr );//
-
-		!!!	aPtr = &y;// Ошибка.
-			bPtr = &x;
-			
-			*aPtr = 5;
-		!!!	*bPtr = 7;// Ошибка.
-
-
-
-
-	4. a constant pointer to constant data. 
-
-			int n = 5;
-			int m;
-			const int *const ptr = &n;//константный указатель на целочисленную константу (с точки зрения указателя или функции); ptr всегда указывает на один и тот же адрес; целое число по этому адресу не может быть изменено.
-			printf( "%d\n", *ptr );
-			*ptr = 7; // ошибка: *ptr - константа; нельзя присвоить новое значение
-			ptr = &m; // ошибка: ptr - константа; нельзя присвоить новый адрес
-
+		puts ("");
+		bubbleSort (a, SIZE);//передача массива.
+		for (int i = 0; i < SIZE; ++i)
+		{
+			printf("%4d\n", a[i]);		
+		}
+		return 0;	
+	}
+	void bubbleSort(int *const array, const int size)//The compiler does not differentiate between a function that receives a pointer and one that receives a single-subscripted array; int const *array запрешает менять адрес array.  
+	{
+		void swap(int *, int *);//прототип объявляется внутри функции.
+		for (int pass = 1; pass < size; pass++)
+		{	
+			for (int i = 0; i < size -1; i++)
+			{
+				if (array[i] > array [ i + 1])//в параметрах объявлен указатель, но работать можно как с массивом.
+				{
+					swap( &array[i] , &array[i+1] );//передача адреса ячейки массива; иначе пришлось бы передавать значение ячейки по значению, то есть долго; по сути swap работает напрямую с ячейками массива. 
+				}
+			}
+		}
+	}
+	void swap (int *elementPtr, int *element2Ptr)
+	// swap is not allowed to say int hold = array[ j ]; or array[ j ] = array[ j +  1]; 
+	{
+		int temp;
+		temp = *elementPtr;
+		*elementPtr = *element2Ptr;
+		*element2Ptr = temp;
+	}
 
 
 
@@ -2539,42 +2548,18 @@ Const Qualifier.
 
 
 
-Программа пузырьковой сортировки, использующая вызов по ссылке.
-Функция вызывает функцию. 
-Бабл передает свопу элементы по ссылке.
-При использовании имени массива в качестве аргумента
-	передается весь массив целиком,
-	индивидуальные элементы являются скалярами и 
-		передаются по значению.
-#include <stdio.h>
-#define SIZE 10
-void bubbleSort(int *array, int size);
 
-int main (void){
-int i, a[SIZE] = {2,6,4,8,10,12,89,68,45,37};
-	for (int i = 0; i < SIZE; ++i)
-		printf("%4d\n", a[i]);
 
-	bubbleSort (a, SIZE);
+sizeof() выполняется на этапе компиляции. Следующим способом можно найти количество элементов массива.
+	double real[ 22 ];
+	sizeof( real ) / sizeof( real[ 0 ] )
 
-	for (int i = 0; i < SIZE; ++i)
-		printf("%4d\n", a[i]);
 
-	return 0;
-}
 
-void bubbleSort(int *array, int size){
-	void swap(int *, int *);
 
-	for (int pass = 1; pass < size; pass++)
-		for (int i = 0; i < size -1; i++)
-			if (array[i] > array [ i + 1])
-				swap( &array[i] , &array[i+1] );
-}
 
-void swap (int *elementPtr, int *element2Ptr){
-	int temp;
-	temp = *elementPtr;
-	*elementPtr = *element2Ptr;
-	*element2Ptr = temp;
-}
+
+
+
+
+Pointer Expressions and Pointer Arithmetic.

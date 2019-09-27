@@ -43,21 +43,10 @@ utf8
 	-c Compile or assemble the source files, but do not link
 	-S Stop after the stage of compilation proper; do not assemble. 
 
-
-
-
 	Исходник > 
 		препроцессор (подключает прототипы функций из заголовочных файлов) > 
 			компилятор (сначало в асм?, потом в объектный/машинный код) > 
 				компоновщик (линкер, линковщик добавляет куски скомпилированных библиотек)
-
-
-
-
-
-
-
-
 
 	Настройка для компиляции из саблайма.
 	tools>build system
@@ -77,10 +66,6 @@ utf8
 	        }
 	    ]
 	}
-
-
-
-
 
 	"Компилятор".
 	#include <stdlib.h> 
@@ -112,43 +97,30 @@ utf8
 
 
 
-Введение
+Введение. Разбито на 7 абзацев.
+
 We use the structured approach (подход) throughout the remainder (на протяжении оставшейся) of the C portion (части) of the text.
 
-Наступает великий миг: я утверждаю, что собранное нами
-устройство может с полным правом именоваться компьютером!
-Очень примитивным, но компьютером. Его ключевое свойство
-— наличие команды условного перехода. Именно возможность
-управляемых циклических процедур отличает компьютер от
-калькулятора. Петцольд, 283.
+Наступает великий миг: я утверждаю, что собранное нами устройство может с полным правом именоваться компьютером! Очень примитивным, но компьютером. Его ключевое свойство — наличие команды условного перехода. Именно возможность управляемых циклических процедур отличает компьютер от калькулятора. Петцольд, 283.
 
 
 1	#include <stdio.h>
 
 Lines beginning with # are processed by the preprocessor before compilation. 
-This is a directive to the C preprocessor. It tells the preprocessor to include the contents of the standard input/output header (<stdio.h>) in the program. 
-This header contains information used by the compiler when compiling calls to standard input/output library functions such as printf. 
-We explain the contents of headers in more detail in Chapter 5 and 13.
+This is a directive to the C preprocessor. It tells the preprocessor to include the contents of the standard input/output header (<stdio.h>) in the program. This header contains information used by the compiler when compiling calls to standard input/output library functions such as printf. We explain the contents of headers in more detail in Chapter 5 and 13.
 
 
 
 
 2	int main (void)//int main () 
 	{
-
+		statement;
 	}
 
-The parentheses () after main indicate that main is a program building block called a function. 
-C programs contain one or more functions, one of which must be main. The main function is a part of every C program. Every program in C begins executing at the function main. 
-
-A left brace { begins the body of every function. A corresponding right brace } ends each function.
-This pair of braces and the portion of the program between the braces is called a block. The block is an important program unit in C. 
-
-Functions can return information. The keyword int to the left of main indicates that main “returns” an integer (whole-number) value. 
-We’ll explain what it means for a function to “return a value” when we demonstrate how to create your own functions in Chapter 5. 
-
-Functions can receive information when they’re called upon to execute. 
-The void in parentheses here means that main does not receive any information. In Chapter 14, we’ll show an example of main receiving information. 
+The parentheses () after main indicate that main is a program building block called a function. C programs contain one or more functions, one of which must be main. The main function is a part of every C program. Every program in C begins executing at the function main. 
+A left brace { begins the body of every function. A corresponding right brace } ends each function. This pair of braces and the portion of the program between the braces is called a block. The block is an important program unit in C. 
+Functions can return information. The keyword int to the left of main indicates that main “returns” an integer (whole-number) value. We’ll explain what it means for a function to “return a value” when we demonstrate how to create your own functions in Chapter 5. 
+Functions can receive information when they’re called upon to execute. The void in parentheses here means that main does not receive any information. In Chapter 14, we’ll show an example of main receiving information. 
 
 
 
@@ -157,11 +129,8 @@ The void in parentheses here means that main does not receive any information. I
 
 An Output Statement instructs the computer to perform an action (namely to print on the screen the string of characters marked by the quotation marks ""). 
 A string is sometimes called a character string (символьная строка), a message or a literal. 
-The entire line, including the printf function (the “f” stands for “formatted”), its argument within the parentheses () and the semicolon ; , is called a statement. 
-Every statement must end with statement terminator a semicolon ; . 
-
+The entire line, including the printf function (the “f” stands for “formatted”), its argument within the parentheses () and the semicolon ; , is called a statement (инструкция). Every statement must end with statement terminator a semicolon ; . 
 The backslash (\) is called an escape character. Они же esq-коды.
-
 Printf causes the computer to perform an action. 
 As any program executes, it performs a variety (множество) of actions and makes decisions. 
 Executable statements either perform actions (calculations, input or output of data, etc) or make decisions (if, while, etc) (стр 54). 
@@ -183,7 +152,8 @@ For readers using the Microsoft Visual C++ compiler, note that we’re placing o
 Recall that the Microsoft Visual C++ compiler requires variable definitions to be placed after the left brace { of a function and before any executable statements. Therefore, in the program in Fig. 2.5, inserting the definition of integer1 after the first printf would cause a syntax error in Visual C++. 
 
 Вдобавок объявления могут быть внутри выделенных блоков, см. области действия. 
-	int main (void){
+	int main (void)
+	{
 			int x = 1;
 			printf("%d\n", x);//1
 		{
@@ -213,14 +183,9 @@ This statement uses scanf (the “f” stands for “formatted”) to obtain a v
 
 This scanf has two arguments: "%d" and &integer1. 
 
-The first, the format control string (строка управляющая форматом) "%d". It indicates the type of data that should be entered by the user. 
-The %d conversion specifier (спецификатор преобразования) indicates that the data should be an integer. 
-The % in this context is treated (рассматривается) by scanf (and printf as we’ll see) as a special character (специальный символ, как esq-код) that begins a conversion specifier. 
-The letter d stands for “decimal integer”. 
+The first, the format control string (строка управляющая форматом) "%d". It indicates the type of data that should be entered by the user. The %d conversion specifier (спецификатор преобразования) indicates that the data should be an integer. The % in this context is treated (рассматривается) by scanf (and printf as we’ll see) as a special character (специальный символ, как esq-код) that begins a conversion specifier. The letter d stands for “decimal integer”. 
 
-The second argument &integer1 of scanf begins with an ampersand & (address operator) followed by the variable name (& (адрес оператор) за которым следует имя переменной). 
-The &, when combined with the variable name integer1, tells scanf the location (or address) in memory at which the variable integer1 is stored. 
-The computer then stores the value that the user enters for integer1 at that location. 
+The second argument &integer1 of scanf begins with an ampersand & (address operator) followed by the variable name (& (адрес оператор) за которым следует имя переменной). The &, when combined with the variable name integer1, tells scanf the location (or address) in memory at which the variable integer1 is stored. The computer then stores the value that the user enters for integer1 at that location. 
 
 Some exceptions to this rule are discussed in Chapters 6 and 7. The use of the ampersand will become clear after we study pointers in Chapter 7. 
 Forgetting to precede a variable in a scanf statement with an ampersand when that variable should, in fact, be preceded by an ampersand this causes a “segmentation fault” or “access violation.” The precise cause of this error will be explained in Chapter 7.
@@ -262,79 +227,68 @@ Secure print:
 
 
 
-wiki
+
+
+
+
+Когда речь заходит о датасаенс и информатике, о философии, логике и языках высого уровня, то появляются выражения и прочее. В асме нельзя написать х = 2+3-5*6, каждый кусочек нужно описать вручную, выделить место в памяти, назвать это место меткой "х", затем поочередно складывать, затем сохранять результат обратно в память, и так далее. А чтобы придумать С нужно придумать логику, законы и абстракции его мира.
+
+https://en.wikipedia.org/wiki/Statement_(computer_science) :
 In computer programming, a statement is a syntactic unit of an imperative programming language that expresses (выражает) some action to be carried out (которые необходимо выполнить). A program written in such (таком) a language is formed (сформирована чем) by a sequence of one or more statements. A statement may have internal components (e.g. например, expressions). Many imperative languages (e.g. C) make a distinction (делают различие) between statements and definitions, with (причем) a statement only containing executable code and a definition instantiating an identifier (определение, создающее экземпляр идентификатора), while (тогда как) an expression evaluates (оценивается) to a value only. A distinction (различие) can also be made between simple and compound statements; the latter may contain statements as components. 
 Simple statements a = a + b; return z;
 Compound statements {} блок, if, for.
-In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction (различие) is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. a = b = c = 0 - выражение оценивается справа налево, сначала с, потом b, потом a.
+In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction (различие) is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. 
 In purely (чисто) functional programming, there are no statements; everything is an expression.
 
-C how to program
+https://en.wikipedia.org/wiki/Expression_(computer_science) :
+An expression in a programming language is a combination of one or more constants, variables, operators, and functions that the programming language interprets (according (в соответсвтии с) to its particular rules of precedence and of association) and computes (вычисляет) to produce (производства) ("to return", in a stateful environment) another value. This process, as for mathematical expressions, is called evaluation.
+
+C how to program:
 Pseudocode consists only of action statements—those that are executed when the program has been converted from pseudocode to C and is run in C. Definitions are not executable statements—they’re simply messages to the compiler. For example, the definition tells the compiler the type of variable i and instructs the compiler to reserve space in memory for the variable. But this definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed. 
 
-wiki
-An expression in a programming language is a combination of one or more constants, variables, operators, and functions that the programming language interprets (according (в соответсвтии с) to its particular rules of precedence and of association) and computes (вычисляет) to produce (производства) ("to return", in a stateful environment (в состояние среды??)) another value. This process, as for mathematical expressions, is called evaluation.
+none place:
+An expression (выражение) is a sequence of operators. Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). The body of any function is a compound (составная) statement which in turn is a sequence of statements and declarations (объявлений).
 
-хз откуда
-An expression (выражение) is a sequence of operators.
-Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). 
-The body of any function is a compound (составная) statement which in turn is a sequence of statements and declarations (объявлений).
+The rules of operator precedence specify the order C uses to evaluate expressions. The associativity of the operators specifies whether they evaluate from left to right or from right to left. 
 
+The circled numbers indicate the order in which C evaluates the operators ( Order of evaluation (precedence), Порядок оценки (старшинство) ): 
+	z = p * r % q + w / x - y;
+	  6   1   2   4   3   5
 
+In the while header while ( ( grade = getchar() ) != EOF ) the parenthesized assignment (grade = getchar()) executes first. 
+The getchar function (from <stdio.h>) reads one character from the keyboard and stores that character in the integer variable grade. Assignments as a whole actually have a value (Присваивание само по себе имеет значение, то есть речь о том, что инструкция сама по себе может использоваться как условие, это похоже на оценку послеледней инструкции в регистре состояний). 
+This value is assigned to the variable on the left side of the =. The value of the assignment expression grade = getchar() is the character that’s returned by getchar and assigned to the variable grade. 
+The fact that assignments have values can be useful for setting several variables to the same value. For example, a = b = c = 0; first evaluates the assignment c = 0 (because the = operator associates from right to left). The variable b is then assigned the value of the assignment (переменной b присваивается значение выражениЯ) c = 0 (which is 0). Then, the variable a is assigned the value of the assignment b = (c = 0) (which is also 0).
 
-
-
-
-
-Assignment Operators, Increment and Decrement Operators, стр 93.
-	
-	Statement c = c + 3; can be abbreviated (сокращена) with the addition assignment operator += as c += 3; 
-	Это компилируется быстрее.
-		
-	C also provides the unary increment operator ++ and the unary decrement operator --.
-
-	++a преинкремент, увеличивает на 1, использует новое значение.
-	a++ постинкремент, использует значение, потом увеличивает на 1.  
-	Преинкремент работает быстрее. 
-	И обрати внимание на while.
-
-	a = 5;
-	printf("%d\n", ++a);	//6
-	printf("%d\n", a	);	//6	
-	a = 5;
-	printf("%d\n", a++);	//5
-	printf("%d\n", a	);	//6
+Order of Evaluation of Operands. Не путать с операндами операторов, это из рекурсивного способа решения чисел Фибоначчи. 
+This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в котором операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета (старшинства) операторов). Figure 5.20 shows that while evaluating fibonacci(3), two recursive calls will be made, namely fibonacci(2) and fibonacci(1). But in what order will these calls be made? You might simply assume the operands will be evaluated left to right. For optimization reasons, C does not specify the order in which the operands of most operators (C не определяет порядок, в каком будут вычисляться операнды большинства операторов) (including +) are to be evaluated. Therefore, you should make no assumption about the order in which these calls will execute. The calls could in fact execute fibonacci(2) first and then fibonacci(1), or the calls could execute in the reverse order, fibonacci(1) then fibonacci(2).
+In this and most other programs, the final result would be the same. But in some programs the evaluation of an operand may have side effects that could affect the final result of the expression. C specifies the order of evaluation of the operands of only four operators— namely &&, ||, the comma (,) operator and ?:. The first three of these are binary operators whose operands are guaranteed to be evaluated left to right. [Note: The commas used to separate the arguments in a function call are not comma operators.] The last operator is C’s only ternary operator. Its leftmost operand is always evaluated first; if the leftmost operand evaluates to nonzero, the middle operand is evaluated next and the last operand is ignored; if the leftmost operand evaluates to zero, the third operand is evaluated next and the middle operand is ignored.
 
 
 
 
 
 
-
-
-
-Operator precedence (приоритетность, старшинство) and associativity (ассоциативность), стр 136, 218, 281.
-	А понятнее Associativity and Operator precedence (or Order of operations), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
+Operator precedence and associativity.  
+(стр 136, 218, 281) А понятнее было бы Associativity (ассоциативность) и Operator precedence (приоритетность, старшинство) или Order of operations (порядок операций, хотя с операторами понятнее звучит), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
 
 	Operators								Associativity	Type			//My comment
 	
-1	() () []								left to right	parentheses		//(expression) in parentheses evaluated first, func() function call operator, [] for to enclose (заключить) the subscript (индекс) of an array
-2	++(postfix) --(postfix)					right to left					//type длинный: postfix, unary, highest; возможно имеет одинаковую приоритетность со строчкой выше; a++, b--
-3	+ - ! ++(prefix) --(prefix) (type) & *	right to left	unary			//унарные версии (+5,-7), !(grade != sum), ++a, --b, cast operator a(float),  address operator, indirection Operator
+1	() () []								left to right	parentheses		// () the expression in the parentheses evaluated first, func() function call operator, [] brackets (square brackets) used to enclose (заключить) the subscript (индекс) of an array.
+2	++(postfix) --(postfix)					right to left					//type длинный: postfix, unary, highest; a++, b-- на стр 281 имеют одинаковую приоритетность со строчкой выше, так же не понятно,почему постфикс имеет приоритет выше.
+3	+ - ! ++(prefix) --(prefix) (type) & *	right to left	unary			//унарные версии (+5,-7), !(grade != sum), ++a, --b, cast operator a(float),  address operator, indirection Operator.
 4	* / %									left to right	multiplicative	//binary
 5	+ -										left to right	additive		//binary
 6	< <= > >=								left to right	relational
-7	== !=									left to right	equality		//The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см ниже, в if и в logical)
+7	== !=									left to right	equality		//The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см ниже, в if и в logical).
 8	&&										left to right	logical AND		//binary
 9	||										left to right	logical OR		//binary
 10	?:										right to left	conditional		//ternary
 11	= += -= *= /= %=						right to left	assignment		//binary
-12	,										left to right	comma			//119 стр for repetition (итерация) statement, Comma-Separated Lists (списки) of Expressions; 122 стр could actually be merged into
+12	,										left to right	comma			//см 12: .
 
 https://en.wikipedia.org/wiki/Order_of_operations
 https://en.wikipedia.org/wiki/Operator_associativity
-
-2:	Therefore you should use increment or decrement operators only in statements in which one variable is incremented or decremented by itself (использовать в отдельных инструкциях). 
 
 4:	8 / 16 / 2 распознается как 1/2 / 2 = 1/4   , а не 8 / 8 = 1
 		4/8/2/3 = 4 / (8*2*3)
@@ -342,8 +296,7 @@ https://en.wikipedia.org/wiki/Operator_associativity
 
 5:	7 - 4  + 2 из-за левоассоциативности распознается как (7 - 4) + 2 = 5 ; если бы эти операции были правоассоциативными, то 7 - (4 + 2) = 1.
 
-6:	a < b < c  распознается как ( a < b ) && ( b < c ). wiki.
-
+6:	3 < 2 < 1 даст 1. А в питоне wiki: a < b < c  распознается как ( a < b ) && ( b < c ). 
 	a = 2    b = 1    c = 3
 	a == b 			0
 	a != b 			1
@@ -353,7 +306,37 @@ https://en.wikipedia.org/wiki/Operator_associativity
 	a != b <= c 	1
 	a != b <= c 	1
 
-11:	a = b = c = 0 распознается как a = (b = (c = 0))
+11:	a = b = c = 0 распознается как a = (b = (c = 0)) .
+	
+	Statement c = c + 3; can be abbreviated (сокращена) with the addition assignment operator += as c += 3; Это компилируется быстрее.
+
+2:	C also provides the unary increment operator ++ and the unary decrement operator --.
+	++a преинкремент, увеличивает на 1, использует новое значение. a++ постинкремент, использует значение, потом увеличивает на 1. Преинкремент работает быстрее. 
+	И обрати внимание на while ?что там?.
+
+	a = 5;
+	printf("%d\n", ++a);	//6
+	printf("%d\n", a	);	//6	
+	a = 5;
+	printf("%d\n", a++);	//5
+	printf("%d\n", a	);	//6
+
+	Therefore you should use increment or decrement operators only in statements in which one variable is incremented or decremented by itself (использовать в отдельных инструкциях). 
+
+12:	The commas used to separate the arguments in a function call are not comma operators. 
+
+	The comma operator guarantees that lists of expressions evaluate from left to right. The value of the entire expression is that of the rightmost expression. 
+	Смотри пример в for, в указателях s1[ i ] = s2[ i ] и ниже.
+
+
+Variable names are said to be lvalues (for “left values”) because they can be used on the left side of an assignment operator. 
+Constants are said to be rvalues (for “right values”) because they can be used on only the right side of an assignment operator. 
+lvalues can also be used as rvalues, but not vice versa.
+
+Так работать не будет, потому что нарушается принцип. ???
+	int  day = 10, a;
+	day == 10 ? a = 1 : a = 0 ;	
+	printf("%d\n", a);
 
 
 Keywords
@@ -370,8 +353,6 @@ Keywords
 	_Bool _Complex _Imaginary inline restrict
 	Keywords added in C11 draft standard
 	_Alignas _Alignof _Atomic _Generic _Noreturn _Static_assert _Thread_local
-
-
 
 
 Data type/printf conversion specification/scanf conversion specification
@@ -397,7 +378,6 @@ Data type/printf conversion specification/scanf conversion specification
 
 	sizeof(int) sizeof(A) sizeof(sum)  
 
-
 Про типы данных.
 	Тут есть некоторые вопросы с char. signed char и unsigned char.
 	char будет зависеть от ключей компиляции, вероятно.
@@ -418,8 +398,6 @@ Data type/printf conversion specification/scanf conversion specification
 	00000080  128 128
 	00000081  129 129
 	00000082  130 130
-
-
 
 
 Явные - неявные преобразования???
@@ -468,20 +446,9 @@ Data type/printf conversion specification/scanf conversion specification
 
 
 
+Control structures (управляющие структуры). Структуры - это из датасаенс, общее понятие. В C эти структуры реализованы в виде инструкций.
 
-
-
-
-
-
-
-
-
-
-Control structures (управляющие структуры). Структуры - это из датасаенс, общее понятие. 
-В C эти структуры реализованы в виде инструкций.
-
-В основе лежит структурное программирование и отказ от goto. Суть в том, что бы любая структура подключалась к остальным как блок со входом и выходом. Это отлично видно в flowcharts!
+В основе лежит структурное программирование и отказ от goto. Суть в том, что бы любая структура подключалась к остальным как блок с одним входом и одним выходом. Это отлично видно в flowcharts!
 
 All programs could be written in terms of only three control structures: the sequence structure, the selection structure and the repetition structure.
 	1. The sequence structure (любой тип действий, вычисление, ввод/вывод) is simple — unless directed otherwise, the computer executes C statements one after the other in the order in which they’re written. 
@@ -500,42 +467,36 @@ All programs could be written in terms of only three control structures: the seq
 
 The if Statement, single-selection statement (с одиночным выбором).
 
-	if ( a > b ){
-			printf("something\n");
-		}
+	if ( /*condition*/ )
+	{
+		statement;
+	}
 
-Conditions in if statements are formed by using the equality operators and relational (отношения) operators. 
-Если condition есть constant, то условие всегда будет возвращать истину.
-The relational operators all have the same level of precedence and associate (ассоциируется) left to right. 
-The equality operators have a lower level of precedence than the relational operators and they also associate left to right. 
+Conditions in if statements are formed by using the equality operators and relational (отношения) operators. The relational operators all have the same level of precedence and associate (ассоциируется) left to right. The equality operators have a lower level of precedence than the relational operators and they also associate left to right. 
+In C, a condition may actually be any expression that generates a zero (false) or nonzero (true) value. То есть если condition есть просто constant, то условие всегда будет истинным.
+Condition представляет собой и expression; и statement, точнее будет использоваться результат последней операции вызванной инструкцией, похоже на оценку результата последней операции в регистре состояний, см while ( ( x = getchar() ) != EOF ) и см for ( i=0; ( s1[i]=s2[i] ) != '\0' ; ++i ) .
 
 	scanf ("%d", &x); 
-	printf("%d\n", x>=2); 
+	printf("%d\n", x>=2);// Напечатает 0 или 1 в зависимости от истинности.
 
-Напечатает 0 или 1 в зависимости от истинности.
+	if ( a > b )
+		printf("something\n");//The if selection statement expects only one statement in its body—if you have only one statement in the if’s body, you do not need the enclose it in braces.
 
-Совокупность инструкций внутри {} скобок называтеся составной инструкцией или блоком:
-	if(/* condition */) //condition представляет собой, я так понимаю, expression, то есть выражение; хотя там же есть getchar()=, значит и statement.
+	if ( a > b )//To include several statements in the body of an if, you must enclose the set of statements in braces ({ and }). A set of statements contained within a pair of braces is called a compound statement or a block. A compound statement can be placed anywhere in a program that a single statement can be placed. 
 	{
-		инструкция1;
-		инструкция2;
+		statement1;
+		statement2;
 	}
 
-Составную инструкцию можно помещать где угодно. 
-Так же можно использовать пустой оператор ";" на месте, обычно занимаемым некоторым оператором. 
-
-	int main (void){	
-		int A;
-		scanf ("%d", &A);
-		if (A >= 2){
-			printf(">=2\n");
-		}
-		if (A < 2){
-			printf("<2\n");
-			printf("LOL\n");
-		}
+	if ( a > b ) 
+	{
+		;//Just as a compound statement can be placed anywhere a single statement can be placed, it’s also possible to have no statement at all, i.e., the empty statement. The empty statement is represented by placing a semicolon (;) where a statement would normally be.
 	}
 
+	if ( a > b )
+	{
+		//; внутри фигурных скобок не обязателен, хотя в примере про указатели s1[i]=s2[i]  помещают ; внутрь пустых фигурных скобок. 
+	}
 
 
 
@@ -547,28 +508,31 @@ The equality operators have a lower level of precedence than the relational oper
 
 The if…else Selection Statement, double-selection statement. 
 
-
-	if ( grade >= 60 ){
+Simple if…else statements.
+	if ( grade >= 60 )
+	{
 	 puts( "Passed" );
 	} // end if
-	else{
+	else
+	{
 	 puts( "Failed" );
 	} // end else
-
-Simple if…else statements.
  
-
-	if (/* condition */){
+Nested if…else statements.
+	if (/* condition */)
+	{
 		printf("AAA");
 	}
-	else if (/* condition */){
+	else if (/* condition */)
+	{
 		printf("BBB");
 	}
-	else if (/* condition */){
+	else if (/* condition */)
+	{
 		printf("CCC");
 	}
 
-Nested if…else statements.
+
 
 
 	printf 	(			grade >= 60 ? "1Passed\n" : "Failed\n" );
@@ -592,33 +556,14 @@ The third operand string "Failed" is the value for the entire conditional expres
 
 
 
-rvalue lvalue:
-имена переменных lvalue.
-константы rvalue. 
-lvalue может использоваться в качестве rvalue, но не наоборот. 
-	int  day = 10, a;
-	day == 10 ? a = 1 : a = 0 ;	
-	printf("%d\n", a);
-Так работать не будет, потому что нарушается принцип. ???
-
-Variable names are said to be lvalues (for “left values”) because they can be used on the left side of an assignment operator. 
-Constants are said to be rvalues (for “right values”) because they can be used on only the right side of an assignment operator. 
-lvalues can also be used as rvalues, but not vice versa.
-
-
-
-
-
-
-
-
 The while Repetition Statement.
 
 	int stud = 0; //stud = 0  - initialized
-	while (stud < 3){
+	while (stud < 3)
+	{
 		printf("AAA");
 		stud = stud + 1;
-		}
+	}
 	AAA
 	AAA
 	AAA
@@ -652,8 +597,23 @@ The for Repetition Statement.
 
 	for ( expression1; expression2; expression3 )//header. 
 	{
-		statement
+		statement;
 	}
+
+Сomma-Separated Lists (списки) of Expressions. Often, expression1 and expression3 are comma-separated lists of expressions. The commas as used here are actually comma operators that guarantee that lists of expressions evaluate from left to right (гарантирующим выполнение выражений в списке в порядке слева направо, может все же оценивание?). The value and type of a comma-separated list of expressions are the value and type of the rightmost expression in the list (типом и значением списка выражений являются тип и значение самого правого выражения в списке). The comma operator is most often used in the for statement. Its primary use is to enable you to use multiple initialization and/or multiple increment expressions. For example, there may be two control variables in a single for statement that must be initialized and incremented. 
+	
+	int sum = 0;
+	int number;
+	for ( number = 2; number <= 100; number += 2 )
+	{
+		sum += number;//The body of the for statement in Fig. 4.5  
+	}
+
+	for ( number = 2; number <= 100; sum += number, number += 2 )//sum += number; could actually be merged into the rightmost portion of the for header by using the comma operator as follows. The initialization sum = 0 could also be merged into the initialization section of the for. 
+	{
+		; //empty statement. 
+	}
+	
 In most cases, the for statement can be represented with an equivalent while statement as follows:
 
 	expression1;
@@ -663,21 +623,23 @@ In most cases, the for statement can be represented with an equivalent while sta
 		expression3;
 	}
 
-	int main (void)
-	{
-		int i;
-		for (i = 0; i <= 2; ++i){//постинкремент выглядит естественнее, но прединкремент здесь эквивалентен и выполняется быстрее.
-			printf("%d\n", i );
-		}
-		return 0;
-	}
+В стандарте С99 добавили возможность объявления и инициализации переменной внутри цикла for. Тогда i будет экранирована от i в main.
 
-
-В стандарте С99 добавили возможность объявления и инициализации переменной внутри цикла for. 
-Тогда i будет экранирована от i в main.
 	Смотри раздел про классы памяти и 
 	{
 		и области действия.
+	}
+
+Постинкремент выглядит естественнее, но прединкремент здесь эквивалентен и выполняется ( или компилируется?) быстрее.
+
+	int main (void)
+	{
+		int i;
+		for (i = 0; i <= 2; ++i)
+		{
+			printf("%d\n", i );
+		}
+		return 0;
 	}
 
 
@@ -696,13 +658,12 @@ The switch statement consists of a series of case labels, an optional default ca
 	#include <stdio.h>
 	int main (void)
 	{
-		int x;
-		while ( ( x = getchar() ) != EOF ) //считывает введенный символ; enter = 10;
+		int grade;
+		while ( ( grade = getchar() ) != EOF ) //считывает введенный символ и enter; enter = 10; слева от != будет находиться результат последней операции.
 		{
 			//scanf ("%d", &pas);
 			//switch (pas)	
-			switch (x)	//Keyword switch is followed by the variable name grade in parentheses. This is called the controlling expression. 
-						//The value of this expression is compared with each of the case labels (метками каждого кейса). 
+			switch (x)	//Keyword switch is followed by the variable name grade in parentheses. This is called the controlling expression. The value of this expression is compared with each of the case labels (метками каждого кейса). 
 			{
 				case 'A' : case 'a' : //A character constant can be represented as the specific character in single quotes ' '.
 					printf("this is A or a \n");
@@ -738,9 +699,11 @@ case '\n' : case 10 - будет ошибка duplicate case value.
 
 Do While
 
-	int main (void){
+	int main (void)
+	{
 		int counter = 1;
-		do {
+		do 
+		{
 			printf("%d\n", counter);
 		}	while ( ++counter <= 10);
 		return 0;
@@ -759,9 +722,11 @@ Break Continue
 The break statement, when executed in a while, for, do…while or switch statement, causes an immediate exit from that statement. 
 The continue statement, when executed in a while, for or do…while statement, skips the remaining statements in the body of that control statement and performs the next iteration of the loop. 
 
-	int main (void){
+	int main (void)
+	{
 		int  x;
-		for (x = 1; x <= 10; x++){
+		for (x = 1; x <= 10; x++)
+		{
 			if(x == 5)
 				break; // break досрочно выводит из цикла, есть и другие структурные способы это сделать.
 			printf("%d ", x );
@@ -769,10 +734,10 @@ The continue statement, when executed in a while, for or do…while statement, s
 		printf("End %d\n", x);
 		return 0;
 	}
-
 	int main (void){
 		int  x;
-		for (x = 1; x <= 10; x++){
+		for (x = 1; x <= 10; x++)
+		{
 			if(x == 5)
 				continue; // continue пропускает оставшийся код, переходит к следующей итерации.
 			printf("%d ", x );
@@ -780,16 +745,6 @@ The continue statement, when executed in a while, for or do…while statement, s
 		printf("End %d\n", x);
 		return 0;
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -965,11 +920,13 @@ This can reduce a program’s execution time.
 
 Задание 4.14. Факториал интеративный.
 
-	int main (void){
+	int main (void)
+	{
 		int x,i;
 		scanf ("%d", &x);
 		i = 1;
-		while (x > 1){
+		while (x > 1)
+		{
 			i *= x;
 			--x;
 		}
@@ -1039,17 +996,6 @@ This can reduce a program’s execution time.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 Functions.
 	int main( void )
 	{
@@ -1065,7 +1011,7 @@ Functions.
 
 The general format for a function definition is
 	return-value-type function-name( parameter-list )//header 
-	//тип_возвращаемых_значений ИМЯ_функции (тип_принимаемых_значений/список_параметров)
+	тип_возвращаемых_значений ИМЯ_функции (тип_принимаемых_значений/список_параметров)
 	{//тело функции
 		definitions
 		statements
@@ -1107,11 +1053,8 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 	}
 
 
-
-
 	int AAA(int);//без прототипов функция должна идти роньше вызывающей функции.
 	int BBB(int);
-
 	int main (void)
 	{
 		int ZZZ;
@@ -1180,11 +1123,13 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 
 
 Passing Arguments By Value (значению) and By Reference (ссылке). 
-("вызов функций", лооол; "когда аргумент исполь в вызове по значению", when arguments are passed by value лооол).
+	//("вызов функций" лол; "когда аргумент используется в вызове по значению", when arguments are passed by value лол).
 
 In many programming languages, there are two ways to pass arguments—pass-by-value and pass-by-reference. 
 When arguments are passed by value, a copy of the argument’s value is made and passed to the called function. Changes to the copy do not affect an original variable’s value in the caller. When an argument is passed by reference, the caller allows the called function to modify the original variable’s value.
 In C, all arguments are passed by value. As we’ll see in Chapter 7, it’s possible to simulate pass-by-reference by using the address operator and the indirection operator. In Chapter 6, we’ll see that array arguments are automatically passed by reference for performance reasons.
+
+
 
 
 
@@ -1207,16 +1152,6 @@ An enumeration, introduced by the keyword enum, is a set of integer constants re
 		gameStatus = WON; 
 		printf("%d\n", gameStatus );//1
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1497,8 +1432,6 @@ Actually, each identifier in a program has other attributes:
 
 
 
-
-
 Рекурсия.
 
 Всё, что можно написать рекурсией - можно написать и итерацией. 
@@ -1506,12 +1439,10 @@ Actually, each identifier in a program has other attributes:
 
 Факториал рекурсивный:
 	int FUNC(int);
-
 	int main (void)
 	{
 		int number 10;
 	}
-
 	int FUNC(int x)
 	{
 		if(x <= 1)
@@ -1529,7 +1460,6 @@ Actually, each identifier in a program has other attributes:
 	{
 	    return x<2 ? 1: x * fact(x-1);
 	}
-
 	int main (void)
 	{
 		printf ("%d\n", fact (5) );
@@ -1554,16 +1484,6 @@ Actually, each identifier in a program has other attributes:
 			return( FUNC(x-1) );//вычесть 1 из х и передать его в функцию
 		}	
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1752,16 +1672,6 @@ getchar и putchar.
 
 
 
-
-
-
-
-
-
-
-
-
-
 #define preprocessor directive
 	Умеют много чего, не путать с функцией, это именно символьная замена, с которой работает препроцессор.
 	#include <stdio.h>
@@ -1788,16 +1698,8 @@ getchar и putchar.
 
 
 
-
-
-
-
-
-
-
-
 Arrays.
-ну нахера сначала переменные, потом функции, потом скопы и конст, потом массивы, а потом память с указателями????
+ну зачем сначала переменные, потом функции, потом скопы и конст, потом массивы, а потом память с указателями????
 надо переменные, функции, скопы, консты, память с указателями, массивы.
 (кратко - одномерные, передача одномерного, многомерные, передача многомерного и передача одной строки многомерного, переменные массивы и передача переменных массивов)
 
@@ -1812,6 +1714,7 @@ size_t - an unsigned integral type <stddef.h>.
 	//Число перечисленных членов не должно превышать размер массива [], если записать его вручную. Программа может выйти за пределы массива, этого нельзя допускать.
 	MAS[i] = 2;//i subscript - индекс; a subscripted array name is an lvalue — it can be used on the left side of an assignment.
 
+Не забывай, scanf и printf не являются частью языка, поэтому их особеннсти лишь их заслуги.
 	printf ("%s\n", "Hello" );//раньше было так a string with printf.
 ВАЖНЫЙ МОМЕНТ - printf ожидает работать просто с числами! Как вариант, в параметрах написано (int a). Поэтому здесь можно передавать все, что угодно. Адрес будет распознаваться просто как число. А вот в функцию, ождающую массив или переменную, так передавать нельзя!!! И об этом не было написано (стр 233)! Scanf работает с цифрами, как с адресами, поэтому ей тоже безразличен способ получения числа.
 
@@ -2212,16 +2115,6 @@ Variable-Length Arrays
 
 
 
-
-
-
-
-
-
-
-
-
-
 Pointers.
 
 Pointers are variables whose values are memory addresses. 
@@ -2587,29 +2480,26 @@ Pointers can be compared using equality and relational operators, but such compa
 		for ( int i = 0; i < ARRAYSIZE ; ++i ) 
 		{
 			printf( "bPtr[ %u ] = %d\n", i, bPtr [i] );// Pointers can be subscripted like arrays. If bPtr has the value B, the expression refers to the array element B[1]. This is referred to as pointer/subscript notation. 
-
-		!!!	printf ("%d\n", *bPtr[2] );// Ошибка.
-
 		}
 		for ( int offset = 0; offset < ARRAYSIZE ; ++offset ) 
 		{
 			printf( "*( bPtr + %u ) = %d\n", offset, *( bPtr + offset ) );//array element B[offset] can alternatively be referenced with the pointer expression; offset is offset; this notation is referred to as pointer/offset notation; the parentheses are necessary because the precedence of * is higher than the precedence of +.
 		} 
+		!!!	printf ("%d\n", *bPtr[2] );// Ошибка.
 	}
 
 
 	int *bPtr = B;
-	&B[3] 2686760 = bPtr + 3 2686760
+	&B[3] 20686760 = bPtr + 3 2686760
 	//&B[3] can be written with the pointer expression bPtr + 3.
 
 	Массив
-	
 	Array subscript notation
+	//An array name can be thought of as a constant pointer. 
 	B[ 0 ] = 10
 	B[ 1 ] = 20
 	B[ 2 ] = 30
 	B[ 3 ] = 40
-
 	Pointer/offset notation where the pointer is the array name
 	//The array itself can be treated as a pointer and used in pointer arithmetic;
 	*( B + 0 ) = 10    *( &B[0] + 0 ) = 10    *( &B[2] + 0 ) = 30
@@ -2618,14 +2508,12 @@ Pointers can be compared using equality and relational operators, but such compa
 	*( B + 3 ) = 40    *( &B[0] + 3 ) = 40    *( &B[2] + 3 ) = 4201088
 
 	Указатель
-
 	Pointer subscript notation
 	// Pointers can be subscripted like arrays. If bPtr has the value B, the expression refers to the array element B[1]. This is referred to as pointer/subscript notation. 
 	bPtr[ 0 ] = 10
 	bPtr[ 1 ] = 20
 	bPtr[ 2 ] = 30
 	bPtr[ 3 ] = 40
-
 	Pointer/offset notation
 	//array element B[offset] can alternatively be referenced with the pointer expression; offset is offset; this notation is referred to as pointer/offset notation; the parentheses are necessary because the precedence of * is higher than the precedence of +.
 	*( bPtr + 0 ) = 10
@@ -2634,8 +2522,7 @@ Pointers can be compared using equality and relational operators, but such compa
 	*( bPtr + 3 ) = 40	
 
 
-
-
+Из-за этого примера пришлось многое переосмыслить, это неплохо.
 	#include <stdio.h>
 	#define SIZE 10
 	void copy1( char * const s1, const char * const s2 );
@@ -2643,7 +2530,7 @@ Pointers can be compared using equality and relational operators, but such compa
 	int main( void )
 	{
 		char string1[ SIZE ];
-		char *string2 = "Hello";//ненуачо, символьный массив через указатель, чудесно и понятно, элементарно блядь и логично; нахуй это нужно блядь а!?
+		char *string2 = "Hello";//ненуачо, символьный массив через указатель, чудесно и понятно, элементарно и логично;
 		char string3[ SIZE ];
 		char string4[] = "Good Bye";
 		copy1( string1, string2 );
@@ -2653,15 +2540,15 @@ Pointers can be compared using equality and relational operators, but such compa
 	}
 	void copy1( char * const s1, const char * const s2 )//s1 нельзя менять адрес, s2 нельзя менять адрес и нельзя менять значение.
 	{
-		size_t i;//без этого никак, ага
-		for ( i = 0;         ( s1[ i ] = s2[ i ] ) != '\0'              ; ++i )//пиздец какой-то, что они, блядь, курили? 
+		size_t i;
+		for ( i=0; ( s1[i]=s2[i] ) != '\0' ; ++i )//слева от != будет находиться результат последней операции.
 		{
 			;
 		}
 	}
 	void copy2( char *s1, const char *s2 )
 	{
-		for ( ; ( *s1 = *s2 ) != '\0'; ++s1, ++s2 ) 
+		for ( ; ( *s1 = *s2 ) != '\0' ; ++s1, ++s2 ) 
 		{
 			;
 		}

@@ -246,23 +246,29 @@ An expression in a programming language is a combination of one or more constant
 C how to program:
 Pseudocode consists only of action statements—those that are executed when the program has been converted from pseudocode to C and is run in C. Definitions are not executable statements—they’re simply messages to the compiler. For example, the definition tells the compiler the type of variable i and instructs the compiler to reserve space in memory for the variable. But this definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed. 
 
-none place:
+Unknown place:
 An expression (выражение) is a sequence of operators. Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). The body of any function is a compound (составная) statement which in turn is a sequence of statements and declarations (объявлений).
 
-The rules of operator precedence specify the order C uses to evaluate expressions. The associativity of the operators specifies whether they evaluate from left to right or from right to left. 
+The rules of operator precedence specify the Order C uses to evaluate expressions (есть правила , которые определяют порядок). 
+The associativity of the operators specifies whether they evaluate from left to right or from right to left. 
 
 The circled numbers indicate the order in which C evaluates the operators ( Order of evaluation (precedence), Порядок оценки (старшинство) ): 
 	z = p * r % q + w / x - y;
 	  6   1   2   4   3   5
 
 In the while header while ( ( grade = getchar() ) != EOF ) the parenthesized assignment (grade = getchar()) executes first. 
-The getchar function (from <stdio.h>) reads one character from the keyboard and stores that character in the integer variable grade. Assignments as a whole actually have a value (Присваивание само по себе имеет значение, то есть речь о том, что инструкция сама по себе может использоваться как условие, это похоже на оценку послеледней инструкции в регистре состояний). 
+The getchar function (from <stdio.h>) reads one character from the keyboard and stores that character in the integer variable grade. Assignments as a whole actually have a value (Присваивание само по себе имеет значение). То есть речь о том, что инструкция сама по себе может использоваться как условие, это похоже на оценку послеледней инструкции в регистре состояний. 
 This value is assigned to the variable on the left side of the =. The value of the assignment expression grade = getchar() is the character that’s returned by getchar and assigned to the variable grade. 
 The fact that assignments have values can be useful for setting several variables to the same value. For example, a = b = c = 0; first evaluates the assignment c = 0 (because the = operator associates from right to left). The variable b is then assigned the value of the assignment (переменной b присваивается значение выражениЯ) c = 0 (which is 0). Then, the variable a is assigned the value of the assignment b = (c = 0) (which is also 0).
 
-Order of Evaluation of Operands. Не путать с операндами операторов, это из рекурсивного способа решения чисел Фибоначчи. 
+Order of Evaluation of Operands. Не путать с Order of Evaluation of Operators (тысяча способов сказать одно и тоже), вечно меняют подход объяснения от общего к частному и от частного к общему. Это из рекурсивного способа решения чисел Фибоначчи. 
 This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в котором операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета (старшинства) операторов). Figure 5.20 shows that while evaluating fibonacci(3), two recursive calls will be made, namely fibonacci(2) and fibonacci(1). But in what order will these calls be made? You might simply assume the operands will be evaluated left to right. For optimization reasons, C does not specify the order in which the operands of most operators (C не определяет порядок, в каком будут вычисляться операнды большинства операторов) (including +) are to be evaluated. Therefore, you should make no assumption about the order in which these calls will execute. The calls could in fact execute fibonacci(2) first and then fibonacci(1), or the calls could execute in the reverse order, fibonacci(1) then fibonacci(2).
 In this and most other programs, the final result would be the same. But in some programs the evaluation of an operand may have side effects that could affect the final result of the expression. C specifies the order of evaluation of the operands of only four operators— namely &&, ||, the comma (,) operator and ?:. The first three of these are binary operators whose operands are guaranteed to be evaluated left to right. [Note: The commas used to separate the arguments in a function call are not comma operators.] The last operator is C’s only ternary operator. Its leftmost operand is always evaluated first; if the leftmost operand evaluates to nonzero, the middle operand is evaluated next and the last operand is ignored; if the leftmost operand evaluates to zero, the third operand is evaluated next and the middle operand is ignored.
+
+Что это было - есть выражения, которые состоят из операторов и их операндов. Так вот, есть порядок оценки операторов, а есть (которого почти нет) порядок оценки операндов. А все это вместе как раз и образует порядок оценки выражений...
+
+
+
 
 
 
@@ -326,7 +332,10 @@ https://en.wikipedia.org/wiki/Operator_associativity
 12:	The commas used to separate the arguments in a function call are not comma operators. 
 
 	The comma operator guarantees that lists of expressions evaluate from left to right. The value of the entire expression is that of the rightmost expression. 
-	Смотри пример в for, в указателях s1[ i ] = s2[ i ] и ниже.
+	Смотри пример в for и ниже.
+	int j = 1;
+	j = (j++, j+333, 4+j);//2, 2+333, 4+2; без скобок будет 1.
+	printf ("%d\n", j );//6
 
 
 Variable names are said to be lvalues (for “left values”) because they can be used on the left side of an assignment operator. 

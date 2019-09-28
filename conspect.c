@@ -241,7 +241,7 @@ In most languages, statements contrast with expressions, in that statements do n
 In purely (чисто) functional programming, there are no statements; everything is an expression.
 
 https://en.wikipedia.org/wiki/Expression_(computer_science) :
-An expression in a programming language is a combination of one or more constants, variables, operators, and functions that the programming language interprets (according (в соответсвтии с) to its particular rules of precedence and of association) and computes (вычисляет) to produce (производства) ("to return", in a stateful environment) another value. This process, as for mathematical expressions, is called evaluation.
+An expression in a programming language is a combination of one or more constants, variables, operators, and functions that the programming language interprets (according (в соответсвтии с) to its particular rules of precedence (приоритет, приоритетность, старшинство, предшествование) and of association (ассоциативность) ) and computes (вычисляет) to produce (производства) ("to return", in a stateful environment) another value. This process, as for mathematical expressions, is called evaluation.
 
 C how to program:
 Pseudocode consists only of action statements—those that are executed when the program has been converted from pseudocode to C and is run in C. Definitions are not executable statements—they’re simply messages to the compiler. For example, the definition tells the compiler the type of variable i and instructs the compiler to reserve space in memory for the variable. But this definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed. 
@@ -249,10 +249,10 @@ Pseudocode consists only of action statements—those that are executed when the
 Unknown place:
 An expression (выражение) is a sequence of operators. Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). The body of any function is a compound (составная) statement which in turn is a sequence of statements and declarations (объявлений).
 
-The rules of operator precedence specify the Order C uses to evaluate expressions (есть правила , которые определяют порядок). 
+The rules of operator precedence specify the Order C uses to evaluate expressions (правила, которые определяют порядок). 
 The associativity of the operators specifies whether they evaluate from left to right or from right to left. 
 
-The circled numbers indicate the order in which C evaluates the operators ( Order of evaluation (precedence), Порядок оценки (старшинство) ): 
+The circled numbers indicate the order in which C evaluates the operators: 
 	z = p * r % q + w / x - y;
 	  6   1   2   4   3   5
 
@@ -262,7 +262,7 @@ This value is assigned to the variable on the left side of the =. The value of t
 The fact that assignments have values can be useful for setting several variables to the same value. For example, a = b = c = 0; first evaluates the assignment c = 0 (because the = operator associates from right to left). The variable b is then assigned the value of the assignment (переменной b присваивается значение выражениЯ) c = 0 (which is 0). Then, the variable a is assigned the value of the assignment b = (c = 0) (which is also 0).
 
 Order of Evaluation of Operands. Не путать с Order of Evaluation of Operators (тысяча способов сказать одно и тоже), вечно меняют подход объяснения от общего к частному и от частного к общему. Это из рекурсивного способа решения чисел Фибоначчи. 
-This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в котором операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета (старшинства) операторов). Figure 5.20 shows that while evaluating fibonacci(3), two recursive calls will be made, namely fibonacci(2) and fibonacci(1). But in what order will these calls be made? You might simply assume the operands will be evaluated left to right. For optimization reasons, C does not specify the order in which the operands of most operators (C не определяет порядок, в каком будут вычисляться операнды большинства операторов) (including +) are to be evaluated. Therefore, you should make no assumption about the order in which these calls will execute. The calls could in fact execute fibonacci(2) first and then fibonacci(1), or the calls could execute in the reverse order, fibonacci(1) then fibonacci(2).
+This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в котором операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета операторов). Figure 5.20 shows that while evaluating fibonacci(3), two recursive calls will be made, namely fibonacci(2) and fibonacci(1). But in what order will these calls be made? You might simply assume the operands will be evaluated left to right. For optimization reasons, C does not specify the order in which the operands of most operators (C не определяет порядок, в каком будут вычисляться операнды большинства операторов) (including +) are to be evaluated. Therefore, you should make no assumption about the order in which these calls will execute. The calls could in fact execute fibonacci(2) first and then fibonacci(1), or the calls could execute in the reverse order, fibonacci(1) then fibonacci(2).
 In this and most other programs, the final result would be the same. But in some programs the evaluation of an operand may have side effects that could affect the final result of the expression. C specifies the order of evaluation of the operands of only four operators— namely &&, ||, the comma (,) operator and ?:. The first three of these are binary operators whose operands are guaranteed to be evaluated left to right. [Note: The commas used to separate the arguments in a function call are not comma operators.] The last operator is C’s only ternary operator. Its leftmost operand is always evaluated first; if the leftmost operand evaluates to nonzero, the middle operand is evaluated next and the last operand is ignored; if the leftmost operand evaluates to zero, the third operand is evaluated next and the middle operand is ignored.
 
 Что это было - есть выражения, которые состоят из операторов и их операндов. Так вот, есть порядок оценки операторов, а есть (которого почти нет) порядок оценки операндов. А все это вместе как раз и образует порядок оценки выражений...
@@ -276,7 +276,7 @@ In this and most other programs, the final result would be the same. But in some
 
 
 Operator precedence and associativity.  
-(стр 136, 218, 281) А понятнее было бы Associativity (ассоциативность) и Operator precedence (приоритетность, старшинство) или Order of operations (порядок операций, хотя с операторами понятнее звучит), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
+(стр 136, 218, 281) Понятнее было бы associativity and operator precedence/order of operations (с операторами понятнее звучит), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
 
 	Operators								Associativity	Type			//My comment
 	
@@ -331,7 +331,7 @@ https://en.wikipedia.org/wiki/Operator_associativity
 
 12:	The commas used to separate the arguments in a function call are not comma operators. 
 
-	The comma operator guarantees that lists of expressions evaluate from left to right. The value of the entire expression is that of the rightmost expression. 
+	The comma operator guarantees that lists of expressions evaluate from left to right. The value of the entire expression is that of the rightmost expression. The value of the rightmost expression becomes the value of the entire expression.
 	Смотри пример в for и ниже.
 	int j = 1;
 	j = (j++, j+333, 4+j);//2, 2+333, 4+2; без скобок будет 1.
@@ -481,7 +481,7 @@ The if Statement, single-selection statement (с одиночным выборо
 		statement;
 	}
 
-Conditions in if statements are formed by using the equality operators and relational (отношения) operators. The relational operators all have the same level of precedence and associate (ассоциируется) left to right. The equality operators have a lower level of precedence than the relational operators and they also associate left to right. 
+Conditions in if statements are formed by using the equality operators and relational (отношения) operators. The relational operators all have the same level of precedence and associate left to right. The equality operators have a lower level of precedence than the relational operators and they also associate left to right. 
 In C, a condition may actually be any expression that generates a zero (false) or nonzero (true) value. То есть если condition есть просто constant, то условие всегда будет истинным.
 Condition представляет собой и expression; и statement, точнее будет использоваться результат последней операции вызванной инструкцией, похоже на оценку результата последней операции в регистре состояний, см while ( ( x = getchar() ) != EOF ) и см for ( i=0; ( s1[i]=s2[i] ) != '\0' ; ++i ) .
 

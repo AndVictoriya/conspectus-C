@@ -238,9 +238,9 @@ Any expression in C that produces a value can be used in the decision portion of
 
 
 
-Выражения состоят из операторов и их операндов. Есть порядок оценки операторов, а есть порядок оценки операндов для операторов ( &&, ||, the comma (,) operator and ?: ). А все это вместе как раз и образует порядок оценки выражений...
+Выражения состоят из операторов и их операндов. Есть порядок оценки операторов, а есть порядок оценки операндов для операторов &&, ||, the comma (,) operator and ?: . А все это вместе как раз и образует порядок оценки выражений...
 Order of Evaluation of Operands. 
-Не путать с Order of evaluation (precedence) of Operators, вечно меняют подход объяснения от общего к частному и от частного к общему. Это из рекурсивного способа решения чисел Фибоначчи. 
+Не путать с Order of evaluation (precedence) of Operators. Вечно меняют подход объяснения от общего к частному и от частного к общему. Это из рекурсивного способа решения чисел Фибоначчи. 
 This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в которой операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета операторов)! 
 Figure 5.20 shows that while evaluating fibonacci(3), two recursive calls will be made, namely fibonacci(2) and fibonacci(1). But in what order will these calls be made? You might simply assume the operands will be evaluated left to right. For optimization reasons, C does not specify the order in which the operands of most operators (C не определяет порядок, в каком будут вычисляться операнды большинства операторов) (including +) are to be evaluated. Therefore, you should make no assumption about the order in which these calls will execute. The calls could in fact execute fibonacci(2) first and then fibonacci(1), or the calls could execute in the reverse order, fibonacci(1) then fibonacci(2).
 In this and most other programs, the final result would be the same. But in some programs the evaluation of an operand may have side effects that could affect the final result of the expression. C specifies the order of evaluation of the operands of only four operators— namely &&, ||, the comma (,) operator and ?:. The first three of these are binary operators whose operands are guaranteed to be evaluated left to right (именно поэтому лучше наиболее вероятное значение ставить на соответствующее место). [Note: The commas used to separate the arguments in a function call are not comma operators.] The last operator is C’s only ternary operator. Its leftmost operand is always evaluated first; if the leftmost operand evaluates to nonzero, the middle operand is evaluated next and the last operand is ignored; if the leftmost operand evaluates to zero, the third operand is evaluated next and the middle operand is ignored.
@@ -493,7 +493,6 @@ Any expression in C that produces a value can be used in the decision portion of
 	if ( payCode = 4 )//всегда истинно, пока присваивается ненулеваое значение.
  		printf( "%s", "You get a bonus!" );
 
-Condition представляет собой и expression; и statement?, точнее будет использоваться результат последней операции вызванной инструкцией, похоже на оценку результата последней операции в регистре состояний, см while ( ( x = getchar() ) != EOF ) и см for ( i=0; ( s1[ i ] = s2[ i ] ) != '\0' ; ++i ) .
 
 
 

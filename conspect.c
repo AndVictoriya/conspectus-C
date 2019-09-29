@@ -103,30 +103,20 @@ We use the structured approach (подход) throughout the remainder (на п�
 
 Наступает великий миг: я утверждаю, что собранное нами устройство может с полным правом именоваться компьютером! Очень примитивным, но компьютером. Его ключевое свойство — наличие команды условного перехода. Именно возможность управляемых циклических процедур отличает компьютер от калькулятора. Петцольд, 283.
 
-
 1	#include <stdio.h>
-
 Lines beginning with # are processed by the preprocessor before compilation. 
 This is a directive to the C preprocessor. It tells the preprocessor to include the contents of the standard input/output header (<stdio.h>) in the program. This header contains information used by the compiler when compiling calls to standard input/output library functions such as printf. We explain the contents of headers in more detail in Chapter 5 and 13.
-
-
-
 
 2	int main (void)//int main () 
 	{
 		statement;
 	}
-
 The parentheses () after main indicate that main is a program building block called a function. C programs contain one or more functions, one of which must be main. The main function is a part of every C program. Every program in C begins executing at the function main. 
 A left brace { begins the body of every function. A corresponding right brace } ends each function. This pair of braces and the portion of the program between the braces is called a block. The block is an important program unit in C. 
 Functions can return information. The keyword int to the left of main indicates that main “returns” an integer (whole-number) value. We’ll explain what it means for a function to “return a value” when we demonstrate how to create your own functions in Chapter 5. 
 Functions can receive information when they’re called upon to execute. The void in parentheses here means that main does not receive any information. In Chapter 14, we’ll show an example of main receiving information. 
 
-
-
-
 3	printf( "Welcome \\ to C!\n" );
-
 An Output Statement instructs the computer to perform an action (namely to print on the screen the string of characters marked by the quotation marks ""). 
 A string is sometimes called a character string (символьная строка), a message or a literal. 
 The entire line, including the printf function (the “f” stands for “formatted”), its argument within the parentheses () and the semicolon ; , is called a statement (инструкция). Every statement must end with statement terminator a semicolon ; . 
@@ -134,24 +124,15 @@ The backslash (\) is called an escape character. Они же esq-коды.
 Printf causes the computer to perform an action. 
 As any program executes, it performs a variety (множество) of actions and makes decisions. 
 Executable statements either perform actions (calculations, input or output of data, etc) or make decisions (if, while, etc) (стр 54). 
-
-
 The Linker and Executables. Standard library functions like printf and scanf are not part of the C programming language. Сompiler cannot find a spelling error in printf or scanf. When the compiler compiles a printf statement, it merely provides space in the object program for a “call” to the library function (e.g printf). But the compiler does not know where the library functions are — the linker does. When the linker runs, it locates the library functions and inserts the proper calls (соответствующие вызовы) to these library functions in the object program (причем, вставляет он уже обжекнутые куски кода). Now the object program is complete and ready to be executed. For this reason, the linked program is called an executable. If the function name is misspelled, the linker will spot the error, because it will not be able to match the name in the C program with the name of any known function in the libraries.
-
-
-
 
 4	int integer1, integer2;
 	int sum; 
-
 This line are definitions (определения). The names integer1, integer2 and sum are the names of variables (переменных). Variables is the locations in memory where values can be stored for use by a program. Variable names such as integer1 and sum actually correspond to locations in the computer’s memory. These definitions specify (указывают) that variables integer1, integer2 and sum are of type int, which means that they’ll hold integer values, i.e., whole numbers such as 7, –11, etc. Every variable has a name, a type and a value. All variables must be defined with a name and a data type before they can be used in a program. 
-
 Definitions are not executable statements—they’re simply messages to the compiler (стр 72). 
-
 For readers using the Microsoft Visual C++ compiler, note that we’re placing our variable definitions immediately after the left brace { that begins the body of main. The C standard allows you to place each variable definition anywhere in main before that variable’s first use in the code. Some compilers, such as GNU gcc, have implemented this capability. We’ll address this issue in more depth in later chapters.
 Recall that the Microsoft Visual C++ compiler requires variable definitions to be placed after the left brace { of a function and before any executable statements. Therefore, in the program in Fig. 2.5, inserting the definition of integer1 after the first printf would cause a syntax error in Visual C++. 
-
-Вдобавок объявления могут быть внутри выделенных блоков, см. области действия. 
+Вдобавок объявления могут быть внутри выделенных блоков, см. области действия (scope). 
 	int main (void)
 	{
 			int x = 1;
@@ -170,49 +151,29 @@ Recall that the Microsoft Visual C++ compiler requires variable definitions to b
 			printf("%d\n", x);//11
 		return 0;
 	}
-
 A variable name in C is any valid identifier (идентификатор). An identifier is a series of characters consisting of letters, digits and underscores (_) that does not begin with a digit. C is case sensitive — uppercase and lowercase letters are different in C, so a1 and A1 are different identifiers. The first letter of an identifier used as a simple variable name should be a lowercase letter. Later in the text we’ll assign special significance to identifiers that begin with a capital letter and to identifiers that use all capital letters. 
-
-
-
  
 5	scanf("%d", &integer1);
 	scanf("%d", &integer2);
-
 This statement uses scanf (the “f” stands for “formatted”) to obtain a value from the user. The function reads from the standard input, which is usually the keyboard. 
-
 This scanf has two arguments: "%d" and &integer1. 
-
 The first, the format control string (строка управляющая форматом) "%d". It indicates the type of data that should be entered by the user. The %d conversion specifier (спецификатор преобразования) indicates that the data should be an integer. The % in this context is treated (рассматривается) by scanf (and printf as we’ll see) as a special character (специальный символ, как esq-код) that begins a conversion specifier. The letter d stands for “decimal integer”. 
-
 The second argument &integer1 of scanf begins with an ampersand & (address operator) followed by the variable name (& (адрес оператор) за которым следует имя переменной). The &, when combined with the variable name integer1, tells scanf the location (or address) in memory at which the variable integer1 is stored. The computer then stores the value that the user enters for integer1 at that location. 
-
 Some exceptions to this rule are discussed in Chapters 6 and 7. The use of the ampersand will become clear after we study pointers in Chapter 7. 
 Forgetting to precede a variable in a scanf statement with an ampersand when that variable should, in fact, be preceded by an ampersand this causes a “segmentation fault” or “access violation.” The precise cause of this error will be explained in Chapter 7.
 
-
-
-
 6	sum = integer1 + integer2;	
-
 This is assignment (присваивания) statement calculates the total of variables integer1 and integer2 and assigns the result to variable sum using the assignment operator =. 
 Most calculations are performed in assignments. 
 The = operator and the + operator are called binary operators because each has two operands. 
 The + operator’s two operands are integer1 and integer2. 
 The = operator’s two operands are sum and the value of the expression (выражение) integer1 + integer2
 
-
-
-
 7	printf( "Sum is %d\n", sum ); 
-
 This printf has two arguments, "Sum is %d\n" and sum. 
-
 The first argument "Sum is %d\n" is the format control string. 
 It contains some literal characters Sum is  to be displayed, and it contains the conversion specifier %d indicating that an integer will be printed. 
-
 The second argument sum specifies (задает, указывает) the value to be printed. 
-
 
 Secure print:
 	Avoid Single-Argument printfs:
@@ -246,28 +207,43 @@ An expression in a programming language is a combination of one or more constant
 C how to program:
 Pseudocode consists only of action statements—those that are executed when the program has been converted from pseudocode to C and is run in C. Definitions are not executable statements—they’re simply messages to the compiler. For example, the definition tells the compiler the type of variable i and instructs the compiler to reserve space in memory for the variable. But this definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed. 
 
-Unknown place:
-An expression (выражение) is a sequence of operators. Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). The body of any function is a compound (составная) statement which in turn is a sequence of statements and declarations (объявлений).
+Unknown:
+An expression is a sequence of operators. Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). The body of any function is a compound (составная) statement which in turn is a sequence of statements and declarations (объявлений).
 
-The rules of operator precedence specify the Order C uses to evaluate expressions (правила, которые определяют порядок). 
-The associativity of the operators specifies whether they evaluate from left to right or from right to left. 
 
+
+
+
+Rules of Operator Precedence.
+The rules of operator precedence specify the order C uses to evaluate expressions (правила, которые определяют порядок). 
+The associativity of the operators specifies whether (будут ли) they evaluate from left to right or from right to left. 
 The circled numbers indicate the order in which C evaluates the operators: 
 	z = p * r % q + w / x - y;
 	  6   1   2   4   3   5
 
-In the while header while ( ( grade = getchar() ) != EOF ) the parenthesized assignment (grade = getchar()) executes first. 
-The getchar function (from <stdio.h>) reads one character from the keyboard and stores that character in the integer variable grade. Assignments as a whole actually have a value (Присваивание само по себе имеет значение). То есть речь о том, что инструкция сама по себе может использоваться как условие, это похоже на оценку послеледней инструкции в регистре состояний. 
-This value is assigned to the variable on the left side of the =. The value of the assignment expression grade = getchar() is the character that’s returned by getchar and assigned to the variable grade. 
+
+
+
+	while ( ( grade = getchar() ) != EOF )
+In the while header the parenthesized assignment (grade = getchar()) executes first. The getchar function (from <stdio.h>) reads one character from the keyboard and stores that character in the integer variable grade. 
+Assignments as a whole actually have a value (присваивание само по себе имеет значение). This value is assigned to the variable on the left side of the =. The value of the assignment expression grade = getchar() is the character that’s returned by getchar and assigned to the variable grade. 
+То есть речь о том, что выражение присваивания (с простыми выражениями из остальных операторов и так все понятно, что можно) само по себе может использоваться как условие. Это похоже на оценку последней инструкции в регистре состояний. Но касается ли это инструкций здесь?
 The fact that assignments have values can be useful for setting several variables to the same value. For example, a = b = c = 0; first evaluates the assignment c = 0 (because the = operator associates from right to left). The variable b is then assigned the value of the assignment (переменной b присваивается значение выражениЯ) c = 0 (which is 0). Then, the variable a is assigned the value of the assignment b = (c = 0) (which is also 0).
+Any expression in C that produces a value can be used in the decision portion of any control statement. 
+	if ( payCode == 4 )
+		printf( "%s", "You get a bonus!" );
+	if ( payCode = 4 )//всегда истинно, пока присваивается ненулеваое значение.
+ 		printf( "%s", "You get a bonus!" );
 
-Order of Evaluation of Operands. Не путать с Order of Evaluation of Operators (тысяча способов сказать одно и тоже), вечно меняют подход объяснения от общего к частному и от частного к общему. Это из рекурсивного способа решения чисел Фибоначчи. 
-This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в котором операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета операторов). Figure 5.20 shows that while evaluating fibonacci(3), two recursive calls will be made, namely fibonacci(2) and fibonacci(1). But in what order will these calls be made? You might simply assume the operands will be evaluated left to right. For optimization reasons, C does not specify the order in which the operands of most operators (C не определяет порядок, в каком будут вычисляться операнды большинства операторов) (including +) are to be evaluated. Therefore, you should make no assumption about the order in which these calls will execute. The calls could in fact execute fibonacci(2) first and then fibonacci(1), or the calls could execute in the reverse order, fibonacci(1) then fibonacci(2).
-In this and most other programs, the final result would be the same. But in some programs the evaluation of an operand may have side effects that could affect the final result of the expression. C specifies the order of evaluation of the operands of only four operators— namely &&, ||, the comma (,) operator and ?:. The first three of these are binary operators whose operands are guaranteed to be evaluated left to right. [Note: The commas used to separate the arguments in a function call are not comma operators.] The last operator is C’s only ternary operator. Its leftmost operand is always evaluated first; if the leftmost operand evaluates to nonzero, the middle operand is evaluated next and the last operand is ignored; if the leftmost operand evaluates to zero, the third operand is evaluated next and the middle operand is ignored.
-
-Что это было - есть выражения, которые состоят из операторов и их операндов. Так вот, есть порядок оценки операторов, а есть (которого почти нет) порядок оценки операндов. А все это вместе как раз и образует порядок оценки выражений...
 
 
+
+Выражения состоят из операторов и их операндов. Есть порядок оценки операторов, а есть порядок оценки операндов для операторов ( &&, ||, the comma (,) operator and ?: ). А все это вместе как раз и образует порядок оценки выражений...
+Order of Evaluation of Operands. 
+Не путать с Order of evaluation (precedence) of Operators, вечно меняют подход объяснения от общего к частному и от частного к общему. Это из рекурсивного способа решения чисел Фибоначчи. 
+This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в которой операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета операторов)! 
+Figure 5.20 shows that while evaluating fibonacci(3), two recursive calls will be made, namely fibonacci(2) and fibonacci(1). But in what order will these calls be made? You might simply assume the operands will be evaluated left to right. For optimization reasons, C does not specify the order in which the operands of most operators (C не определяет порядок, в каком будут вычисляться операнды большинства операторов) (including +) are to be evaluated. Therefore, you should make no assumption about the order in which these calls will execute. The calls could in fact execute fibonacci(2) first and then fibonacci(1), or the calls could execute in the reverse order, fibonacci(1) then fibonacci(2).
+In this and most other programs, the final result would be the same. But in some programs the evaluation of an operand may have side effects that could affect the final result of the expression. C specifies the order of evaluation of the operands of only four operators— namely &&, ||, the comma (,) operator and ?:. The first three of these are binary operators whose operands are guaranteed to be evaluated left to right (именно поэтому лучше наиболее вероятное значение ставить на соответствующее место). [Note: The commas used to separate the arguments in a function call are not comma operators.] The last operator is C’s only ternary operator. Its leftmost operand is always evaluated first; if the leftmost operand evaluates to nonzero, the middle operand is evaluated next and the last operand is ignored; if the leftmost operand evaluates to zero, the third operand is evaluated next and the middle operand is ignored.
 
 
 
@@ -276,7 +252,7 @@ In this and most other programs, the final result would be the same. But in some
 
 
 Operator precedence and associativity.  
-(стр 136, 218, 281) Понятнее было бы associativity and operator precedence/order of operations (с операторами понятнее звучит), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
+(стр 136, 218, 281) Понятнее было бы associativity and operator precedence/order of operations (operator precedence понятнее звучит), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
 
 	Operators								Associativity	Type			//My comment
 	
@@ -286,7 +262,7 @@ Operator precedence and associativity.
 4	* / %									left to right	multiplicative	//binary
 5	+ -										left to right	additive		//binary
 6	< <= > >=								left to right	relational
-7	== !=									left to right	equality		//The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см ниже, в if и в logical).
+7	== !=									left to right	equality		//The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см ниже, в if и в Logical Operators).
 8	&&										left to right	logical AND		//binary
 9	||										left to right	logical OR		//binary
 10	?:										right to left	conditional		//ternary
@@ -312,7 +288,9 @@ https://en.wikipedia.org/wiki/Operator_associativity
 	a != b <= c 	1
 	a != b <= c 	1
 
-11:	a = b = c = 0 распознается как a = (b = (c = 0)) .
+11:	a = b; и b = a; разные инструкции.
+
+	a = b = c = 0 распознается как a = (b = (c = 0)) в том числе и потому, что Assignments as a whole actually have a value. То есть здесь суть не только в ассоциативности.
 	
 	Statement c = c + 3; can be abbreviated (сокращена) with the addition assignment operator += as c += 3; Это компилируется быстрее.
 
@@ -332,15 +310,18 @@ https://en.wikipedia.org/wiki/Operator_associativity
 12:	The commas used to separate the arguments in a function call are not comma operators. 
 
 	The comma operator guarantees that lists of expressions evaluate from left to right. The value of the entire expression is that of the rightmost expression. The value of the rightmost expression becomes the value of the entire expression.
-	Смотри пример в for и ниже.
+	Смотри пример в for и ниже:
 	int j = 1;
 	j = (j++, j+333, 4+j);//2, 2+333, 4+2; без скобок будет 1.
 	printf ("%d\n", j );//6
+
+3:	!5 равно 0, !!5 равно 1, 3*!5 равно 0, 3!5 ошибка.
 
 
 Variable names are said to be lvalues (for “left values”) because they can be used on the left side of an assignment operator. 
 Constants are said to be rvalues (for “right values”) because they can be used on only the right side of an assignment operator. 
 lvalues can also be used as rvalues, but not vice versa.
+	x == 7 равносильно 7 == x. х = 7, Но 7 = x есть ошибка. 
 
 Так работать не будет, потому что нарушается принцип. ???
 	int  day = 10, a;
@@ -483,7 +464,6 @@ The if Statement, single-selection statement (с одиночным выборо
 
 Conditions in if statements are formed by using the equality operators and relational (отношения) operators. The relational operators all have the same level of precedence and associate left to right. The equality operators have a lower level of precedence than the relational operators and they also associate left to right. 
 In C, a condition may actually be any expression that generates a zero (false) or nonzero (true) value. То есть если condition есть просто constant, то условие всегда будет истинным.
-Condition представляет собой и expression; и statement, точнее будет использоваться результат последней операции вызванной инструкцией, похоже на оценку результата последней операции в регистре состояний, см while ( ( x = getchar() ) != EOF ) и см for ( i=0; ( s1[i]=s2[i] ) != '\0' ; ++i ) .
 
 	scanf ("%d", &x); 
 	printf("%d\n", x>=2);// Напечатает 0 или 1 в зависимости от истинности.
@@ -504,9 +484,16 @@ Condition представляет собой и expression; и statement, то�
 
 	if ( a > b )
 	{
-		//; внутри фигурных скобок не обязателен, хотя в примере про указатели s1[i]=s2[i]  помещают ; внутрь пустых фигурных скобок. 
+		//; внутри фигурных скобок не обязателен, хотя в примере про указатели ( s1[ i ] = s2[ i ] ) помещают ; внутрь пустых фигурных скобок. 
 	}
 
+Any expression in C that produces a value can be used in the decision portion of any control statement. 
+	if ( payCode == 4 )
+		printf( "%s", "You get a bonus!" );
+	if ( payCode = 4 )//всегда истинно, пока присваивается ненулеваое значение.
+ 		printf( "%s", "You get a bonus!" );
+
+Condition представляет собой и expression; и statement?, точнее будет использоваться результат последней операции вызванной инструкцией, похоже на оценку результата последней операции в регистре состояний, см while ( ( x = getchar() ) != EOF ) и см for ( i=0; ( s1[ i ] = s2[ i ] ) != '\0' ; ++i ) .
 
 
 
@@ -743,7 +730,9 @@ The continue statement, when executed in a while, for or do…while statement, s
 		printf("End %d\n", x);
 		return 0;
 	}
-	int main (void){
+
+	int main (void)
+	{
 		int  x;
 		for (x = 1; x <= 10; x++)
 		{
@@ -769,6 +758,8 @@ In expressions using operator &&, make the condition that’s most likely to be 
 In expressions using operator ||, make the condition that’s most likely to be true the leftmost condition. 
 This can reduce a program’s execution time.
  
+The equality operators have a lower level of precedence than the relational operators and they also associate left to right
+
 	int main (void){
 		int  a, b, c;
 		scanf("%d%d%d", &a, &b, &c);
@@ -778,8 +769,7 @@ This can reduce a program’s execution time.
 		if ( !(a == 2) )	
 			printf("!(%d==2)\n", a);
 		
-		if ( b == 1 && c >= 10)//Слева от && стараться ставить более вероятное условие, чтобы раньше перестать считать. 
-			//The equality operators have a lower level of precedence than the relational operators and they also associate left to right
+		if ( b == 1 && c >= 10) 
 			printf("%d == 1 && %d >= 10", b, c);
 		return 0;
 	}
@@ -2550,14 +2540,14 @@ Pointers can be compared using equality and relational operators, but such compa
 	void copy1( char * const s1, const char * const s2 )//s1 нельзя менять адрес, s2 нельзя менять адрес и нельзя менять значение.
 	{
 		size_t i;
-		for ( i=0; ( s1[i]=s2[i] ) != '\0' ; ++i )//слева от != будет находиться результат последней операции.
+		for ( i=0; ( s1[ i ] = s2[ i ] ) != '\0' ; ++i )//слева от != будет находиться результат последней операции.
 		{
 			;
 		}
 	}
 	void copy2( char *s1, const char *s2 )
 	{
-		for ( ; ( *s1 = *s2 ) != '\0' ; ++s1, ++s2 ) 
+		for ( ;  ( *s1 = *s2 ) != '\0' ; ++s1, ++s2 ) 
 		{
 			;
 		}

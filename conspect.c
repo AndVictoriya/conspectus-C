@@ -98,10 +98,7 @@ utf8
 
 
 Введение. Разбито на 7 абзацев.
-
-We use the structured approach (подход) throughout the remainder (на протяжении оставшейся) of the C portion (части) of the text.
-
-Наступает великий миг: я утверждаю, что собранное нами устройство может с полным правом именоваться компьютером! Очень примитивным, но компьютером. Его ключевое свойство — наличие команды условного перехода. Именно возможность управляемых циклических процедур отличает компьютер от калькулятора. Петцольд, 283.
+Наступает великий миг: я утверждаю, что собранное нами устройство может с полным правом именоваться компьютером! Очень примитивным, но компьютером. Его ключевое свойство — наличие команды условного перехода. Именно возможность управляемых циклических процедур отличает компьютер от калькулятора. Петцольд, 283. We use the structured approach (подход) throughout the remainder (на протяжении оставшейся) of the C portion (части) of the text.
 
 1	#include <stdio.h>
 Lines beginning with # are processed by the preprocessor before compilation. 
@@ -174,35 +171,22 @@ This printf has two arguments, "Sum is %d\n" and sum.
 The first argument "Sum is %d\n" is the format control string. 
 It contains some literal characters Sum is  to be displayed, and it contains the conversion specifier %d indicating that an integer will be printed. 
 The second argument sum specifies (задает, указывает) the value to be printed. 
-
 Secure print:
-	Avoid Single-Argument printfs:
-	good:
-		puts( "Welcome to C!" );
-		printf( "%s", "Welcome " );
-	bad:
-		printf( "Welcome to C!\n" );
-		printf( "Welcome " );
+	puts( "Welcome to C!" );
+	printf( "%s", "Welcome " );
 
 
-
-
-
-
-
-
-
+Теперь в общем.
 Когда речь заходит о датасаенс и информатике, о философии, логике и языках высого уровня, то появляются выражения и прочее. В асме нельзя написать х = 2+3-5*6, каждый кусочек нужно описать вручную, выделить место в памяти, назвать это место меткой "х", затем поочередно складывать, затем сохранять результат обратно в память, и так далее. А чтобы придумать С нужно придумать логику, законы и абстракции его мира.
-
-https://en.wikipedia.org/wiki/Statement_(computer_science) :
-In computer programming, a statement is a syntactic unit of an imperative programming language that expresses (выражает) some action to be carried out (которые необходимо выполнить). A program written in such (таком) a language is formed (сформирована чем) by a sequence of one or more statements. A statement may have internal components (e.g. например, expressions). Many imperative languages (e.g. C) make a distinction (делают различие) between statements and definitions, with (причем) a statement only containing executable code and a definition instantiating an identifier (определение, создающее экземпляр идентификатора), while (тогда как) an expression evaluates (оценивается) to a value only. A distinction (различие) can also be made between simple and compound statements; the latter may contain statements as components. 
-Simple statements a = a + b; return z;
-Compound statements {} блок, if, for.
-In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction (различие) is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. 
-In purely (чисто) functional programming, there are no statements; everything is an expression.
 
 https://en.wikipedia.org/wiki/Expression_(computer_science) :
 An expression in a programming language is a combination of one or more constants, variables, operators, and functions that the programming language interprets (according (в соответсвтии с) to its particular rules of precedence (приоритет, приоритетность, старшинство, предшествование) and of association (ассоциативность) ) and computes (вычисляет) to produce (производства) ("to return", in a stateful environment) another value. This process, as for mathematical expressions, is called evaluation.
+
+https://en.wikipedia.org/wiki/Statement_(computer_science) :
+In computer programming, a statement is a syntactic unit of an imperative programming language that expresses (выражает) some action to be carried out (которые необходимо выполнить). A program written in such (таком) a language is formed (сформирована чем) by a sequence of one or more statements. A statement may have internal components (e.g. например, expressions). Many imperative languages (e.g. C) make a distinction (делают различие) between statements and definitions, with (причем) a statement only containing executable code and a definition instantiating an identifier (определение, создающее экземпляр идентификатора), while (тогда как) an expression evaluates (оценивается) to a value only. A distinction (различие) can also be made between simple and compound statements; the latter may contain statements as components. 
+Simple statements a = a + b; return z; Compound statements {} блок, if, for.
+In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction (различие) is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. 
+In purely (чисто) functional programming, there are no statements; everything is an expression.
 
 C how to program:
 Pseudocode consists only of action statements—those that are executed when the program has been converted from pseudocode to C and is run in C. Definitions are not executable statements—they’re simply messages to the compiler. For example, the definition tells the compiler the type of variable i and instructs the compiler to reserve space in memory for the variable. But this definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed. 
@@ -211,17 +195,12 @@ Unknown:
 An expression is a sequence of operators. Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). The body of any function is a compound (составная) statement which in turn is a sequence of statements and declarations (объявлений).
 
 
-
-
-
 Rules of Operator Precedence.
 The rules of operator precedence specify the order C uses to evaluate expressions (правила, которые определяют порядок). 
 The associativity of the operators specifies whether (будут ли) they evaluate from left to right or from right to left. 
 The circled numbers indicate the order in which C evaluates the operators: 
 	z = p * r % q + w / x - y;
 	  6   1   2   4   3   5
-
-
 
 
 	while ( ( grade = getchar() ) != EOF )
@@ -236,100 +215,123 @@ Any expression in C that produces a value can be used in the decision portion of
  		printf( "%s", "You get a bonus!" );
 
 
-
-
-Выражения состоят из операторов и их операндов. Есть порядок оценки операторов, а есть порядок оценки операндов для операторов &&, ||, the comma (,) operator and ?: . А все это вместе как раз и образует порядок оценки выражений...
 Order of Evaluation of Operands. 
-Не путать с Order of evaluation (precedence) of Operators. Вечно меняют подход объяснения от общего к частному и от частного к общему. Это из рекурсивного способа решения чисел Фибоначчи. 
+Не путать с Order of Evaluation of Operators (или precedence).
+Выражения состоят из операторов и их операндов. Есть порядок оценки операторов, а есть порядок оценки операндов для операторов &&, ||, the comma (,) operator and ?: . А все это вместе как раз и образует порядок оценки выражений... 
+Это из рекурсивного способа решения чисел Фибоначчи. 
+	unsigned long long int fibonacci( unsigned int n )
+	{
+		if ( 0 == n || 1 == n ) 
+		{
+			return n;
+		}
+		else 
+		{
+			return fibonacci( n - 1 ) + fibonacci( n - 2 );
+		}
+	} 
 This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в которой операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета операторов)! 
 Figure 5.20 shows that while evaluating fibonacci(3), two recursive calls will be made, namely fibonacci(2) and fibonacci(1). But in what order will these calls be made? You might simply assume the operands will be evaluated left to right. For optimization reasons, C does not specify the order in which the operands of most operators (C не определяет порядок, в каком будут вычисляться операнды большинства операторов) (including +) are to be evaluated. Therefore, you should make no assumption about the order in which these calls will execute. The calls could in fact execute fibonacci(2) first and then fibonacci(1), or the calls could execute in the reverse order, fibonacci(1) then fibonacci(2).
-In this and most other programs, the final result would be the same. But in some programs the evaluation of an operand may have side effects that could affect the final result of the expression. C specifies the order of evaluation of the operands of only four operators— namely &&, ||, the comma (,) operator and ?:. The first three of these are binary operators whose operands are guaranteed to be evaluated left to right (именно поэтому лучше наиболее вероятное значение ставить на соответствующее место). [Note: The commas used to separate the arguments in a function call are not comma operators.] The last operator is C’s only ternary operator. Its leftmost operand is always evaluated first; if the leftmost operand evaluates to nonzero, the middle operand is evaluated next and the last operand is ignored; if the leftmost operand evaluates to zero, the third operand is evaluated next and the middle operand is ignored.
-
-
-
-
-
+In this and most other programs, the final result would be the same. But in some programs the evaluation of an operand may have side effects that could affect the final result of the expression. C specifies the order of evaluation of the operands of only four operators— namely &&, ||, the comma (,) operator and ?:. The first three of these are binary operators whose operands are guaranteed to be evaluated left to right. Именно поэтому лучше наиболее вероятную истину ставить слева от ||, а наиболее вероятную ложь слева от &&, с запятой и тренарным смотри примеры ниже. [Note: The commas used to separate the arguments in a function call are not comma operators.] The last operator is C’s only ternary operator. Its leftmost operand is always evaluated first; if the leftmost operand evaluates to nonzero, the middle operand is evaluated next and the last operand is ignored; if the leftmost operand evaluates to zero, the third operand is evaluated next and the middle operand is ignored.
 
 
 Operator precedence and associativity.  
 (стр 136, 218, 281) Понятнее было бы associativity and operator precedence/order of operations (operator precedence понятнее звучит), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
 
-	Operators								Associativity	Type			//My comment
+Operators								Associativity	Type			//My comment
 	
-1	() () []								left to right	parentheses		// () the expression in the parentheses evaluated first, func() function call operator, [] brackets (square brackets) used to enclose (заключить) the subscript (индекс) of an array.
-2	++(postfix) --(postfix)					right to left					//type длинный: postfix, unary, highest; a++, b-- на стр 281 имеют одинаковую приоритетность со строчкой выше, так же не понятно,почему постфикс имеет приоритет выше.
-3	+ - ! ++(prefix) --(prefix) (type) & *	right to left	unary			//унарные версии (+5,-7), !(grade != sum), ++a, --b, cast operator a(float),  address operator, indirection Operator.
-4	* / %									left to right	multiplicative	//binary
-5	+ -										left to right	additive		//binary
-6	< <= > >=								left to right	relational
-7	== !=									left to right	equality		//The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см ниже, в if и в Logical Operators).
-8	&&										left to right	logical AND		//binary
-9	||										left to right	logical OR		//binary
-10	?:										right to left	conditional		//ternary
-11	= += -= *= /= %=						right to left	assignment		//binary
-12	,										left to right	comma			//см 12: .
+() () []								left to right	parentheses		// () the expression in the parentheses evaluated first, func() function call operator, [] brackets (square brackets) used to enclose (заключить) the subscript (индекс) of an array.
+++(postfix) --(postfix)					right to left					//type длинный: postfix, unary, highest; a++, b-- на стр 281 имеют одинаковую приоритетность со строчкой выше, так же не понятно,почему постфикс имеет приоритет выше префикса.
++ - ! ++(prefix) --(prefix) (type) & *	right to left	unary			//унарные версии (+5,-7), !(grade != sum), ++a, --b, cast operator a(float),  address operator, indirection Operator.
+* / %									left to right	multiplicative	//binary
++ -										left to right	additive		//binary
+< <= > >=								left to right	relational
+== !=									left to right	equality		//The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см ниже, в if и в Logical Operators).
+&&										left to right	logical AND		//binary
+||										left to right	logical OR		//binary
+?:										right to left	conditional		//ternary
+= += -= *= /= %=						right to left	assignment		//binary
+,										left to right	comma			//см 12: .
 
 https://en.wikipedia.org/wiki/Order_of_operations
 https://en.wikipedia.org/wiki/Operator_associativity
 
-4:	8 / 16 / 2 распознается как 1/2 / 2 = 1/4   , а не 8 / 8 = 1
-		4/8/2/3 = 4 / (8*2*3)
-		4/8/2/3 в реале нужно следить за associativity , а если в реале в виде дробей 4 * 1/8 * 1/2 * 1/3 то необязательно (в си везде следить нужно).
+7 - 4  + 2 из-за левоассоциативности распознается как (7 - 4) + 2 = 5 ; если бы эти операции были правоассоциативными, то 7 - (4 + 2) = 1.
 
-5:	7 - 4  + 2 из-за левоассоциативности распознается как (7 - 4) + 2 = 5 ; если бы эти операции были правоассоциативными, то 7 - (4 + 2) = 1.
+8 / 16 / 2 распознается как 1/2 / 2 = 1/4   , а не 8 / 8 = 1
+4/8/2/3 = 4 / (8*2*3)
+4/8/2/3 в реале нужно следить за associativity , а если в реале в виде дробей 4 * 1/8 * 1/2 * 1/3 то необязательно (в си везде следить нужно).
 
-6:	3 < 2 < 1 даст 1. А в питоне wiki: a < b < c  распознается как ( a < b ) && ( b < c ). 
-	a = 2    b = 1    c = 3
-	a == b 			0
-	a != b 			1
-	b <= c 			1
-	a == b <= c 	0
-	(a == b) <= c 	1
-	a != b <= c 	1
-	a != b <= c 	1
+3 < 2 < 1 даст 1. А в питоне wiki: a < b < c  распознается как ( a < b ) && ( b < c ). 
+a = 2    b = 1    c = 3
+a == b 			0
+a != b 			1
+b <= c 			1
+a == b <= c 	0
+(a == b) <= c 	1
+a != b <= c 	1
+a = b <= c 		0
 
-11:	a = b; и b = a; разные инструкции.
+a = b; и b = a; разные инструкции.
+a = b = c = 0 распознается как a = (b = (c = 0)) в том числе и потому, что Assignments as a whole actually have a value. То есть здесь суть не только в ассоциативности.
+Statement c = c + 3; can be abbreviated (сокращена) with the addition assignment operator += as c += 3; Это компилируется быстрее.
 
-	a = b = c = 0 распознается как a = (b = (c = 0)) в том числе и потому, что Assignments as a whole actually have a value. То есть здесь суть не только в ассоциативности.
-	
-	Statement c = c + 3; can be abbreviated (сокращена) with the addition assignment operator += as c += 3; Это компилируется быстрее.
+C also provides the unary increment operator ++ and the unary decrement operator --.
+++a преинкремент, увеличивает на 1, использует новое значение. a++ постинкремент, использует значение, потом увеличивает на 1. Преинкремент работает быстрее. 
+a = 5;
+printf("%d\n", ++a);	//6
+printf("%d\n", a	);	//6	
+a = 5;
+printf("%d\n", a++);	//5
+printf("%d\n", a	);	//6
+Therefore you should use increment or decrement operators only in statements in which one variable is incremented or decremented by itself (использовать в отдельных инструкциях). 
 
-2:	C also provides the unary increment operator ++ and the unary decrement operator --.
-	++a преинкремент, увеличивает на 1, использует новое значение. a++ постинкремент, использует значение, потом увеличивает на 1. Преинкремент работает быстрее. 
-	И обрати внимание на while ?что там?.
+The commas used to separate the arguments in a function call are not comma operators. 
+The comma operator guarantees that lists of expressions evaluate from left to right. The value of the entire expression is that of the rightmost expression. The value of the rightmost expression becomes the value of the entire expression.
+Смотри пример в for и ниже:
+int j = 1;
+j = (j++, j+333, 4+j);//2, 2+333, 4+2; без скобок будет 1.
+printf ("%d\n", j );//6
 
-	a = 5;
-	printf("%d\n", ++a);	//6
-	printf("%d\n", a	);	//6	
-	a = 5;
-	printf("%d\n", a++);	//5
-	printf("%d\n", a	);	//6
-
-	Therefore you should use increment or decrement operators only in statements in which one variable is incremented or decremented by itself (использовать в отдельных инструкциях). 
-
-12:	The commas used to separate the arguments in a function call are not comma operators. 
-
-	The comma operator guarantees that lists of expressions evaluate from left to right. The value of the entire expression is that of the rightmost expression. The value of the rightmost expression becomes the value of the entire expression.
-	Смотри пример в for и ниже:
-	int j = 1;
-	j = (j++, j+333, 4+j);//2, 2+333, 4+2; без скобок будет 1.
-	printf ("%d\n", j );//6
-
-3:	!5 равно 0, !!5 равно 1, 3*!5 равно 0, 3!5 ошибка.
+!5 равно 0, !!5 равно 1, 3*!5 равно 0, 3!5 ошибка.
 
 
-Variable names are said to be lvalues (for “left values”) because they can be used on the left side of an assignment operator. 
-Constants are said to be rvalues (for “right values”) because they can be used on only the right side of an assignment operator. 
-lvalues can also be used as rvalues, but not vice versa.
+lvalues and rvalues.
+
+	Variable names are said to be lvalues (for “left values”) because they can be used on the left side of an assignment operator. Constants are said to be rvalues (for “right values”) because they can be used on only the right side of an assignment operator. lvalues can also be used as rvalues, but not vice versa.
+
 	x == 7 равносильно 7 == x. х = 7, Но 7 = x есть ошибка. 
 
-Так работать не будет, потому что нарушается принцип. ???
 	int  day = 10, a;
-	day == 10 ? a = 1 : a = 0 ;	
+	day == 10 ? a = 1 : a = 0 ;// a = 0 lvalue required as left operand of assignment???
+	day == 10 ? (a = 1) : (a = 0) ;//а так работает.	
 	printf("%d\n", a);
 
 
+Побитовые операции.
+
+	PORTX |= (1 << 2);
+	PORTX = PORTX | (1 << 2);
+	PORTX &= ~(1 << 2);
+	PORTX = PORTX & ~(1 << 2);
+	| - побитовое ИЛИ;
+		PORTX =  PORTX | 4; устанавливает 2-й бит числа PORTX в единицу;
+		остальные биты не трогаются.
+	& - И;
+		PORTX & 4 "извлекает" 2-й бит из числа:
+		PORTX & 4 == 0 когда 2-й бит равен 0; 
+		PORTX & 4 != 0 когда 2-й бит равен 1;
+		остальные биты обнуляются.
+	<< - побитовый сдвиг, сдвигает биты на 2 влево у числа 1; 
+		(1 << 2) == 4;
+		0000 0001
+		0000 0100
+		PORTX | 0000 0100.
+	~ - побитовое НЕ,  инвертирует биты.
+
+
 Keywords
+
 	auto double int struct
 	break else long switch
 	case enum register typedef
@@ -340,9 +342,10 @@ Keywords
 	do if static while
 
 	Keywords added in C99 standard
-	_Bool _Complex _Imaginary inline restrict
-	Keywords added in C11 draft standard
-	_Alignas _Alignof _Atomic _Generic _Noreturn _Static_assert _Thread_local
+
+		_Bool _Complex _Imaginary inline restrict
+		Keywords added in C11 draft standard
+		_Alignas _Alignof _Atomic _Generic _Noreturn _Static_assert _Thread_local
 
 
 Data type/printf conversion specification/scanf conversion specification
@@ -366,10 +369,61 @@ Data type/printf conversion specification/scanf conversion specification
 
 	Fig. 5.5 | Arithmetic data types and their conversion specifications.
 
-	sizeof(int) sizeof(A) sizeof(sum)  
+	Непонятно. Л - логика... %u не помогает.
+	short x = 32765;//2 байта.
+	for (int i = 0; i < 6; ++i)
+	{
+		printf("%d\n", x);
+		x++;
+	}
+	32765
+	32766
+	32767
+	-32768
+	-32767
+	-32766
 
-Про типы данных.
-	Тут есть некоторые вопросы с char. signed char и unsigned char.
+	unsigned short x = 32765;//2 байта.
+	for (int i = 0; i < 6; ++i)
+	{
+		printf("%d\n", x);
+		x++;
+	}
+	32765
+	32766
+	32767
+	32768
+	32769
+	32770
+
+	int x = 2147483645;//4 байта.
+	for (int i = 0; i < 6; ++i)
+	{
+		printf("%d\n", x);
+		x++;
+	}
+	2147483645
+	2147483646
+	2147483647
+	-2147483648
+	-2147483647
+	-2147483646
+
+	unsigned int x = 2147483645;//4 байта.
+	for (int i = 0; i < 6; ++i)
+	{
+		printf("%d\n", x);
+		x++;
+	}
+	2147483645
+	2147483646
+	2147483647
+	-2147483648
+	-2147483647
+	-2147483646
+
+
+	Есть некоторые вопросы с char. signed char и unsigned char.
 	char будет зависеть от ключей компиляции, вероятно.
 
 	Массив из char или signed char
@@ -390,10 +444,16 @@ Data type/printf conversion specification/scanf conversion specification
 	00000082  130 130
 
 
-Явные - неявные преобразования???
-	int A = 2; int B = 5;
-	float C = 7;
-	int p; float g;
+sizeof Operator.
+
+	sizeof(int) sizeof(A) sizeof(sum) выполняется на этапе компиляции. 
+	double real [ 22 ];//объялен массив.
+	printf ("%d", sizeof( real ) / sizeof( real[ 0 ] ) );//количество элементов массива.
+
+
+Явные - неявные преобразования?
+
+	int A = 2; int B = 5; float C = 7; int p; float g;
 	printf("%d_%d\n", A/B, B/A );//0 2 0.000000 -1.#QNAN0 ; если %f единственный - то 5/2 или 2/5 даст 0.00000
 	printf("%f %f\n", A/B, B/A );//0 2 0.000000 -1.#QNAN0 ; если %f единственный - то 5/2 или 2/5 даст 0.00000
 	printf("%f\n", 3/2 );		//Выдаст ноль... 
@@ -429,6 +489,43 @@ Data type/printf conversion specification/scanf conversion specification
 	printf ("%f\n", g);//4.000000
 
 
+#define preprocessor directive
+
+	Умеют много чего, не путать с функцией, это именно символьная замена, с которой работает препроцессор.
+	#include <stdio.h>
+	#define SIZE 10// symbolic constant SIZE
+	#define MASK(x) x&0xFF
+	int main (void){
+		printf("%d\n", SIZE);//равносильно написанию:
+		printf("%d\n", 10);	
+		printf("%d\n", MASK(4095)	);//равносильно написанию:
+		printf("%d\n", 4095 & 0xFF	);
+		return 0;
+	}
+	4095	1111 1111 1111
+	0xFF	0000 1111 1111
+	AND=	0000 1111 1111
+
+	0x1234 - шестнадцатиричная. 4095 - десятичная.
+
+
+enumeration
+
+	An enumeration, introduced by the keyword enum, is a set of integer constants represented by identifiers. Enumeration constants are sometimes called symbolic constants. Values in an enum start with 0 and are incremented by 1. The constant CONTINUE has the value 0, WON has the value 1 and LOST has the value 2. It’s also possible to assign an integer value to each identifier in an enum (see Chapter 10; WON = 34,). The identifiers in an enumeration must be unique, but the values may be duplicated.	
+
+	#include <stdio.h>
+	enum Status { CONTINUE, WON, LOST };//a programmer-defined type called an enumeration. 
+	int main (void)
+	{
+		enum Status gameStatus; // Variable gameStatus, defined to be of a new type — enum Status — stores the current status. 
+		printf("%d\n", CONTINUE );//0
+		printf("%d\n", WON );//1
+		printf("%d\n", LOST );//2
+		printf("%d\n", gameStatus );//
+		
+		gameStatus = WON; 
+		printf("%d\n", gameStatus );//1
+	}
 
 
 
@@ -436,21 +533,12 @@ Data type/printf conversion specification/scanf conversion specification
 
 
 
-Control structures (управляющие структуры). Структуры - это из датасаенс, общее понятие. В C эти структуры реализованы в виде инструкций.
-
-В основе лежит структурное программирование и отказ от goto. Суть в том, что бы любая структура подключалась к остальным как блок с одним входом и одним выходом. Это отлично видно в flowcharts!
+Control structures (управляющие структуры). Структуры - это из датасаенс, общее понятие. В C эти структуры реализованы в виде инструкций. В основе лежит структурное программирование и отказ от goto. Суть в том, что бы любая структура подключалась к остальным как блок с одним входом и одним выходом. Это отлично видно в flowcharts!
 
 All programs could be written in terms of only three control structures: the sequence structure, the selection structure and the repetition structure.
 	1. The sequence structure (любой тип действий, вычисление, ввод/вывод) is simple — unless directed otherwise, the computer executes C statements one after the other in the order in which they’re written. 
 	2. C provides three types of selection structures in the form of statements: if, if/else, switch.
 	3. Repetition Statements, three types of in the form of statements: while, for, do/while.
-
-
-
-
-
-
-
 
 
 
@@ -470,18 +558,15 @@ In C, a condition may actually be any expression that generates a zero (false) o
 
 	if ( a > b )
 		printf("something\n");//The if selection statement expects only one statement in its body—if you have only one statement in the if’s body, you do not need the enclose it in braces.
-
-	if ( a > b )//To include several statements in the body of an if, you must enclose the set of statements in braces ({ and }). A set of statements contained within a pair of braces is called a compound statement or a block. A compound statement can be placed anywhere in a program that a single statement can be placed. 
+	if ( a > b )
 	{
-		statement1;
+		statement1;//To include several statements in the body of an if, you must enclose the set of statements in braces ({ and }). A set of statements contained within a pair of braces is called a compound statement or a block. A compound statement can be placed anywhere in a program that a single statement can be placed. 
 		statement2;
 	}
-
 	if ( a > b ) 
 	{
 		;//Just as a compound statement can be placed anywhere a single statement can be placed, it’s also possible to have no statement at all, i.e., the empty statement. The empty statement is represented by placing a semicolon (;) where a statement would normally be.
 	}
-
 	if ( a > b )
 	{
 		//; внутри фигурных скобок не обязателен, хотя в примере про указатели ( s1[ i ] = s2[ i ] ) помещают ; внутрь пустых фигурных скобок. 
@@ -492,11 +577,6 @@ Any expression in C that produces a value can be used in the decision portion of
 		printf( "%s", "You get a bonus!" );
 	if ( payCode = 4 )//всегда истинно, пока присваивается ненулеваое значение.
  		printf( "%s", "You get a bonus!" );
-
-
-
-
-
 
 
 
@@ -546,11 +626,6 @@ The third operand string "Failed" is the value for the entire conditional expres
 
 
 
-
-
-
-
-
 The while Repetition Statement.
 
 	int stud = 0; //stud = 0  - initialized
@@ -579,12 +654,6 @@ The while Repetition Statement.
 	2
 	3
 	4
-
-
-
-
-
-
 
 
 
@@ -640,21 +709,15 @@ In most cases, the for statement can be represented with an equivalent while sta
 
 
 
-
-
-
-
-
 Switch, a multiple-selection statement (с множественным выбором).
 Работает только с константами.
-
 The switch statement consists of a series of case labels, an optional default case and statements to execute for each case. 
 	
 	#include <stdio.h>
 	int main (void)
 	{
 		int grade;
-		while ( ( grade = getchar() ) != EOF ) //считывает введенный символ и enter; enter = 10; слева от != будет находиться результат последней операции.
+		while ( ( grade = getchar() ) != EOF ) //считывает введенный символ и enter; enter = 10; слева от != будет находиться результат последнего присваивания.
 		{
 			//scanf ("%d", &pas);
 			//switch (pas)	
@@ -687,11 +750,6 @@ case '\n' : case 10 - будет ошибка duplicate case value.
 
 
 
-
-
-
-
-
 Do While
 
 	int main (void)
@@ -703,11 +761,6 @@ Do While
 		}	while ( ++counter <= 10);
 		return 0;
 	}
-
-
-
-
-
 
 
 
@@ -746,11 +799,6 @@ The continue statement, when executed in a while, for or do…while statement, s
 
 
 
-
-
-
-
-
 Logical Operators.
 
 In expressions using operator &&, make the condition that’s most likely to be false the leftmost condition. 
@@ -772,11 +820,6 @@ The equality operators have a lower level of precedence than the relational oper
 			printf("%d == 1 && %d >= 10", b, c);
 		return 0;
 	}
-
-
-
-
-
 
 
 
@@ -910,13 +953,7 @@ The equality operators have a lower level of precedence than the relational oper
 
 
 
-
-
-
-
-
-
-Задание 4.14. Факториал интеративный.
+Задание 4.14. Факториал итеративный.
 
 	int main (void)
 	{
@@ -960,41 +997,18 @@ The equality operators have a lower level of precedence than the relational oper
 
 
 
-Побитовые операции.
-
-	PORTX |= (1 << 2);
-	PORTX = PORTX | (1 << 2);
-
-	PORTX &= ~(1 << 2);
-	PORTX = PORTX & ~(1 << 2);
-
-	| - побитовое ИЛИ;
-		PORTX =  PORTX | 4; устанавливает 2-й бит числа PORTX в единицу;
-		остальные биты не трогаются.
-
-	& - И;
-		PORTX & 4 "извлекает" 2-й бит из числа:
-		PORTX & 4 == 0 когда 2-й бит равен 0; 
-		PORTX & 4 != 0 когда 2-й бит равен 1;
-		остальные биты обнуляются.
-
-	<< - побитовый сдвиг, сдвигает биты на 2 влево у числа 1; 
-		(1 << 2) == 4;
-		0000 0001
-		0000 0100
-		PORTX | 0000 0100.
-
-	~ - побитовое НЕ,  инвертирует биты.
-
-
-
-
-
-
-
-
-
 Functions.
+
+The general format for a function definition is:
+
+	return-value-type function-name( parameter-list )//header 
+	тип_возвращаемых_значений ИМЯ_функции (тип_принимаемых_значений/список_параметров)
+	{//тело функции
+		definitions
+		statements
+	}
+
+Параметры похожи на объявления.
 	int main( void )
 	{
 		int x;
@@ -1007,28 +1021,20 @@ Functions.
 
 	}
 
-The general format for a function definition is
-	return-value-type function-name( parameter-list )//header 
-	тип_возвращаемых_значений ИМЯ_функции (тип_принимаемых_значений/список_параметров)
-	{//тело функции
-		definitions
-		statements
-	}
-
 All variables defined in function definitions are local variables — they can be accessed only in the function in which they’re defined.
 The definitions and statements within braces form the function body, which is also referred (называться, упоминаются, передается) to as a block. 
 Variables can be declared in any block, and blocks can be nested. 
-All variables defined in function definitions are local variables. They can be accessed only in the function in which they’re defined.
 
 Прототип заставляет компилятор преобразовывать тип данных (int>float, etc). Если прототип не указать - компилятор сам создаст кое-как прототип. Function sqrt can be called with an int argument even though the function prototype in <math.h> specifies a double parameter, and the function will still work correctly. 
 
 Each time a function calls another function, an entry is pushed onto the stack. This entry, called a stack frame, contains the return address that the called function needs in order to return to the calling function. Most functions have automatic variables. When a called function returns to its caller, the called function’s automatic variables need to “go away.” When that function returns—and no longer needs its local automatic variables — its stack frame is popped from the stack, and those local automatic variables are no longer known to the program.
 
-
 	void print (void);
+	float FUNC(int);
 	int main (void)
 	{
 		pint();	// если void - то в скобках должно быть пусто.
+		printf("%.3f", FUNC(3));
 		return 0;
 	}
 	void print(void)
@@ -1036,22 +1042,13 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 		printf("HELLO\n");
 		return;	// return здесь можно не писать .
 	}
-	
-
-	float FUNC(int);
-	int main (void)
-	{
-		printf("%.3f", FUNC(3));
-		return 0;
-	}
 	float FUNC(int x)
 	{
 		float tmp = x / 2.0 ;
 		return tmp;
 	}
-
-
-	int AAA(int);//без прототипов функция должна идти роньше вызывающей функции.
+	
+	int AAA(int);//без прототипов функция должна была бы идти роньше вызывающей функции.
 	int BBB(int);
 	int main (void)
 	{
@@ -1069,7 +1066,7 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 		return bbb * 1000;
 	}
 
-К бабл в указателях, сокрытие прототипа.
+К примеру бабл в указателях, сокрытие прототипа.
 
 	int AAA(int);
 	int main (void)
@@ -1092,19 +1089,9 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 
 
 
-
-
-
-
 Заголовочные файлы .h
-
-Каждая библиотека имеет свой заголовочный файл, содержащий прототипы для всех функций данной библиотеки, а также определение типов данных и констант для этих функций.	
-Можно создавать собственные заголовочные файлы. Подробнее в главе 13.
+Каждая библиотека имеет свой заголовочный файл, содержащий прототипы для всех функций данной библиотеки, а также определение типов данных и констант для этих функций. Можно создавать собственные заголовочные файлы. Подробнее в главе 13. Директивы сообщают препроцессору о необходимости включения заголовочных файлов, которые содержат много всего, в том числе - прототипы функций.
 #include "square.h" - файл лежит в рабочей директории.
-
-Директивы сообщают препроцессору о необходимости включения заголовочных файлов, 
-	которые содержат много всего, в том числе - прототипы функций.
-
 #include <stdio.h> printf(), scanf(), NULL, sizeof(type or name)
 #include <stdlib.h> system(), rand()
 #include <math.h> 
@@ -1116,112 +1103,60 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 
 
 
-
-
-
-
 Passing Arguments By Value (значению) and By Reference (ссылке). 
-	//("вызов функций" лол; "когда аргумент используется в вызове по значению", when arguments are passed by value лол).
 
 In many programming languages, there are two ways to pass arguments—pass-by-value and pass-by-reference. 
 When arguments are passed by value, a copy of the argument’s value is made and passed to the called function. Changes to the copy do not affect an original variable’s value in the caller. When an argument is passed by reference, the caller allows the called function to modify the original variable’s value.
 In C, all arguments are passed by value. As we’ll see in Chapter 7, it’s possible to simulate pass-by-reference by using the address operator and the indirection operator. In Chapter 6, we’ll see that array arguments are automatically passed by reference for performance reasons.
 
 
-
-
-
-
-
-
-
-An enumeration, introduced by the keyword enum, is a set of integer constants represented by identifiers. Enumeration constants are sometimes called symbolic constants. Values in an enum start with 0 and are incremented by 1. The constant CONTINUE has the value 0, WON has the value 1 and LOST has the value 2. It’s also possible to assign an integer value to each identifier in an enum (see Chapter 10; WON = 34,). The identifiers in an enumeration must be unique, but the values may be duplicated.	
-
-	#include <stdio.h>
-	enum Status { CONTINUE, WON, LOST };//a programmer-defined type called an enumeration. 
-	int main (void)
-	{
-		enum Status gameStatus; // Variable gameStatus, defined to be of a new type — enum Status — stores the current status. 
-		printf("%d\n", CONTINUE );//0
-		printf("%d\n", WON );//1
-		printf("%d\n", LOST );//2
-		printf("%d\n", gameStatus );//
-		
-		gameStatus = WON; 
-		printf("%d\n", gameStatus );//1
-	}
-
-
-
-
-
-
-
-
-
 Storage Classes.
 
+We used identifiers for variable names. The attributes of variables include: 
 
-We used identifiers for variable names. 
-The attributes of variables include: 
+1. Name. 
+2. Type. 
+3. Size (data type sizes). 
+4. Value. 
 
-	1. Name. 
+We also use identifiers as names for user-defined functions. Actually, each identifier in a program has other attributes: 
 
-	2. Type. 
+5. Storage class. C provides the storage class specifiers: 
+		auto, 
+		register (archaic), 
+		static, 
+		extern,
+		_Thread_local.
 
-	3. Size (data type sizes). 
+	An identifier’s storage class determines: storage duration, scope, linkage.
 
-	4. Value. 
-
-We also use identifiers as names for user-defined functions. 
-Actually, each identifier in a program has other attributes: 
-
-	5. Storage class.
-		C provides the storage class specifiers: 
-
-			auto, 
-			register (archaic), 
-			static, 
-			extern,
-			_Thread_local.
-		
-		An identifier’s storage class determines: storage duration, scope, linkage.
-
-	6. Storage duration. 
-		The storage-class specifiers can be split automatic storage duration and static storage duration. 
-		
-		Automatic storage duration: 
-
-			auto (variables with automatic storage duration are created when the block in which they’re defined is entered; they exist while the block is active, and they’re  destroyed when the block is exited),
-			register. 
-		
-		Static storage duration: 
-
-			static (for static variables, storage is allocated and initialized only once, before the program begins execution. For functions, the name of the function exists when the program begins execution),
-			extern (global variables and function names are of storage class extern by default. Global variables are created by placing variable declarations outside any function definition, and they retain their values throughout the execution of the program).	
+6. Storage duration. The storage-class specifiers can be split automatic storage duration and static storage duration. 
 	
-	7. Scope.
-		The four identifier scopes:
-
-			function (labels (identifiers followed by a colon such as start:) are the only identifiers with function scope. Labels can be used anywhere in the function in which they appear, but cannot be referenced (не доступны для обращения, не могут передаваться, не могут быть сосланы) outside the function body. Labels are used in switch statements (as case labels) and in goto statements (see Chapter 14)),
-
-			file (an identifier declared outside any function, gloobal variables, function definitions, and function prototypes), 
-
-			block {} (local variables defined at the beginning of a function, function parameters, which are considered local variables by the function), 
-
-			function-prototype (int funk(int) - причем, прототипы требуют только типы идентификаторов, имена им не нужны), 
-		
+	Automatic storage duration: 
+		auto (variables with automatic storage duration are created when the block in which they’re defined is entered; they exist while the block is active, and they’re  destroyed when the block is exited),
+		register. 
 	
-	8. Linkage. 
+	Static storage duration: 
+		static (for static variables, storage is allocated and initialized only once, before the program begins execution. For functions, the name of the function exists when the program begins execution),
+		extern (global variables and function names are of storage class extern by default. Global variables are created by placing variable declarations outside any function definition, and they retain their values throughout the execution of the program).	
+
+7. Scope. The four identifier scopes:
+
+		function (labels (identifiers followed by a colon such as start:) are the only identifiers with function scope. Labels can be used anywhere in the function in which they appear, but cannot be referenced (не доступны для обращения, не могут передаваться, не могут быть сосланы) outside the function body. Labels are used in switch statements (as case labels) and in goto statements (see Chapter 14)),
+
+		file (an identifier declared outside any function, gloobal variables, function definitions, and function prototypes), 
+
+		block {} (local variables defined at the beginning of a function, function parameters, which are considered local variables by the function), 
+
+		function-prototype (int funk(int) - причем, прототипы требуют только типы идентификаторов, имена им не нужны), 
+
+8. Linkage. 
 
 
 Локальная переменная	- объявлена в списке параметров, теле функции или блоке.
 Глобальная переменная	- объявлена вне любого блока или вне функции.
 Если своими словами:
-	Дурацкое описание в принципе.
-	Период хранения и область действия - разные вещи.
-	Атрибуты по-разному переплетаются в зависимости от ключевых слов и местоположения. 
-	Глобальная переменная X будет "скрыта" для функции, если в функции будет объявлена переменная X.
+	Дурацкое описание в принципе. Период хранения и область действия - разные вещи. Атрибуты по-разному переплетаются в зависимости от ключевых слов и местоположения. Глобальная переменная X будет скрыта для функции, если в функции будет объявлена переменная X.
 	Локальные скрываются аналогично:
 	int main (void)
 	{
@@ -1307,7 +1242,6 @@ Actually, each identifier in a program has other attributes:
 
 		printf( "\nlocal x in main is %d\n", x );
 	} 
-
 	// useLocal reinitializes local variable x during each call
 	void useLocal( void )
 	{
@@ -1316,7 +1250,6 @@ Actually, each identifier in a program has other attributes:
 		++x;
 		printf( "local x in useLocal is %d before exiting useLocal\n", x );
 	} 
-
 	// useStaticLocal initializes static local variable x only the first time
 	// the function is called; value of x is saved between calls to this
 	// function
@@ -1327,7 +1260,6 @@ Actually, each identifier in a program has other attributes:
 		++x;
 		printf( "local static x is %d on exiting useStaticLocal\n", x );
 	} 
-
 	// function useGlobal modifies global variable x during each call
 	void useGlobal( void )
 	{
@@ -1363,26 +1295,19 @@ Actually, each identifier in a program has other attributes:
 
 
 
-
-
-
-
-
-
 Стохастическая игра
-
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include <time.h>
-
-	int main (void){
+	int main (void)
+	{
 		int x, y, z=0, sum;
 		srand( time(NULL) );
 		x = rand () % 6 +1;
 		y = rand () % 6 +1;
 		sum = x + y;	
-
-		switch (sum){
+		switch (sum)
+		{
 			case 7 : case 11 :
 				printf("x=%d y=%d\n", x, y);
 				puts ("Win: 7 or 11");
@@ -1391,13 +1316,13 @@ Actually, each identifier in a program has other attributes:
 				printf("x=%d y=%d\n", x, y);
 				puts ("Lose: 2, 3 or 12");
 				break;
-
 			default : // 4,5,6,8,9,10
 				printf("x=%d y=%d\n", x, y);
 				puts("First lose! Again!");
 				getchar();
 
-				while (z==0){
+				while (z==0)
+				{
 					x = rand () % 6 +1;
 					y = rand () % 6 +1;
 					if (x + y == sum){ //if x + y == 4,5,6,8,9,10
@@ -1405,12 +1330,14 @@ Actually, each identifier in a program has other attributes:
 						puts ("Win: x+y=first sum");
 						z=1;
 					}
-					if (x + y == 7){
+					if (x + y == 7)
+					{
 						printf("x=%d y=%d\n", x, y);
 						puts ("Lose: 7");
 						z=1;
 					}	
-					else{//удобно отсутствием условий
+					else
+					{//удобно отсутствием условий
 						printf("x=%d y=%d\n", x, y);
 						puts ("Again: x+y!=first sum");
 						getchar();
@@ -1421,11 +1348,6 @@ Actually, each identifier in a program has other attributes:
 		}
 		return 0;
 	}
-
-
-
-
-
 
 
 
@@ -1486,11 +1408,6 @@ Actually, each identifier in a program has other attributes:
 
 
 
-
-
-
-
-
 Вывод с задержкой в секунду.
 	#include <stdio.h>
 	#include <stdlib.h> 
@@ -1510,7 +1427,7 @@ Actually, each identifier in a program has other attributes:
 			}
 		}
 	}
-или так
+	или так
 	int main (void){
 		for(int i=0; i != EOF; ){
 			system("cls");
@@ -1535,15 +1452,13 @@ Actually, each identifier in a program has other attributes:
 			if (i != time(NULL) )
 			{
 				i = time(NULL);	
-				printf ("%d\n", i);
+				printf ("%d\n", i%60);
 			}
 		}
 	}
 
 Перевод в двоичную систему.
 	#include <stdio.h>
-	#include <math.h>
-	#include <stdlib.h>
 	void FUNC (int);
 	int main (void)
 	{
@@ -1555,71 +1470,41 @@ Actually, each identifier in a program has other attributes:
 			printf("\n");	
 		}
 	}
-	void FUNC (int x){
-		int ZOP[8]={0};
-		int I = 0;
-		while ( x != 0){
-			ZOP[I]=x%2;
-			x = x / 2 ;
-
+	было
+	void FUNC (int x)
+	{
+		int ZOP[8]={0};//8 разрядов.
+		int i = 0;
+		while ( x != 0)
+		{
+			ZOP[i]= x % 2 ;
+			x = x / 2 ;//1 / 2 равен 0.
 			if (x == 0)
 				break;
-			I=I+1;
+			i=i+1;
 		}
-		while ( I >= 0){
-			printf("%d", ZOP[I]);
-			I = I-1;
-		}
-	}
-
-putchar.
-	#include <stdio.h>
-	int main (void){    
-		int s = 90; 
-		putchar (s);
-		putchar (90);
-		putchar ('\n');
-		putchar ('Z');
-		return 0;
-	}
-
-getchar и putchar.
-	#include <stdio.h>
-	int main (void)
-	{
-		int c;
-		while ( ( c = getchar() ) != 113 )
-			printf("%d\n", c);
-			putchar (c);
-	}
-	int main (void)
-	{
-		char enter;
-		scanf ("%d", &enter);
-		printf("%c , code=%d\n", enter, enter);// берет целое, приравнивает к переменной char, выводит как символ или целое. 
-		return 0;
-	}
-
-	#include <stdio.h>	
-	int main (void)
-	{
-		int c;
-		while ( ( c = getchar() ) != 113 ){
-			printf("=%d\n", c);
-			putchar (c);
-			putchar ('\n'); //по второму кругу забавно выводит пустую строку как символ новой строки 10
-		}
-	}
-	int main (void)
-	{
-		int c;
-		while ( ( c = getchar() ) != 113 )
+		while ( i >= 0)
 		{
-			printf("%d\n", c);
+			printf("%d", ZOP[i]);
+			i = i-1;
 		}
-		putchar (c); //забавно, что тут путчар выведет в случае q только q
 	}
-	
+	стало
+	void FUNC (int x)
+	{
+		int ZOP[8]={0};//8 разрядов.
+		int i;
+		for (i = 0; x != 0; ++i)
+		{
+			ZOP[i]= x % 2 ;
+			x = x / 2 ;// 1 / 2 равен 0.
+		}
+		for ( --i ; i >= 0; --i)
+		{
+			printf("%d", ZOP[i]);
+		}
+	}
+
 Количество разрядов числа.	
 	#include <stdio.h>	
 	int integerPower (int a, int b );
@@ -1670,85 +1555,41 @@ getchar и putchar.
 
 
 
-#define preprocessor directive
-	Умеют много чего, не путать с функцией, это именно символьная замена, с которой работает препроцессор.
-	#include <stdio.h>
-	#define SIZE 10// symbolic constant SIZE
-	#define MASK(x) x&0xFF
-	int main (void){
-		printf("%d\n", SIZE);//равносильно написанию:
-		printf("%d\n", 10);	
-		printf("%d\n", MASK(4095)	);//равносильно написанию:
-		printf("%d\n", 4095 & 0xFF	);
-		return 0;
-	}
-	4095	1111 1111 1111
-	0xFF	0000 1111 1111
-	AND=	0000 1111 1111
-
-0x1234 - шестнадцатиричная. 4095 - десятичная.
-
-
-
-
-
-
-
-
-
-Arrays.
-ну зачем сначала переменные, потом функции, потом скопы и конст, потом массивы, а потом память с указателями????
-надо переменные, функции, скопы, консты, память с указателями, массивы.
-(кратко - одномерные, передача одномерного, многомерные, передача многомерного и передача одной строки многомерного, переменные массивы и передача переменных массивов)
-
+Arrays. Кратко - одномерные, передача одномерного, многомерные, передача многомерного и передача одной строки многомерного, переменные массивы и передача переменных массивов.
 Arrays are data structures consisting of related (связанных) data items of the same (одного) type. In Chapter 10, we discuss C’s notion of struct (structure) — a data structure consisting of related data items of possibly different types.
 Arrays and structures are “static” entities (remain the same size throughout program execution). They may be of automatic storage class.
 size_t - an unsigned integral type <stddef.h>.
 
 	int MAS[3] = {0};//массив с 3 ячейками типа int с нулями; номера ячеек: 0, 1, 2; {0} поместит нули во все ячейки, {1} поместит единицу только в нулевую ячейку, а в остальные - нули.
-	int MAS[3] = {1, 2, 3};//Можно перечислять переменные по отдельности
-	int MAS[] = {1, 2, 3};//Можно перечислять переменные по отдельности и размер будет указан автоматически
+	int MAS[3] = {1, 2, 3};//Можно перечислять переменные по отдельности. Число перечисленных членов не должно превышать размер массива
+	int MAS[ ] = {1, 2, 3};//Можно перечислять переменные по отдельности и размер будет указан автоматически
 	int MAS[3];//Будут заняты 3 ячейки, в них будет мусор.
-	//Число перечисленных членов не должно превышать размер массива [], если записать его вручную. Программа может выйти за пределы массива, этого нельзя допускать.
-	MAS[i] = 2;//i subscript - индекс; a subscripted array name is an lvalue — it can be used on the left side of an assignment.
+	char MAS [] = "first";//initializes the elements of array string1 to the individual characters in the string literal "first". The string "first" contains 5 characters plus a special string-termination character called the null character '\0'. 
+	char MAS [] = { 'f', 'i', 'r', 's', 't', '\0' };//эквивалентно предыдущему.
+	for (int i = 0; MAS[i] != '\0' ; ++i)
+		printf("%c\n", MAS[i]);//вывести значение ячейки MAS[i]. i subscript - индекс; a subscripted array name is an lvalue — it can be used on the left side of an assignment.
+Программа может выйти за пределы массива, этого нельзя допускать.
+		
 
-Не забывай, scanf и printf не являются частью языка, поэтому их особеннсти лишь их заслуги.
+scanf и printf не являются частью языка, поэтому их особеннсти лишь их заслуги.
 	printf ("%s\n", "Hello" );//раньше было так a string with printf.
-ВАЖНЫЙ МОМЕНТ - printf ожидает работать просто с числами! Как вариант, в параметрах написано (int a). Поэтому здесь можно передавать все, что угодно. Адрес будет распознаваться просто как число. А вот в функцию, ождающую массив или переменную, так передавать нельзя!!! И об этом не было написано (стр 233)! Scanf работает с цифрами, как с адресами, поэтому ей тоже безразличен способ получения числа.
+ВАЖНЫЙ МОМЕНТ - printf ожидает работать просто с числами! Как вариант, в параметрах написано (int a). Поэтому здесь можно передавать все, что угодно. Адрес будет распознаваться просто как число. А вот в функцию, ождающую массив или переменную, так передавать нельзя!!! И об этом не было написано (стр 233)! Scanf работает с цифрами, как с адресами, поэтому ей тоже безразличен способ получения числа. Работа с остальными функциями ниже и она отличается.
 
 printf не волнует способ передачи. Она рассматривает всех как просто числа.
-	printf("%d\n", MAS);// The name of the array evaluates to the address of the first element of the array. Можно перевести в шестнадцатиричную систему %p conversion specifier - printf("%p\n", MAS);.
-	printf("%p\n", MAS );//0028FF34
-	printf("%d\n", &MAS);//аналогично выше написанному. 
-	printf("%p\n", &MAS );//0028FF34
-	printf("%d\n", &MAS[0]);//аналогично выше написанному. 
-	printf("%p\n", &MAS[0] );//0028FF34
-	printf("%d\n", &MAS[1]);//следующий адрес после адреса MAS[0]. 
-	printf("%p\n", &MAS[1] );//0028FF38
-	printf("%p\n", &MAS[i] );
-
-	printf("%d\n", MAS[i]);//это уже конкретный член массива, и работа с ним, как с переменной.
+	printf("%p\n", MAS);// The name of the array evaluates to the address of the first element of the array; %p conversion specifier; 0028FF34.
+	printf("%p\n", &MAS);//аналогично выше написанному; 0028FF34.
+!!!	printMAS (&MAS, SIZE);// Ошибка.
+	printf("%p\n", &MAS[0]);//аналогично выше написанному; 0028FF34.
+	printf("%p\n", &MAS[1]);//следующий адрес после адреса MAS[0]. 
+	printf("%p\n", MAS[i]);//конкретный член массива, работа с ним, как с переменной.
 
 scanf не волнует способ передачи. Она рассматривает всех как адреса.
 	scanf("%5s", MAS);// & не нужен, см.выше. 5s введет строку не длиннее 5 символов. scanf может выйти за пределы массива.
 	scanf("%5s", &MAS);//взять адрес адреса, но это так. В функциях остальных это не работает.
 	scanf("%5s", &MAS[0]);//аналогично выше сказанному. MAS - это адрес первого элемента, но MAS[i] - это элемент! Так же, как a - это переменная, но &a - это адрес переменной. Не путать высокий язык с асмом. 
-	scanf("%c" , &MAS[i]);//Алярам, %c будет распозновать ввод как символ конца строки!
+	scanf("%c" , &MAS[i]);//%c будет распозновать ввод как символ конца строки!
 	scanf("%d" , MAS[0]);//Запишет полученное значение по адресу равному значению ячейки номер MAS[0]!
 
-	char MAS [] = "first";//cимвольный массив инициированный строковым литералом. The string "first" contains 5 characters plus a special string-termination character called the null character '\0'. 
-	char MAS [] = { 'f', 'i', 'r', 's', 't', '\0' };//эквивалентно предыдущему.
-	for (int i = 0; MAS[i] != '\0' ; ++i)
-	{
-		printf("%c\n", MAS[i]);//вывести значение ячейки MAS[i].
-	}
-
-Работа с остальными функциями ниже! И она отличается.
-
-
-
-	
-	
 
 
 
@@ -1756,7 +1597,6 @@ scanf не волнует способ передачи. Она рассматр
 Static Local Arrays and Automatic Local Arrays.
 	
 static int A[3]; - массив не будет всякий раз создаваться при вызове функции и уничтожаться после выхода из неё. Все тоже самое, что и с static переменными в примере про scope. Только еще static array автоматически инициализируются нулями, если не указано иное.
-	
 	#include <stdio.h>
 	void A (void);
 	void S (void);
@@ -1775,63 +1615,57 @@ static int A[3]; - массив не будет всякий раз создав
 		int a[] = {1,2,3};
 		printf("A\n");
 		for (int i = 0; i < 3; ++i)
-			printf("i=%d____p=%p____%d\n", i, &a[i], a[i] );
+			printf("i=%d p=%p %d\n", i, &a[i], a[i] );
 		
 		printf("A+5\n");
 		for (int i = 0; i < 3; ++i)
-			printf("i=%d____p=%p____%d\n", i, &a[i], a[i]+=5);
+			printf("i=%d p=%p %d\n", i, &a[i], a[i]+=5);
 	}
 	void S(void)
 	{
 		static int a[3];
 		printf("S\n");
 		for (int i = 0; i < 3; ++i)
-			printf("i=%d____p=%p____%d\n", i, &a[i], a[i]);
+			printf("i=%d p=%p %d\n", i, &a[i], a[i]);
 		printf("S+5\n");
 		for (int i = 0; i < 3; ++i)
-			printf("i=%d____p=%p____%d\n", i, &a[i], a[i]+=5);
+			printf("i=%d p=%p %d\n", i, &a[i], a[i]+=5);
 	}
-
 	first
 		A
-	i=0____p=0028FF0C____1
-	i=1____p=0028FF10____2
-	i=2____p=0028FF14____3
+	i=0 p=0028FF0C 1
+	i=1 p=0028FF10 2
+	i=2 p=0028FF14 3
 		A+5
-	i=0____p=0028FF0C____6
-	i=1____p=0028FF10____7
-	i=2____p=0028FF14____8
+	i=0 p=0028FF0C 6
+	i=1 p=0028FF10 7
+	i=2 p=0028FF14 8
 		S
-	i=0____p=0040E020____0
-	i=1____p=0040E024____0
-	i=2____p=0040E028____0
+	i=0 p=0040E020 0
+	i=1 p=0040E024 0
+	i=2 p=0040E028 0
 		S+5
-	i=0____p=0040E020____5
-	i=1____p=0040E024____5
-	i=2____p=0040E028____5
+	i=0 p=0040E020 5
+	i=1 p=0040E024 5
+	i=2 p=0040E028 5
 
 	second
 		A
-	i=0____p=0028FF0C____1
-	i=1____p=0028FF10____2
-	i=2____p=0028FF14____3
+	i=0 p=0028FF0C 1
+	i=1 p=0028FF10 2
+	i=2 p=0028FF14 3
 		A+5
-	i=0____p=0028FF0C____6
-	i=1____p=0028FF10____7
-	i=2____p=0028FF14____8
+	i=0 p=0028FF0C 6
+	i=1 p=0028FF10 7
+	i=2 p=0028FF14 8
 		S
-	i=0____p=0040E020____5
-	i=1____p=0040E024____5
-	i=2____p=0040E028____5
+	i=0 p=0040E020 5
+	i=1 p=0040E024 5
+	i=2 p=0040E028 5
 		S+5
-	i=0____p=0040E020____10
-	i=1____p=0040E024____10
-	i=2____p=0040E028____10
-
-
-
-
-
+	i=0 p=0040E020 10
+	i=1 p=0040E024 10
+	i=2 p=0040E028 10
 
 
 
@@ -1839,17 +1673,11 @@ static int A[3]; - массив не будет всякий раз создав
 Passing Arrays to Functions.	
 
 Recall that all arguments in C are passed by value. 
-
 C automatically passes arrays to functions by reference — the called functions can modify the element values in the callers’ original arrays. The name of the array evaluates (соответствует) to the address of the first element of the array. It’s possible to pass an array by value (by using a simple trick we explain in Chapter 10). Си передаёт массив в функцию путём имитации передачи параметра по ссылке, вызываемые функции могут изменять значения элементов массива.
-
 Individual array elements (scalars) are passed by value exactly as simple variables are. In Chapter 7, we show how to pass scalars (i.e., individual variables and array elements) to functions by reference. Отдельные значения (скаляры) передются по значению. Но можно имитировать ссылку для скаляров. Чем имитация отличается от передачи по ссылке - пока хз.
-
-
-Передача массива и элемента.
 
 	#include <stdio.h>
 	#define SIZE 5//нужно для удобной передачи разных массивов в одну и ту же функцию. В параметрах функции объявляют int переменную, которая внутри функции будет служить размером массива. Это позволяет передавать разные массивы с разными размерами одной и той же функции.
-
 	void modifyArray (int b[], int size);//modifyArray expects to receive an array of integers in parameter b and the number of array elements in parameter size.
 	//Принимается здесь АДРЕС! Вот size, например, - это передача по значению, то есть создается просто копия.
 	//The size of the array is not required between the array brackets. If it’s included, the compiler checks that it’s greater than zero, then ignores it. 
@@ -1863,6 +1691,7 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 		printMAS (&MAS[0], SIZE);//   0   1   2   3   4
 		printMAS (&MAS[2], SIZE);//   2   3   4   0   0; printMAS внутри будет "иметь" массив b, который будет начинаться с адреса MAS[2].
 	!!!	printMAS (MAS[0], SIZE);// Ошибка, происходит передача значения. А вот одномерный массив (строка) двумерного массива передавался бы именно так!
+
 		modifyArray(MAS, SIZE); 
 		printMAS (MAS, SIZE);//   0   2   4   6   8
 	!!!	modifyArray(&MAS, SIZE);// Ошибка.
@@ -1873,10 +1702,8 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 
 		modifyElement (MAS[4]);//64 ; 
 		printMAS (MAS, SIZE);//   0   4  16  24  32
-
 		return 0;
 	}
-
 	void modifyArray (int b[], int size)
 	{
 		for (int i = 0; i < size; i++)
@@ -1897,15 +1724,7 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 	}
 
 
-
-
-
-
-
-
-
 Сортировка массивов. Пузырьковая сортировка - меньшие значения всплывают вверх.
-
 	#include <stdio.h>
 	#define  SIZE 5
 	int main (void)
@@ -1960,14 +1779,9 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 
 
 
-
-
-
-
-
 Multidimensional Arrays.
 
-M[число строк][число столбцов (по сути - длина строки)] 
+M[число строк][число столбцов (или длина строки)] 
 Значения группирируются в фигурных скобках по строкам.
 	int A[2][3] = {	{1,2,3}, 
 					{4,5,6};
@@ -1992,29 +1806,22 @@ M[число строк][число столбцов (по сути - длина
 		0стрк//1//	//2//	//3//	
 		1стрк//4//	//0//	//0//
 
-
-
-
 Вывод многомерного массива и передача в функцию.
-
 В памяти строка идет за строкой. Каждая строка - по сути одномерный массив. When accessing (при обращении) a[1][2] in our example, the compiler knows to skip the 3 elements of the 1 row (row 0) to get to the 2 row (row 1). Then, the compiler accesses element 2 of that row. 
 
 	#include <stdio.h>
-	void printM(int [][3]);//первый индекс не требуется и бесполезен, последующие - обязательно требуются, иначе компилятор не будет знать длину строки.
-	//в списке параметров функции определяется о чем идет речь - переменной, одномерном массиве или многомерном массиве!
+	void printM(int [][3]);//первый индекс не требуется и бесполезен, последующие - обязательно требуются, иначе компилятор не будет знать длину строки. В списке параметров функции определяется о чем идет речь - переменной, одномерном массиве или многомерном массиве.
 	int main (void)
 	{
 		int M[2][3] = {0,1,2,3,4};
-		printM (M);//передаем адрес первого элемента в функцию, работа с двумерным. 
-	!!!	//Иные варианты не работают, потому что в параметрах функции идет речь о двумерном массиве. В примере ниже в параметрах функции речь идет об одномерном массиве.
-
+		printM (M);//передаем адрес первого элемента в функцию, работа с двумерным; Иные варианты не работают, потому что в параметрах функции идет речь о двумерном массиве.
 		return 0;
 	}
 	void printM (int M[][3])//первый индекс не требуется и бесполезен, последующие - обязательно требуются.
 	{	
-		for(int i=0; i < 2; i++)//2 число строк.
+		for(int i=0; i < 2; i++)//число строк 2.
 		{
-			for (int j = 0; j < 3; j++)//3 длина строки.
+			for (int j = 0; j < 3; j++)//длина строки 3. 
 			{
 				printf("%d ", M[i][j] );//i номер строки row, j номер столбца column.
 			}
@@ -2022,42 +1829,37 @@ M[число строк][число столбцов (по сути - длина
 		}
 	}
 
-
-
-
 Передача строки массива как одномерного массива в функцию. Упрощенная версия fig06_22.c . 
 
 	#include <stdio.h>
 	#define LONG 4
 	#define ROWS 3
+	void print( int A[], int size );
 	int main (void)
 	{
 		int M[ROWS][LONG] = {0,1,2,3,4,5,6,7,8,9,10,11};
 		for (int i = 0; i < ROWS; ++i)//Проход по каждой строке массива.
 		{
-			average( M[i], LONG );//Передача одномерного массива (одной строки многомерного), это не значение ячейки в данном случае!
-			//This causes (это приводит к тому) the address of one row of the double-subscripted array to be passed to average. The argument M[1] is the starting address of row 1 of the array.
+			print( M[i], LONG );//Передача одномерного массива (одной строки многомерного), это не значение ячейки в данном случае!
+			//This causes (это приводит к тому) the address of one row of the double-subscripted array to be passed to average (print). The argument M[1] is the starting address of row 1 of the array.
 			puts ("");
 		}
-		average( M[0], LONG );//будет аналогично предыдущему; вызывающая функция ожидает одномерный массив, а не значение.
-	!!!	average( M, LONG );// это будет ошибкой, потому что M есть двумерный массив. А функция ожидает одномерный. Несмотря на то, что по логике, M есть адрес первого элемента. 
-	!!!	average( &M, LONG );//  это будет ошибка по той же причине, что и выше.
-	!!!	average( &M[0], LONG );// и это будет ошибкой!
+	!!!	print( M, LONG );//Ошибка.
+	!!!	print( &M, LONG );//Ошибка.
+	!!!	print( &M[0], LONG );//Ошибка.
 	}
-	void average( int A[], int size )// Принимает одномерные массивы.
+	void print( int A[], int size )// Принимает одномерные массивы.
 	{
 		for (int i = 0; i < size; ++i)
 		{
-			printf ("%3d", A[i] );
+			printf ("%3d  ", A[i] );
 		}
-		puts ("");
 	}	
 
 
 
 
-
-Variable-Length Arrays
+Variable-Length Arrays VLA.
 Во всех предыдущих примерах массивы задавались константами (в том числе и через define). А здесь суть в объявлении размера массива уже после запуска программы. Именно для этого в индексах используют переменные, которые можно инициализировать в коде или получить от пользователя.
 
 	#include <stdio.h>
@@ -2135,9 +1937,6 @@ Initializing a pointer to 0 is equivalent to initializing a pointer to NULL, but
 	printf( "%d \n", y );//5
 	printf( "%d \n", y+*yPtr );//10
 
-
-
-
 In C, you use pointers and the indirection operator to simulate pass-by-reference (имитации передачи по ссылке). When calling a function with arguments that should be modified, the addresses of the arguments are passed.
 
 	#include <stdio.h>
@@ -2162,8 +1961,6 @@ In C, you use pointers and the indirection operator to simulate pass-by-referenc
 	{
 		*nPtr = *nPtr * *nPtr * *nPtr; //разыменовывает указатель; number = number * number * number
 	} 
-
-
 
 
 For a function that expects a single-subscripted array as an argument, the function’s prototype and header can use the pointer notation shown in the parameter list of function cubeByReference. The compiler does not differentiate between a function that receives a pointer and one that receives a single-subscripted array. This, of course, means that the function must “know” when it’s receiving an array or simply a single variable for which it’s to perform pass-by-reference. When the compiler encounters a function parameter for a single-subscripted array of the form int b[], the compiler converts the parameter to the pointer notation int *b. The two forms are interchangeable.
@@ -2191,171 +1988,119 @@ For a function that expects a single-subscripted array as an argument, the funct
 	} 
 
 
-
-
-
-
-
-
-
-
 Const Qualifier. 
-Ваще не сказали, что имя массива это константный указатель(
+Не сказали, что имя массива это просто константный указатель(
 
 	int main( void )
 	{
 		int x = 1;
 		const int y = 2;//нельзя менять значение переменной.
-
 		int MAS[] = {1,2,3};
 		const int MASC[] = {4,5,6};//нельзя менять значения ячеек.
-
 		int *aPtr;//все можно.
 		const int *bPtr;//нельзя менять значение через dereferencing.
 		int const *cPtr = &y;;//нельзя менять адрес указателя.
 		const int const *dPtr;//все нельзя.
 	}
-
 	void func( int x, const int y, int MAS[], const MASC[], int *aPtr, const int *bPtr; int const *cPtr = &y; const int const *dPtr  )
 	//Если передавать const сущность в non-const параметр функции, то будет ошибка.
 	{
 
 	}
 
-	Вся эта муть на 10 страниц и см. увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт:
-		Опечатки: en fig06_16 unsigned const int answer[] , en as const int a[][3] и ru объявляется как const int a[][3] (хотя везде в коде без const, демонстрируются [][size] многомерных массивов) , 
+Эта же муть на 10 страниц и см. увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт:
+	Опечатки: en fig06_16 unsigned const int answer[] , en as const int a[][3] и ru объявляется как const int a[][3] (хотя везде в коде без const, демонстрируются [][size] многомерных массивов) , 
 
-		Из главы про массивы.
-
-			#include <stdio.h>
-			void modA (const int x , const int c[] );
-			void modB (int x, int c[] );
-
-			int main()
+	Из главы про массивы.
+		#include <stdio.h>
+		void modA (const int x , const int c[] );
+		void modB (int x, int c[] );
+		int main()
+		{
+			int a = 2;
+			const int b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
+			int MASA [] = {1,2,3};
+			const int MASB [] = {4,5,6};
+		!!!	b = 7;// Ошибка.
+		!!!	MASB [2] = 33;// Ошибка.
+			modA(a, MASA);
+		!!!	modB(b, MASB);// Ошибка, требует const int c[]! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
+		}
+		void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
+		{
+		!!!	x = 2;// Ошибка.
+		!!! c[2]= 99;// Ошибка.
+		}
+		void modB (int x, int c[] )
+		{
+			x = 2;//Ошибки нет 
+		}
+	
+	Из главы про указатели.
+	The Const Qualifier with Pointers.
+	Six possibilities exist for using (or not using) const with function parameters: 2 with pass-by-value parameter passing and 4 with pass-by-reference parameter passing. Представьте функцию, которая ожидает массив и переменную для его размера. И эти параметры не должны меняться в функции, даже не смотря на то, что и так передаются по значению. There are 4 ways to pass a pointer to a function: 
+	1. a non-constant pointer to non-constant data. 
+		#include <stdio.h>
+		#include <ctype.h>
+		void convertToUppercase( char *sPtr );
+		int main( void )
+		{
+			char string1[] = "cHaRaCters and $32.98";//массив можно изменять;
+			const char string2[] = "Hello";
+			printf("%s \n", string1 );//cHaRaCters and $32.98
+			convertToUppercase( string1 );
+			printf("%s \n", string1 );//CHARACTERS AND $32.98
+		!!!	convertToUppercase( string2 );// Ошибка, требует const char *sPtr ! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
+		}
+		void convertToUppercase( char *sPtr )
+		{
+			while( *sPtr != '\0' )
 			{
-				int a = 2;
-				int MASA [] = {1,2,3};
-				
-				const int b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
-			!!!	b = 7;// Ошибка.
-				const int MASB [] = {4,5,6};
-			!!!	MASB [2] = 33;// Ошибка.
-
-				modA(a, MASA);
-			!!!	modB(b, MASB);// Ошибка, требует const int c[]! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
-			}
-
-			void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
-			{
-			!!!	x = 2;// Ошибка.
-			!!! c[2]= 99;// Ошибка.
-			}
-
-			void modB (int x, int c[] )
-			{
-				x = 2;//Ошибки нет 
-			}
-
-
-		Из главы про указатели.
-
-		The Const Qualifier with Pointers.
-		Six possibilities exist for using (or not using) const with function parameters: 2 with pass-by-value parameter passing and 4 with pass-by-reference parameter passing. Представьте функцию, которая ожидает массив и переменную для его размеры. И эти параметры не должны меняться в функции, даже не смотря на то, что и так передаются по значению.
-
-		There are 4 ways to pass a pointer to a function: 
-
-		1. a non-constant pointer to non-constant data. 
-			
-			#include <stdio.h>
-			#include <ctype.h>
-
-			void convertToUppercase( char *sPtr );
-
-			int main( void )
-			{
-				char string1[] = "cHaRaCters and $32.98";//массив можно изменять;
-				const char string2[] = "Hello";
-
-				printf("%s \n", string1 );//cHaRaCters and $32.98
-				convertToUppercase( string1 );
-				printf("%s \n", string1 );//CHARACTERS AND $32.98
-
-			!!!	convertToUppercase( string2 );// Ошибка, требует const char *sPtr ! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
-			}
-
-			void convertToUppercase( char *sPtr )
-			{
-				while( *sPtr != '\0' )
-				{
-					*sPtr = toupper( *sPtr );
-					++sPtr; // увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт.
-				} 
-			}
-
-
-		2. a non-constant pointer to constant data.
-			
-			#include <stdio.h>
-			#include <ctype.h>
-
-			void printCharacters1( const char *sPtr );
-			
-			int main( void )
-			{
-				char string1[] = "print characters of a string";// non-constant массив можно изменять; но с точки зрения функции это constant данные.
-				printCharacters1( string1 );
-			}
-
-			void printCharacters1( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"; аналогично свойствам const int b[]; non-constant указатель - потому что можно менять его адрес.
-			{	
-			!!!	*sPtr = 'L';// Ошибка
-
-				for ( ; *sPtr != '\0'; ++sPtr ) 
-				{ 
-					printf( "%c", *sPtr );
-				} 
-				
-				char x;
-				sPtr += 99;//нет ошибки
-				sPtr = &x;//нет ошибки
-			}
-
-			
-		3. a constant pointer to non-constant data. 
-
-				int x = 1;
-				int y = 2;
-				int *const aPtr = &x;//constant pointer; нельзя менять адрес указателя.
-				const int *bPtr = &y;//нельзя менять значение через dereferencing.
-
-				printf ("%d  %d\n", aPtr, *aPtr );//
-				printf ("%d  %d\n", bPtr, *bPtr );//
-
-			!!!	aPtr = &y;// Ошибка.
-				bPtr = &x;
-				
-				*aPtr = 5;
-			!!!	*bPtr = 7;// Ошибка.
-
-
-		4. a constant pointer to constant data. 
-
-				int n = 5;
-				int m;
-				const int *const ptr = &n;//константный указатель на целочисленную константу (с точки зрения указателя или функции); ptr всегда указывает на один и тот же адрес; целое число по этому адресу не может быть изменено.
-				printf( "%d\n", *ptr );
-				*ptr = 7; // ошибка: *ptr - константа; нельзя присвоить новое значение
-				ptr = &m; // ошибка: ptr - константа; нельзя присвоить новый адрес
-
-
-
-
-
-
+				*sPtr = toupper( *sPtr );
+				++sPtr; // увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт.
+			} 
+		}
+	2. a non-constant pointer to constant data.
+		#include <stdio.h>
+		#include <ctype.h>
+		void printCharacters1( const char *sPtr );
+		int main( void )
+		{
+			char string1[] = "print characters of a string";// non-constant массив можно изменять; но с точки зрения функции это constant данные.
+			printCharacters1( string1 );
+		}
+		void printCharacters1( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"; аналогично свойствам const int b[]; non-constant указатель - потому что можно менять его адрес.
+		{	
+		!!!	*sPtr = 'L';// Ошибка
+			for ( ; *sPtr != '\0'; ++sPtr ) 
+			{ 
+				printf( "%c", *sPtr );
+			} 
+			char x;
+			sPtr += 99;//нет ошибки
+			sPtr = &x;//нет ошибки
+		}
+	3. a constant pointer to non-constant data. 
+			int x = 1;
+			int y = 2;
+			int *const aPtr = &x;//constant pointer; нельзя менять адрес указателя.
+			const int *bPtr = &y;//нельзя менять значение через dereferencing.
+			printf ("%d  %d\n", aPtr, *aPtr );//
+			printf ("%d  %d\n", bPtr, *bPtr );//
+		!!!	aPtr = &y;// Ошибка.
+			bPtr = &x;
+			*aPtr = 5;
+		!!!	*bPtr = 7;// Ошибка.
+	4. a constant pointer to constant data. 
+			int n = 5;
+			int m;
+			const int *const ptr = &n;//константный указатель на целочисленную константу (с точки зрения указателя или функции); ptr всегда указывает на один и тот же адрес; целое число по этому адресу не может быть изменено.
+			printf( "%d\n", *ptr );
+			*ptr = 7; // ошибка: *ptr - константа; нельзя присвоить новое значение
+			ptr = &m; // ошибка: ptr - константа; нельзя присвоить новый адрес
 
 
 Bubble Sort Using Pass-by-Reference.
-
 Функция вызывает функцию. Бабл передает свопу элементы по ссылке. При использовании имени массива в качестве аргумента передается весь массив целиком, индивидуальные элементы являются скалярами и	передаются по значению.
 
 	#include <stdio.h>
@@ -2390,137 +2135,98 @@ Bubble Sort Using Pass-by-Reference.
 			}
 		}
 	}
-	void swap (int *elementPtr, int *element2Ptr)
+	void swap (int *element1Ptr, int *element2Ptr)
 	// swap is not allowed to say int hold = array[ j ]; or array[ j ] = array[ j +  1]; 
 	{
-		int temp;
-		temp = *elementPtr;
-		*elementPtr = *element2Ptr;
-		*element2Ptr = temp;
+		int hold;
+		hold = *element1Ptr;
+		*element1Ptr = *element2Ptr;
+		*element2Ptr = hold;
 	}
-
-
-
-
-
-
-
-
-
-sizeof() выполняется на этапе компиляции. Следующим способом можно найти количество элементов массива.
-	double real[ 22 ];
-	sizeof( real ) / sizeof( real[ 0 ] )
-
-
-
-
-
-
-
 
 
 Pointer Expressions and Pointer Arithmetic. Relationship between Pointers and Arrays. 
 
 	int x;
 	int B[5] = {0};//An array name can be thought of as a constant pointer. 
-	int *bPtr;//Assume that integer array B[5] and integer pointer variable bPtr have been defined.
+	int *bPtr;
 	int *b2Ptr;
-
 	bPtr = B;//Because the array name (without a subscript) is a pointer to the first element of the array, we can set bPtr equal (равным) to the address of the first element in array B with the statement; is equivalent to bPtr = &B[0]; .
-	bPtr = &B[0];//= B некрасиво и несистемно, = &B[0] отлично.
+	bPtr = &B[0];//равносильно предыдущему, но нагляднее.
 	b2Ptr = &B[0];
 
-	A limited set of arithmetic operations may be performed on pointers. A pointer may be: 
-		with an integer: incremented (++), decremented (--), +, +=, -, -= ;
-		is meaningful only when both pointers point to elements of the same array : aPtr - bPtr.
+A limited set of arithmetic operations may be performed on pointers. A pointer may be: 
+	with an integer: incremented (++), decremented (--), +, +=, -, -= ;
+	is meaningful only when both pointers point to elements of the same array : b2Ptr - bPtr.
 
-	b2Ptr += 2;//would produce 3008 (3000 + 2 * 4), assuming an integer is stored in 4 bytes of memory; 3004 (3000 + 2 * 2) if it's stored in 2 bytes.
-	x = b2Ptr - bPtr;//statement would assign to x the number of array elements from vPtr to v2Ptr, in this case 2 (3008 - 3000).
+	b2Ptr += 2;//would produce 3008 (3000 + 2 * 4), assuming an integer is stored in 4 bytes of memory and address is 3000 ; 3004 (3000 + 2 * 2) if it's stored in 2 bytes.
+	x = b2Ptr - bPtr;//statement would assign to x the number of array elements from b2Ptr to bPtr, in this case 2 (3008 - 3000).
 	//4 байта - это 4гб озу, тогда адрес любой ячейки (то есть одного байта) - это всегда 4 байта на х86 при х32 ос.
 
-	bPtr = NULL;
 	long long *bp = NULL ;
-	printf ("%p\n", bPtr );//00000000
 	printf ("%p\n", bp );//00000000
-	++bPtr;
 	++bp;
-	printf ("%p\n", bPtr );//00000004
 	printf ("%p\n", bp );//00000008	
 
 A pointer can be assigned to another pointer if both have the same type. 
 The exception to this rule is the pointer to void (i.e., void *), which is a generic pointer that can represent any pointer type. All pointer types can be assigned a pointer to void, and a pointer to void can be assigned a pointer of any type. In both cases, a cast operation is not required. A pointer to void cannot be dereferenced. Consider this: The compiler knows that a pointer to int refers to 4 bytes of memory on a machine with 4-byte integers, but a pointer to void simply contains a memory location for an unknown data type—the precise number of bytes to which the pointer refers is not known by the compiler. The compiler must know the data type to determine the number of bytes to be dereferenced for a particular pointer.
 Pointers can be compared using equality and relational operators, but such comparisons are meaningless unless the pointers point to elements of the same array. Pointer comparisons compare the addresses stored in the pointers. A comparison of two pointers pointing to elements in the same array could show, for example, that one pointer points to a higher-numbered element of the array than the other pointer does. A common use of pointer comparison is determining whether a pointer is NULL. 
 
-
 	#include <stdio.h>
-	#define ARRAYSIZE 4
-
+	#define SIZE 4
 	int main (void)
 	{
 		int B[] = { 10, 20, 30, 40 };
 		int *bPtr = B;
 		printf ("int *bPtr = B;\n" );
 		printf( "&B[3] %d = bPtr + 3 %d \n", &B[3], bPtr + 3 );//&B[3] can be written with the pointer expression bPtr + 3.
-		
-		Массив
-		for ( int i = 0; i < ARRAYSIZE ; ++i ) 
+
+		for ( int i = 0; i < SIZE ; ++i )//Array subscript notation. An array name can be thought of as a constant pointer. 
 		{
 			printf( "B[ %u ] = %d\n", i, B[i] );
 		} 
-		for ( int offset = 0; offset < ARRAYSIZE ; ++offset ) 
+		for ( int offset = 0; offset < SIZE ; ++offset )//Pointer/offset notation where the pointer is the array name. The array itself can be treated as a pointer and used in pointer.  
 		{
-			printf( "*( B + %u ) = %d", offset, *( B + offset ) );//The array itself can be treated as a pointer and used in pointer arithmetic;
-			printf( "    *( &B[0] + %u ) = %d",	offset, *( &B[0] + offset ) );
-			printf( "    *( &B[2] + %u ) = %d\n", 	offset, *( &B[2] + offset ) );
+			printf( "*( B + %u ) = %d  "	,	offset, *( B + offset ) );
+			printf( "*( &B[0] + %u ) = %d  ",	offset, *( &B[0] + offset ) );
+			printf( "*( &B[2] + %u ) = %d\n",	offset, *( &B[2] + offset ) );
 		}	
-
-		Указатель
-		for ( int i = 0; i < ARRAYSIZE ; ++i ) 
+		for ( int i = 0; i < SIZE ; ++i )//Pointer subscript notation. Pointers can be subscripted like arrays. If bPtr has the value B, the expression refers to the array element B[1]. This is referred to as pointer/subscript notation.
 		{
-			printf( "bPtr[ %u ] = %d\n", i, bPtr [i] );// Pointers can be subscripted like arrays. If bPtr has the value B, the expression refers to the array element B[1]. This is referred to as pointer/subscript notation. 
+			printf( "bPtr[ %u ] = %d\n", i, bPtr [i] );
 		}
-		for ( int offset = 0; offset < ARRAYSIZE ; ++offset ) 
+		for ( int offset = 0; offset < SIZE ; ++offset )//Pointer/offset notation. Array element B[offset] can alternatively be referenced with the pointer expression; offset is offset; this notation is referred to as pointer/offset notation; the parentheses are necessary because the precedence of * is higher than the precedence of +.
 		{
-			printf( "*( bPtr + %u ) = %d\n", offset, *( bPtr + offset ) );//array element B[offset] can alternatively be referenced with the pointer expression; offset is offset; this notation is referred to as pointer/offset notation; the parentheses are necessary because the precedence of * is higher than the precedence of +.
+			printf( "*( bPtr + %u ) = %d\n", offset, *( bPtr + offset ) );
 		} 
 		!!!	printf ("%d\n", *bPtr[2] );// Ошибка.
 	}
 
-
 	int *bPtr = B;
 	&B[3] 20686760 = bPtr + 3 2686760
-	//&B[3] can be written with the pointer expression bPtr + 3.
-
-	Массив
-	Array subscript notation
-	//An array name can be thought of as a constant pointer. 
+	Array subscript notation. An array name can be thought of as a constant pointer. 
 	B[ 0 ] = 10
 	B[ 1 ] = 20
 	B[ 2 ] = 30
 	B[ 3 ] = 40
-	Pointer/offset notation where the pointer is the array name
-	//The array itself can be treated as a pointer and used in pointer arithmetic;
+	Pointer/offset notation where the pointer is the array name. The array itself can be treated as a pointer and used in pointer arithmetic;
 	*( B + 0 ) = 10    *( &B[0] + 0 ) = 10    *( &B[2] + 0 ) = 30
 	*( B + 1 ) = 20    *( &B[0] + 1 ) = 20    *( &B[2] + 1 ) = 40
 	*( B + 2 ) = 30    *( &B[0] + 2 ) = 30    *( &B[2] + 2 ) = 2686748
 	*( B + 3 ) = 40    *( &B[0] + 3 ) = 40    *( &B[2] + 3 ) = 4201088
-
-	Указатель
-	Pointer subscript notation
-	// Pointers can be subscripted like arrays. If bPtr has the value B, the expression refers to the array element B[1]. This is referred to as pointer/subscript notation. 
+	Pointer subscript notation. Pointers can be subscripted like arrays. If bPtr has the value B, the expression refers to the array element B[1]. This is referred to as pointer/subscript notation. 
 	bPtr[ 0 ] = 10
 	bPtr[ 1 ] = 20
 	bPtr[ 2 ] = 30
 	bPtr[ 3 ] = 40
-	Pointer/offset notation
-	//array element B[offset] can alternatively be referenced with the pointer expression; offset is offset; this notation is referred to as pointer/offset notation; the parentheses are necessary because the precedence of * is higher than the precedence of +.
+	Pointer/offset notation. Array element B[offset] can alternatively be referenced with the pointer expression; offset is offset; this notation is referred to as pointer/offset notation; the parentheses are necessary because the precedence of * is higher than the precedence of +.
 	*( bPtr + 0 ) = 10
 	*( bPtr + 1 ) = 20
 	*( bPtr + 2 ) = 30
 	*( bPtr + 3 ) = 40	
 
 
-Из-за этого примера пришлось многое переосмыслить, это неплохо.
+Из-за этого примера пришлось все переосмыслить.
 	#include <stdio.h>
 	#define SIZE 10
 	void copy1( char * const s1, const char * const s2 );
@@ -2528,7 +2234,8 @@ Pointers can be compared using equality and relational operators, but such compa
 	int main( void )
 	{
 		char string1[ SIZE ];
-		char *string2 = "Hello";//ненуачо, символьный массив через указатель, чудесно и понятно, элементарно и логично;
+		char *string2 = "Hello";//Создать указатель на строку и инициализировать строковым литералом (то есть скаляром); Не нравится, потому что char string2[] = "Hello" понятнее и не-конст указатель лучше отдельно сделать...
+	!!! int *MAS = {1,2,3,4,5};//Ошибка, см Arrays of Pointers, нельзя создать указатель и инициировать его последовательностью ячеек.
 		char string3[ SIZE ];
 		char string4[] = "Good Bye";
 		copy1( string1, string2 );
@@ -2536,18 +2243,155 @@ Pointers can be compared using equality and relational operators, but such compa
 		copy2( string3, string4 );
 		printf( "string3 = %s\n", string3 );
 	}
-	void copy1( char * const s1, const char * const s2 )//s1 нельзя менять адрес, s2 нельзя менять адрес и нельзя менять значение.
+	void copy1( char * const s1, const char * const s2 )//у s1 нельзя менять адрес, у s2 нельзя менять адрес и нельзя менять значение; это приходится объявлять в том числе потому что string1 и string2 являются массивами, которые являтся конст указателями, тогда соответствующие параметры функции тоже должны быть конст.
 	{
 		size_t i;
-		for ( i=0; ( s1[ i ] = s2[ i ] ) != '\0' ; ++i )//слева от != будет находиться результат последней операции.
+		for ( i=0; ( s1[ i ] = s2[ i ] ) != '\0' ; ++i )//слева от != будет находиться результат последнего присваивания.
 		{
-			;
+			;//после последнего s1[ i ] равного \0 произойдет ложность условия и ++i не будет выполнено, произойдет выход из for.
 		}
 	}
-	void copy2( char *s1, const char *s2 )
+	void copy2( char *s1, const char *s2 )//у s1 можно менять адрес и значение, у s2 нельзя менять значение.
 	{
 		for ( ;  ( *s1 = *s2 ) != '\0' ; ++s1, ++s2 ) 
 		{
 			;
 		}
 	}
+
+
+Arrays of Pointers.
+Arrays may contain pointers. A common use of an array of pointers is to form an array of strings, referred to simply as a string array.
+
+	const char *suit[4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//The suit[4] portion of the definition indicates an array of 4 elements. The char * portion of the declaration indicates that each element of array suit is of type “pointer to char.” Qualifier const indicates that the strings pointed to by each element pointer will not be modified. The four values to be placed in the array are "Hearts", "Diamonds", "Clubs" and "Spades".
+	char *suit[4];//Массив из 4 указателей типа char c garbage.
+	char *suit[4] = {};//Массив из 4 указателей типа char инициализированных 0.
+	char *suit[4] = {0};//Массив из 4 указателей типа char инициализированных 0.
+	char *suit[4] = {NULL};//Массив из 4 указателей типа char инициализированных NULL.
+	int *MAS[SIZE] = {NULL};//Массив из SIZE указателей типа int инициализированных NULL.
+
+	#define SUITS 4
+	#include <stdio.h>
+	void deal( const char *wSuit[] );
+	int main()
+	{
+		const char *suit[ SUITS ] = { "Hearts", "Diamonds", "Clubs", "Spades" };
+		deal( suit );
+	}
+	void deal( const char *wSuit[] )
+	{
+		for (int i = 0; i < SUITS; ++i)
+		{
+			printf ("%s ", wSuit[i]);
+		}
+			
+	}	
+
+
+Pointer to Function.
+A pointer to a function contains the address of the function in memory. In Chapter 6, we saw that an array name is really the address in memory of the first element of the array. Similarly (аналогично), a function name is really (в действительности) the starting address in memory of the code that performs the function’s task. Pointers to functions can be passed to functions, returned from functions, stored in arrays and assigned to other function pointers. 
+
+Функция, возвращающая указатель.
+	#include <stdio.h>
+	int *lol ( void );
+	int main( void )
+	{
+		printf("%d\n", lol() );
+		printf("%d\n", *lol() );
+	}
+	int *lol (void)
+	{
+		int lala = 2;
+		int *ptr = &lala;
+		return ptr;
+	}
+
+Упрощенный пример ниже.
+	#include <stdio.h>
+	void bubble ( int (*fff)(int x, int y) );
+	int ascending( int a, int b );
+	int descending( int m, int n );
+	int main( void )
+	{
+		bubble( ascending );
+		bubble( descending );
+	}
+	void bubble ( int (*fff)(int x, int y) )// параметр определяет указатель на функцию, которая принимает две переменных. 
+	//void bubble ( int *fff (int x, int y) ) параметр определяет функцию, которая возвращает указатель и принимает две переменных.
+	{
+		printf ("%d\n", (*fff)( 7 , 2 ) );
+	}
+	int ascending( int a, int b )
+	{
+		return b - a;
+	}
+	int descending( int m, int n )
+	{
+		return m + n;
+	}
+
+
+
+
+#include <stdio.h>
+#define SIZE 10
+void bubble( int work[], size_t size, int (*compare)( int x, int y ) );
+int ascending( int a, int b );
+int descending( int a, int b );
+int main( void )
+{
+	int order ; // 1 - по возрастанию, 2 – по убыванию
+	int a[ SIZE ] = { 10, 4, 6, 8, 2, 12, 89, 68, 45, 37 };
+									for ( size_t counter = 0; counter < SIZE; ++counter ) 
+									{
+										printf( "%3d", a[ counter ] );
+									}
+	puts ("");
+	scanf( "%d", &order );
+	if ( order == 1 ) 
+	{
+		bubble( a, SIZE, ascending );//pass function ascending; будто имя функции это указатель, потому что имя функции это адрес в памяти, значит мы передаем адрес функции ascending в бабл, которая как раз ожидает получение адреса!
+	}
+	else 
+	{
+		bubble( a, SIZE, descending );//pass function descending
+	}
+									for ( size_t counter = 0; counter < SIZE; ++counter ) 
+									{
+										printf( "%3d", a[ counter ] );
+									}
+}
+void bubble ( int work[], size_t size, int (*compare)(int x, int y) )
+//int (*compare)(int x, int y)
+//Это
+{
+	void swap( int *element1Ptr, int *element2ptr );//просто прототип swap.
+	for ( int pass = 1; pass < size; ++pass )
+	{
+		for ( int count = 0; count < size - 1; ++count )
+		{
+			if ( (*compare) ( work[count], work[count+1] ) == 0	)
+			//Передача элементов в функцию асендин или десендин. 
+			//Если функция вернет 1, то все в порядке; 1 == 0 ложно.
+			//Если функция вернет 0, то нужен своп; 0 == 0 истинно. Тогда будет вызван своп, чтобы поменять элементы местами.
+			{
+				swap( &work[count], &work[count+1] );//передача элементов в своп.
+			}
+		}
+	}
+}
+int ascending( int a, int b )
+{
+	return b > a;//Ассендин вернет 1, если следующее больше предыдущего, то есть если все в порядке. 
+}
+int descending( int a, int b )
+{
+	return b < a;//Дессендин вернет 1, если следующее меньше предыдущего.
+}
+void swap( int *element1Ptr, int *element2Ptr )
+{
+	int hold;
+	hold = *element1Ptr;
+	*element1Ptr = *element2Ptr;
+	*element2Ptr = hold;
+}

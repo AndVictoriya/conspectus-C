@@ -1011,12 +1011,15 @@ The general format for a function definition is:
 Параметры похожи на объявления.
 	int main( void )
 	{
-		int x;
-		x = 2;
+		int x;//definitions
+		x = 2;//initialization
 	}
 
-	func (2);
-	void func (int x)
+	int main( void )
+	{
+		func (2);//initialization
+	}
+	void func (int x)//definitions
 	{
 
 	}
@@ -2289,9 +2292,12 @@ Arrays may contain pointers. A common use of an array of pointers is to form an 
 
 
 Pointer to Function.
-A pointer to a function contains the address of the function in memory. In Chapter 6, we saw that an array name is really the address in memory of the first element of the array. Similarly (аналогично), a function name is really (в действительности) the starting address in memory of the code that performs the function’s task. Pointers to functions can be passed to functions, returned from functions, stored in arrays and assigned to other function pointers. 
 
-Функция, возвращающая указатель.
+A pointer to a function contains the address of the function in memory. 
+In Chapter 6, we saw that an array name is really the address in memory of the first element of the array. Similarly (аналогично), a function name is really (в действительности) the starting address in memory of the code that performs the function’s task. 
+Pointers to functions can be passed to functions, returned from functions, stored in arrays and assigned to other function pointers. 
+
+Функция, возвращающая указатель на переменную.
 	#include <stdio.h>
 	int *lol ( void );
 	int main( void )
@@ -2306,92 +2312,143 @@ A pointer to a function contains the address of the function in memory. In Chapt
 		return ptr;
 	}
 
-Упрощенный пример ниже.
+Упрощенный пример ниже, указатель на функцию.
 	#include <stdio.h>
-	void bubble ( int (*fff)(int x, int y) );
 	int ascending( int a, int b );
-	int descending( int m, int n );
 	int main( void )
 	{
-		bubble( ascending );
-		bubble( descending );
-	}
-	void bubble ( int (*fff)(int x, int y) )// параметр определяет указатель на функцию, которая принимает две переменных. 
-	//void bubble ( int *fff (int x, int y) ) параметр определяет функцию, которая возвращает указатель и принимает две переменных.
-	{
-		printf ("%d\n", (*fff)( 7 , 2 ) );
+		printf ("%d\n", ascending ( 7, 2 ) );
+		
+		int (*FunctionPtr)(int x, int y);//FunctionPtr that’s a pointer to a function that receives two integer parameters and returns an integer result.
+		void (*VoidFunctionPtr)(int x, int y);//VoidFunctionPtr that’s a pointer to a function that receives two integer parameters and returns void.
+		//int *FunctionPtr (int x, int y) declares a function that receives two integers as parameters and returns a pointer to an integer. Логично, что функция не может быть параметром другой функции.
+		FunctionPtr = ascending; 
+		printf ("%d\n", (*FunctionPtr) ( 7 , 2 ) );//Just as a pointer to a variable is dereferenced to access the value of the variable, a pointer to a function is dereferenced to use the function. 
+		printf ("%d\n", FunctionPtr ( 7 , 2 ) );//можно, но через разыменование нагляднее!
 	}
 	int ascending( int a, int b )
 	{
 		return b - a;
 	}
-	int descending( int m, int n )
+
+Упрощенный пример ниже.
+	#include <stdio.h>
+	void bubble ( int (*FunctionPtr)(int x, int y) );
+	int ascending( int a, int b );
+	int descending( int c, int d );
+	int main( void )
 	{
-		return m + n;
+		bubble( ascending );
+		bubble( descending );
+	}
+	void bubble ( int (*FunctionPtr)(int x, int y) )//This tells bubble to expect a parameter FunctionPtr that’s a pointer to a function that receives two integer parameters and returns an integer result. 
+	{
+		printf ("%d\n", (*FunctionPtr)( 7 , 2 ) );
+	}
+	int ascending( int a, int b )
+	{
+		return b - a;
+	}
+	int descending( int c, int d )
+	{
+		return c + d;
 	}
 
-
-
-
-#include <stdio.h>
-#define SIZE 10
-void bubble( int work[], size_t size, int (*compare)( int x, int y ) );
-int ascending( int a, int b );
-int descending( int a, int b );
-int main( void )
-{
-	int order ; // 1 - по возрастанию, 2 – по убыванию
-	int a[ SIZE ] = { 10, 4, 6, 8, 2, 12, 89, 68, 45, 37 };
-									for ( size_t counter = 0; counter < SIZE; ++counter ) 
-									{
-										printf( "%3d", a[ counter ] );
-									}
-	puts ("");
-	scanf( "%d", &order );
-	if ( order == 1 ) 
+Универсальная программа сортировки, использующая указатели на функции.
+	#include <stdio.h>
+	#define SIZE 10
+	void bubble( int work[], size_t size, int (*FunctionPtr)( int x, int y ) );
+	int ascending( int a, int b );
+	int descending( int a, int b );
+	int main( void )
 	{
-		bubble( a, SIZE, ascending );//pass function ascending; будто имя функции это указатель, потому что имя функции это адрес в памяти, значит мы передаем адрес функции ascending в бабл, которая как раз ожидает получение адреса!
-	}
-	else 
-	{
-		bubble( a, SIZE, descending );//pass function descending
-	}
-									for ( size_t counter = 0; counter < SIZE; ++counter ) 
-									{
-										printf( "%3d", a[ counter ] );
-									}
-}
-void bubble ( int work[], size_t size, int (*compare)(int x, int y) )
-//int (*compare)(int x, int y)
-//Это
-{
-	void swap( int *element1Ptr, int *element2ptr );//просто прототип swap.
-	for ( int pass = 1; pass < size; ++pass )
-	{
-		for ( int count = 0; count < size - 1; ++count )
+		int order ; // 1 - for ascending order, 2 –for descending order
+		int a[ SIZE ] = { 10, 4, 6, 8, 2, 12, 89, 68, 45, 37 };
+										for ( size_t counter = 0; counter < SIZE; ++counter ) 
+										{
+											printf( "%3d", a[ counter ] );
+										}
+		puts ("");
+		scanf( "%d", &order );
+		if ( order == 1 ) 
 		{
-			if ( (*compare) ( work[count], work[count+1] ) == 0	)
-			//Передача элементов в функцию асендин или десендин. 
-			//Если функция вернет 1, то все в порядке; 1 == 0 ложно.
-			//Если функция вернет 0, то нужен своп; 0 == 0 истинно. Тогда будет вызван своп, чтобы поменять элементы местами.
+			bubble( a, SIZE, ascending );//pass function ascending;
+		}
+		else 
+		{
+			bubble( a, SIZE, descending );//pass function descending.
+		}
+										for ( size_t counter = 0; counter < SIZE; ++counter ) 
+										{
+											printf( "%3d", a[ counter ] );
+										}
+	}
+	void bubble ( int work[], size_t size, int (*FunctionPtr)(int x, int y) )
+	{
+		void swap( int *element1Ptr, int *element2ptr );//просто прототип swap.
+		for ( int pass = 1; pass < size; ++pass )
+		{
+			for ( int count = 0; count < size - 1; ++count )
 			{
-				swap( &work[count], &work[count+1] );//передача элементов в своп.
+				if ( (*FunctionPtr) ( work[count], work[count+1] ) == 0	)
+				//Передача элементов в функцию асендин или десендин с помощью указателя FuctionPtr. 
+				//Если функция вернет 1, то все в порядке; 1 == 0 ложно.
+				//Если функция вернет 0, то нужен своп; 0 == 0 истинно. Тогда будет вызван своп, чтобы поменять элементы местами.
+				{
+					swap( &work[count], &work[count+1] );//передача элементов в своп.
+				}
 			}
 		}
 	}
-}
-int ascending( int a, int b )
-{
-	return b > a;//Ассендин вернет 1, если следующее больше предыдущего, то есть если все в порядке. 
-}
-int descending( int a, int b )
-{
-	return b < a;//Дессендин вернет 1, если следующее меньше предыдущего.
-}
-void swap( int *element1Ptr, int *element2Ptr )
-{
-	int hold;
-	hold = *element1Ptr;
-	*element1Ptr = *element2Ptr;
-	*element2Ptr = hold;
-}
+	int ascending( int a, int b )
+	{
+		return b > a;//Ассендин вернет 1, если следующее больше предыдущего, то есть если все в порядке. 
+	}
+	int descending( int a, int b )
+	{
+		return b < a;//Дессендин вернет 1, если следующее меньше предыдущего.
+	}
+	void swap( int *element1Ptr, int *element2Ptr )
+	{
+		int hold;
+		hold = *element1Ptr;
+		*element1Ptr = *element2Ptr;
+		*element2Ptr = hold;
+	}
+
+Демонстрация использования массива указателей на функции.
+	#include <stdio.h>
+	void function1( int a );
+	void function2( int b );
+	void function3( int c );
+	int main( void )
+	{
+		//просто для визуального сравнения с ранее:
+		const char *suit[4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//an array of 4 elements. 
+		int (*FunctionPtr)(int x, int y);//FunctionPtr that’s a pointer to a function that receives two integer parameters and returns an integer result; 
+
+		void (*f[ 3 ])( int ) = { function1, function2, function3 };//initialize array of 3 pointers to functions that each take an int argument and return void.
+		// Имя переменной давать необязательно???
+		size_t choice;
+		scanf( "%u", &choice );
+		while ( 0 <= choice && choice < 3 ) 
+		{
+			(*f[ choice ])( choice );//In the function call f[ choice ] selects the pointer at location choice in the array (выбирает указатель на функцию из элемента с индексом choice).  The pointer is dereferenced to call the function, and choice is passed as the argument to the function.   
+			scanf( "%u", &choice );
+		}
+		puts( "Program execution completed." );
+	}
+	void function1( int a )
+	{
+		printf( "You entered %d so function1 was called\n\n", a );
+	}
+	void function2( int b )
+	{
+		printf( "You entered %d so function2 was called\n\n", b );
+	} 
+	void function3( int c )
+	{
+		printf( "You entered %d so function3 was called\n\n", c );
+	} 
+
+

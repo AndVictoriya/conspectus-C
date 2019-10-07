@@ -173,7 +173,7 @@ It contains some literal characters Sum is  to be displayed, and it contains the
 The second argument sum specifies (задает, указывает) the value to be printed. 
 Secure print:
 	puts( "Welcome to C!" );
-	printf( "%s", "Welcome " );
+	printf( "%s", "Welcome " );//a string with printf.
 
 
 Теперь в общем.
@@ -1558,7 +1558,8 @@ We also use identifiers as names for user-defined functions. Actually, each iden
 
 
 
-Arrays. Кратко - одномерные, передача одномерного, многомерные, передача многомерного и передача одной строки многомерного, переменные массивы и передача переменных массивов.
+Arrays. 
+Кратко - одномерные, передача одномерного, многомерные, передача многомерного и передача одной строки многомерного, переменные массивы и передача переменных массивов.
 Arrays are data structures consisting of related (связанных) data items of the same (одного) type. In Chapter 10, we discuss C’s notion of struct (structure) — a data structure consisting of related data items of possibly different types.
 Arrays and structures are “static” entities (remain the same size throughout program execution). They may be of automatic storage class.
 size_t - an unsigned integral type <stddef.h>.
@@ -1572,139 +1573,83 @@ size_t - an unsigned integral type <stddef.h>.
 	for (int i = 0; MAS[i] != '\0' ; ++i)
 		printf("%c\n", MAS[i]);//вывести значение ячейки MAS[i]. i subscript - индекс; a subscripted array name is an lvalue — it can be used on the left side of an assignment.
 Программа может выйти за пределы массива, этого нельзя допускать.
-		
 
-scanf и printf не являются частью языка, поэтому их особеннсти лишь их заслуги.
-	printf ("%s\n", "Hello" );//раньше было так a string with printf.
-ВАЖНЫЙ МОМЕНТ - printf ожидает работать просто с числами! Как вариант, в параметрах написано (int a). Поэтому здесь можно передавать все, что угодно. Адрес будет распознаваться просто как число. А вот в функцию, ождающую массив или переменную, так передавать нельзя!!! И об этом не было написано (стр 233)! Scanf работает с цифрами, как с адресами, поэтому ей тоже безразличен способ получения числа. Работа с остальными функциями ниже и она отличается.
-
-printf не волнует способ передачи. Она рассматривает всех как просто числа.
-	printf("%p\n", MAS);// The name of the array evaluates to the address of the first element of the array; %p conversion specifier; 0028FF34.
-	printf("%p\n", &MAS);//аналогично выше написанному; 0028FF34.
-!!!	printMAS (&MAS, SIZE);// Ошибка.
-	printf("%p\n", &MAS[0]);//аналогично выше написанному; 0028FF34.
-	printf("%p\n", &MAS[1]);//следующий адрес после адреса MAS[0]. 
-	printf("%p\n", MAS[i]);//конкретный член массива, работа с ним, как с переменной.
-
-scanf не волнует способ передачи. Она рассматривает всех как адреса.
-	scanf("%5s", MAS);// & не нужен, см.выше. 5s введет строку не длиннее 5 символов. scanf может выйти за пределы массива.
-	scanf("%5s", &MAS);//взять адрес адреса, но это так. В функциях остальных это не работает.
-	scanf("%5s", &MAS[0]);//аналогично выше сказанному. MAS - это адрес первого элемента, но MAS[i] - это элемент! Так же, как a - это переменная, но &a - это адрес переменной. Не путать высокий язык с асмом. 
-	scanf("%c" , &MAS[i]);//%c будет распозновать ввод как символ конца строки!
-	scanf("%d" , MAS[0]);//Запишет полученное значение по адресу равному значению ячейки номер MAS[0]!
-
-
-
-
+scanf и printf не являются частью языка. ВАЖНЫЙ МОМЕНТ - printf ожидает работать просто с числами! Как вариант, в параметрах написано (int a). Поэтому здесь можно передавать все, что угодно. Адрес будет распознаваться просто как число. А вот в функцию, ождающую массив или переменную, так передавать нельзя!!! И об этом не было написано (стр 233)! Scanf работает с цифрами, как с адресами, поэтому ей тоже безразличен способ получения числа. Работа с остальными функциями ниже и она отличается.
+	printf("%p", MAS);//0028FF34; The name of the array evaluates to the address of the first element of the array; %p conversion specifier.
+	scanf("%5s", MAS);//& не нужен; 5s введет строку не длиннее 5 символов; scanf может выйти за пределы массива.
+	printf("%p", &MAS);//0028FF34; 
+	scanf("%5s", &MAS);//взять адрес адреса, но это так; в функциях остальных это не работает.
+!!!	func (&MAS);//Ошибка.
+	printf("%p", &MAS[0]);//0028FF34.
+	scanf("%5s", &MAS[0]);//%c будет распозновать ввод как символ конца строки!
+	printf("%p", MAS[0]);//конкретный член массива, работа с ним, как с переменной; но так же будет передаваться строка двумерного массива.
+	scanf("%d" , MAS[0]);//запишет введенное значение по адресу равному значению ячейки MAS[0]!
 
 Static Local Arrays and Automatic Local Arrays.
-	
-static int A[3]; - массив не будет всякий раз создаваться при вызове функции и уничтожаться после выхода из неё. Все тоже самое, что и с static переменными в примере про scope. Только еще static array автоматически инициализируются нулями, если не указано иное.
 	#include <stdio.h>
 	void A (void);
 	void S (void);
 	int main (void)
 	{
-		printf("first\n");	
-		A();
-		S();
-		printf("second\n");
-		A();
-		S();
+		printf("\nfirst");	
+		A(); S();
+		printf("\nsecond");
+		A(); S();
 		return 0;
 	}
 	void A (void)
 	{
 		int a[] = {1,2,3};
-		printf("A\n");
-		for (int i = 0; i < 3; ++i)
-			printf("i=%d p=%p %d\n", i, &a[i], a[i] );
-		
-		printf("A+5\n");
-		for (int i = 0; i < 3; ++i)
-			printf("i=%d p=%p %d\n", i, &a[i], a[i]+=5);
+		printf("\nA ");
+		for (int i = 0; i < 3; ++i) printf("\t%p %d ", &a[i], a[i] );
+		printf("\nA+5 ");
+		for (int i = 0; i < 3; ++i) printf("\t%p %d ", &a[i], a[i]+=5);
 	}
-	void S(void)
+	void S (void)
 	{
-		static int a[3];
-		printf("S\n");
-		for (int i = 0; i < 3; ++i)
-			printf("i=%d p=%p %d\n", i, &a[i], a[i]);
-		printf("S+5\n");
-		for (int i = 0; i < 3; ++i)
-			printf("i=%d p=%p %d\n", i, &a[i], a[i]+=5);
+		static int a[3];//массив не будет всякий раз создаваться при вызове функции и уничтожаться после выхода из неё. Все тоже самое, что и с static переменными в примере про scope. static array автоматически инициализируется нулями, если не указано иное.
+		printf("\nS ");
+		for (int i = 0; i < 3; ++i) printf("\t%p %d ", &a[i], a[i]);
+		printf("\nS+5 ");
+		for (int i = 0; i < 3; ++i) printf("\t%p %d ", &a[i], a[i]+=5);
+	
 	}
 	first
-		A
-	i=0 p=0028FF0C 1
-	i=1 p=0028FF10 2
-	i=2 p=0028FF14 3
-		A+5
-	i=0 p=0028FF0C 6
-	i=1 p=0028FF10 7
-	i=2 p=0028FF14 8
-		S
-	i=0 p=0040E020 0
-	i=1 p=0040E024 0
-	i=2 p=0040E028 0
-		S+5
-	i=0 p=0040E020 5
-	i=1 p=0040E024 5
-	i=2 p=0040E028 5
-
+	A       0028FF0C 1      0028FF10 2      0028FF14 3
+	A+5     0028FF0C 6      0028FF10 7      0028FF14 8
+	S       0040E020 0      0040E024 0      0040E028 0
+	S+5     0040E020 5      0040E024 5      0040E028 5
 	second
-		A
-	i=0 p=0028FF0C 1
-	i=1 p=0028FF10 2
-	i=2 p=0028FF14 3
-		A+5
-	i=0 p=0028FF0C 6
-	i=1 p=0028FF10 7
-	i=2 p=0028FF14 8
-		S
-	i=0 p=0040E020 5
-	i=1 p=0040E024 5
-	i=2 p=0040E028 5
-		S+5
-	i=0 p=0040E020 10
-	i=1 p=0040E024 10
-	i=2 p=0040E028 10
-
-
-
+	A       0028FF0C 1      0028FF10 2      0028FF14 3
+	A+5     0028FF0C 6      0028FF10 7      0028FF14 8
+	S       0040E020 5      0040E024 5      0040E028 5
+	S+5     0040E020 10     0040E024 10     0040E028 10
 
 Passing Arrays to Functions.	
-
 Recall that all arguments in C are passed by value. 
 C automatically passes arrays to functions by reference — the called functions can modify the element values in the callers’ original arrays. The name of the array evaluates (соответствует) to the address of the first element of the array. It’s possible to pass an array by value (by using a simple trick we explain in Chapter 10). Си передаёт массив в функцию путём имитации передачи параметра по ссылке, вызываемые функции могут изменять значения элементов массива.
-Individual array elements (scalars) are passed by value exactly as simple variables are. In Chapter 7, we show how to pass scalars (i.e., individual variables and array elements) to functions by reference. Отдельные значения (скаляры) передются по значению. Но можно имитировать ссылку для скаляров. Чем имитация отличается от передачи по ссылке - пока хз.
-
+Individual array elements (scalars) are passed by value exactly as simple variables are. In Chapter 7, we show how to pass scalars (i.e., individual variables and array elements) to functions by reference. Отдельные значения (скаляры) передются по значению. Но можно имитировать ссылку для скаляров. Чем имитация отличается от передачи по ссылке - хз.
 	#include <stdio.h>
 	#define SIZE 5//нужно для удобной передачи разных массивов в одну и ту же функцию. В параметрах функции объявляют int переменную, которая внутри функции будет служить размером массива. Это позволяет передавать разные массивы с разными размерами одной и той же функции.
-	void modifyArray (int b[], int size);//modifyArray expects to receive an array of integers in parameter b and the number of array elements in parameter size.
-	//Принимается здесь АДРЕС! Вот size, например, - это передача по значению, то есть создается просто копия.
-	//The size of the array is not required between the array brackets. If it’s included, the compiler checks that it’s greater than zero, then ignores it. 
+	void modifyArray (int b[], int size);//modifyArray expects to receive an array of integers in parameter b and the number of array elements in parameter size. The size of the array is not required between the array brackets. If it’s included, the compiler checks that it’s greater than zero, then ignores it. 
 	void modifyElement (int e);
 	void printMAS (int b[], int size);
 	int main (void)
 	{
-		int MAS[SIZE] = {0,1,2,3,4};
-		printMAS (MAS, SIZE);//   0   1   2   3   4
-	!!!	printMAS (&MAS, SIZE);// Ошибка.
-		printMAS (&MAS[0], SIZE);//   0   1   2   3   4
-		printMAS (&MAS[2], SIZE);//   2   3   4   0   0; printMAS внутри будет "иметь" массив b, который будет начинаться с адреса MAS[2].
-	!!!	printMAS (MAS[0], SIZE);// Ошибка, происходит передача значения. А вот одномерный массив (строка) двумерного массива передавался бы именно так!
-
-		modifyArray(MAS, SIZE); 
-		printMAS (MAS, SIZE);//   0   2   4   6   8
-	!!!	modifyArray(&MAS, SIZE);// Ошибка.
+		int MAS[SIZE] = {0,1,2,3,4}; 
+		printMAS (MAS, SIZE);//  0  1  2  3  4
+		modifyArray(MAS, SIZE);
+		printMAS (MAS, SIZE);//  0  2  4  6  8
+	!!!	modifyArray(&MAS, SIZE);//Ошибка.
+	!!!	printMAS (&MAS, SIZE);//Ошибка.
 		modifyArray(&MAS[0], SIZE);
-		printMAS (MAS, SIZE);//   0   4   8  12  16
-		modifyArray(&MAS[2], SIZE);//modifyArray внутри будет "иметь" массив b, который будет начинаться с адреса MAS[2].
-		printMAS (MAS, SIZE);//   0   4  16  24  32
-
-		modifyElement (MAS[4]);//64 ; 
-		printMAS (MAS, SIZE);//   0   4  16  24  32
+		printMAS (&MAS[0], SIZE);//  0  4  8 12 16
+	!!!	modifyArray(MAS[0], SIZE);
+	!!!	printMAS (MAS[0], SIZE);//Ошибка, происходит передача значения; одномерный массив двумерного массива передавался бы именно так.
+		modifyArray(&MAS[2], SIZE);//внутри будет "иметь" массив b, который будет начинаться с адреса MAS[2].
+		printMAS (MAS, SIZE);//  0  4 16 24 32
+		modifyElement (MAS[4]);
+		printMAS (MAS, SIZE);//  0  4 16 24 32
 		return 0;
 	}
 	void modifyArray (int b[], int size)
@@ -1714,8 +1659,7 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 	}
 	void modifyElement (int e)
 	{
-		printf("%3d", e*=2 );
-		printf("\n");
+		e*=2;
 	}
 	void printMAS (int b[], int size)
 	{
@@ -1725,7 +1669,6 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 		}
 		printf("\n");
 	}
-
 
 Сортировка массивов. Пузырьковая сортировка - меньшие значения всплывают вверх.
 	#include <stdio.h>
@@ -1757,7 +1700,6 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 Среднее, медиана и наиболее вероятное - стр 270.
 
 Поиск в массивах. Linear Search.
-
 	#include <stdio.h>
 	#define SIZE 5
 	int findM(int [], int, int);
@@ -1783,35 +1725,27 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 
 
 Multidimensional Arrays.
-
-M[число строк][число столбцов (или длина строки)] 
+M[число строк][число столбцов-длина строки] 
 Значения группирируются в фигурных скобках по строкам.
-	int A[2][3] = {	{1,2,3}, 
-					{4,5,6};
-
 	int M[2][2] = {	{1,2} , {3,4} };
 			0стлбц	1стлбц
 		0стрк//1//	//2//
 		1стрк//3//	//4//
-
-	int M[2][2] = {	{1} , {3,4} };`
+	int M[2][2] = {	{1} , {3,4} };
 			0стлбц	1стлбц
 		0стрк//1//	//0//
 		1стрк//3//	//4//
-
 	int M[2][2] = { 1,2,3 };
 			0стлбц	1стлбц
 		0стрк//1//	//2//
 		1стрк//3//	//0//
-
-	int M[][3] = {1,2,3,4,};//число строк = 1 + число элементов % длину строки, но это дичъ; без указания длины вообще работать не будет, что логично.
+	int M[][3] = {1,2,3,4};//число строк = 1 + число элементов % длину строки; без указания длины вообще работать не будет, что логично.
 			0стлбц	1стлбц	2стлбц
 		0стрк//1//	//2//	//3//	
 		1стрк//4//	//0//	//0//
 
 Вывод многомерного массива и передача в функцию.
 В памяти строка идет за строкой. Каждая строка - по сути одномерный массив. When accessing (при обращении) a[1][2] in our example, the compiler knows to skip the 3 elements of the 1 row (row 0) to get to the 2 row (row 1). Then, the compiler accesses element 2 of that row. 
-
 	#include <stdio.h>
 	void printM(int [][3]);//первый индекс не требуется и бесполезен, последующие - обязательно требуются, иначе компилятор не будет знать длину строки. В списке параметров функции определяется о чем идет речь - переменной, одномерном массиве или многомерном массиве.
 	int main (void)
@@ -1833,7 +1767,6 @@ M[число строк][число столбцов (или длина стро
 	}
 
 Передача строки массива как одномерного массива в функцию. Упрощенная версия fig06_22.c . 
-
 	#include <stdio.h>
 	#define LONG 4
 	#define ROWS 3
@@ -1859,12 +1792,8 @@ M[число строк][число столбцов (или длина стро
 		}
 	}	
 
-
-
-
 Variable-Length Arrays VLA.
 Во всех предыдущих примерах массивы задавались константами (в том числе и через define). А здесь суть в объявлении размера массива уже после запуска программы. Именно для этого в индексах используют переменные, которые можно инициализировать в коде или получить от пользователя.
-
 	#include <stdio.h>
 	void print1DArray( int size, int array[size] )//сначала объявить size, чтобы можно было его использовать в int array [size]; 
 	//void print1DArray( int size, int array[] )//здесь size был бы нужен по привычным причинам удобства;
@@ -1919,42 +1848,35 @@ Variable-Length Arrays VLA.
 
 
 Pointers.
-
-Pointers are variables whose values are memory addresses. 
-Normally, a variable directly contains a specific value. A pointer, on the other hand, contains an address of a variable that contains a specific value. In this sense, a variable name directly references (непосредственной ссылкой) a value, and a pointer indirectly references (косвенной ссылкой) a value. Referencing a value through (обращение/ссылка к/на значение через) a pointer is called indirection (косвенным доступом).
-
-	int *countPtr; //specifies that variable countPtr is of type int * (i.e., a pointer to an integer) and is read (right to left), “countPtr is a pointer to int” or “countPtr points to an object of type int.”
-
-A pointer may be initialized to NULL, 0 or an address. 
-	int *countPtr = NULL;
-	int *countPtr = 0;
-	int *countPtr = &x;
-Initializing a pointer to 0 is equivalent to initializing a pointer to NULL, but NULL is preferred. When 0 is assigned, it’s first converted to a pointer of the appropriate (соответствующего) type. The value 0 is the only integer value that can be assigned directly to a pointer variable.
-
-	int y = 5;
-	int *yPtr;//definitions that yPtr is the pointer.
-	yPtr = &y;//assigns the address of the variable y to pointer variable yPtr. Variable yPtr is then said to “point to” y. The operand of the address operator must be a variable; the address operator cannot be applied to constants or expressions or register.
-	printf( "%p \n", yPtr );//0028FF38
-	printf( "%p \n", &y );//0028FF38
-	printf( "%d \n", *yPtr );//5; The unary * operator, commonly referred (часто называемый?) to as the Indirection Operator (оператор косвенного обращения) or Dereferencing Operator (оператор разыменовывания), returns the value of the object to which its operand (i.e., a pointer) points (объекта, на который его операнд (т.е. указатель) указывает). Using * in this manner is called dereferencing a pointer (разыменованием указателя). 
-	printf( "%d \n", y );//5
-	printf( "%d \n", y+*yPtr );//10
-
-In C, you use pointers and the indirection operator to simulate pass-by-reference (имитации передачи по ссылке). When calling a function with arguments that should be modified, the addresses of the arguments are passed.
-
+Pointers are variables whose values are memory addresses. Normally, a variable directly contains a specific value. A pointer, on the other hand, contains an address of a variable that contains a specific value. In this sense, a variable name directly references (непосредственной ссылкой) a value, and a pointer indirectly references (косвенной ссылкой) a value. Referencing a value through (обращение/ссылка к/на значение через) a pointer is called indirection (косвенным доступом).
 	#include <stdio.h>
 	int cubeByValue( int n ); 
 	void cubeByReference( int *nPtr );
 	int main( void )
 	{
-		int number;
-		number = 5; 
-		number = cubeByValue( number );
-		printf( "%d\n", number );//125
+		int y, x;
+		int *countPtr; //The definition specifies that variable countPtr is of type int * (i.e., a pointer to an integer) and is read (right to left), “countPtr is a pointer to int” or “countPtr points to an object of type int.”
+		int *yPtr = &y;//Assigns the address of the variable y to pointer variable yPtr. Variable yPtr is then said to “point to” y. The operand of the address operator must be a variable. The address operator cannot be applied to constants or expressions or register. A pointer may be initialized to NULL, 0 or an address. Initializing a pointer to 0 is equivalent to initializing a pointerto NULL, but NULL is preferred. When 0 is assigned, it’s first converted to a pointer of the appropriate type (Инициализация указателя значением 0 эквивалентна инициализации значением NULL, но вообще предпочтительнее использовать NULL. Когда указателю присваивается значение 0, оно сначала преобразуется в указатель соответствующего типа).
+		countPtr = &x;
+		
+		y = 3;
+		printf( "%p\n", &y );//0028FF20
+		printf( "%p\n", yPtr );//0028FF20
+		printf( "%d\n", y );//3
+		printf( "%d\n", *yPtr );//The unary * operator, commonly referred (часто называемый?) to as the Indirection Operator (оператор косвенного обращения) or Dereferencing Operator (оператор разыменовывания), returns the value of the object to which its operand (i.e., a pointer) points (объекта, на который его операнд (т.е. указатель) указывает). Using * in this manner is called dereferencing a pointer (разыменованием указателя); 3 
+		printf( "%d\n", y+*yPtr );//6
+		
+		x = 5; 
+		x = cubeByValue( x );
+		printf( "%d\n", x );//125
 
-		number = 5; 
-		cubeByReference( &number );//передача адреса.
-		printf( "%d\n", number );//125
+		x = 5; 
+		cubeByReference( &x );//In C, you use pointers and the indirection operator to simulate pass-by-reference (имитации передачи по ссылке). When calling a function with arguments that should be modified, the addresses of the arguments are passed.
+		printf( "%d\n", x );//125
+
+		x = 5; 
+		cubeByReference( countPtr );
+		printf( "%d\n", x );//125
 	}
 	int cubeByValue( int n )
 	{
@@ -1965,150 +1887,134 @@ In C, you use pointers and the indirection operator to simulate pass-by-referenc
 		*nPtr = *nPtr * *nPtr * *nPtr; //разыменовывает указатель; number = number * number * number
 	} 
 
-
-For a function that expects a single-subscripted array as an argument, the function’s prototype and header can use the pointer notation shown in the parameter list of function cubeByReference. The compiler does not differentiate between a function that receives a pointer and one that receives a single-subscripted array. This, of course, means that the function must “know” when it’s receiving an array or simply a single variable for which it’s to perform pass-by-reference. When the compiler encounters a function parameter for a single-subscripted array of the form int b[], the compiler converts the parameter to the pointer notation int *b. The two forms are interchangeable.
-	
+For a function that expects a single-subscripted array as an argument, the function’s prototype and header can use the pointer notation shown in the parameter list of function cubeByReference. The compiler does not differentiate between a function that receives a pointer and one that receives a single-subscripted array. This, of course, means that the function must “know” when it’s receiving an array or simply a single variable for which it’s to perform pass-by-reference. When the compiler encounters a function parameter for a single-subscripted array of the form int B[], the compiler converts the parameter to the pointer notation int *B. The two forms are interchangeable.
 	#include <stdio.h>
-	void cubeByReference( int *nPtr );
-	void cubeByReference2( int b[] );
-	int main()
+	void array1( int *BPtr );
+	void array2( int B[] );
+	int main ()
 	{
 		int MAS[] = {1,2,3,4,5};
-		arrayByReference1 (MAS);
-		arrayByReference2 (MAS);
-		return 0;
+		array1 (MAS);
+		array2 (MAS);
 	}
-	void arrayByReference1( int *nPtr )
+	void array1( int *BPtr )
 	{
-		printf ("%d\n", nPtr );//2686764
-		printf ("%d\n", *nPtr );//1
-		printf ("%d\n", nPtr[3] );//4
-		printf ("%d\n", &nPtr[0] );//2686764
+		printf ("%p\n", BPtr );//0028FF24
+		printf ("%d\n", *BPtr );//1
+		printf ("%d\n", BPtr[3] );//4
+		printf ("%p\n", &BPtr[0] );//0028FF24
 	} 
-	void cubeByReference2( int b[] )
+	void array2( int B[] )
 	{
-
+		printf ("%p\n", B );//0028FF24
+		printf ("%d\n", *B );//1
+		printf ("%d\n", B[3] );//4
+		printf ("%p\n", &B[0] );//0028FF24
 	} 
 
-
-Const Qualifier. 
-Не сказали, что имя массива это просто константный указатель(
-
+Const Qualifier. Работает с компилятором.
 	int main( void )
 	{
 		int x = 1;
 		const int y = 2;//нельзя менять значение переменной.
-		int MAS[] = {1,2,3};
-		const int MASC[] = {4,5,6};//нельзя менять значения ячеек.
+		int MAS1[] = {1,2,3};
+		const int MAS2[] = {4,5,6};//нельзя менять значения ячеек.
 		int *aPtr;//все можно.
 		const int *bPtr;//нельзя менять значение через dereferencing.
 		int const *cPtr = &y;;//нельзя менять адрес указателя.
 		const int const *dPtr;//все нельзя.
 	}
-	void func( int x, const int y, int MAS[], const MASC[], int *aPtr, const int *bPtr; int const *cPtr = &y; const int const *dPtr  )
-	//Если передавать const сущность в non-const параметр функции, то будет ошибка.
+	void func( int x, const int y, int FAS1[], const FAS2[], int *aPtr, const int *bPtr; int const *cPtr = &y; const int const *dPtr )//Если передавать const сущность в non-const параметр функции, то будет ошибка.	
 	{
-
 	}
 
-Эта же муть на 10 страниц и см. увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт:
-	Опечатки: en fig06_16 unsigned const int answer[] , en as const int a[][3] и ru объявляется как const int a[][3] (хотя везде в коде без const, демонстрируются [][size] многомерных массивов) , 
-
-	Из главы про массивы.
-		#include <stdio.h>
-		void modA (const int x , const int c[] );
-		void modB (int x, int c[] );
-		int main()
-		{
-			int a = 2;
-			const int b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
-			int MASA [] = {1,2,3};
-			const int MASB [] = {4,5,6};
-		!!!	b = 7;// Ошибка.
-		!!!	MASB [2] = 33;// Ошибка.
-			modA(a, MASA);
-		!!!	modB(b, MASB);// Ошибка, требует const int c[]! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
-		}
-		void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
-		{
-		!!!	x = 2;// Ошибка.
-		!!! c[2]= 99;// Ошибка.
-		}
-		void modB (int x, int c[] )
-		{
-			x = 2;//Ошибки нет 
-		}
-	
-	Из главы про указатели.
-	The Const Qualifier with Pointers.
-	Six possibilities exist for using (or not using) const with function parameters: 2 with pass-by-value parameter passing and 4 with pass-by-reference parameter passing. Представьте функцию, которая ожидает массив и переменную для его размера. И эти параметры не должны меняться в функции, даже не смотря на то, что и так передаются по значению. There are 4 ways to pass a pointer to a function: 
-	1. a non-constant pointer to non-constant data. 
-		#include <stdio.h>
-		#include <ctype.h>
-		void convertToUppercase( char *sPtr );
-		int main( void )
-		{
-			char string1[] = "cHaRaCters and $32.98";//массив можно изменять;
-			const char string2[] = "Hello";
-			printf("%s \n", string1 );//cHaRaCters and $32.98
-			convertToUppercase( string1 );
-			printf("%s \n", string1 );//CHARACTERS AND $32.98
-		!!!	convertToUppercase( string2 );// Ошибка, требует const char *sPtr ! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
-		}
-		void convertToUppercase( char *sPtr )
-		{
-			while( *sPtr != '\0' )
+	Эта же муть на 10 страниц.
+		Из главы про массивы. Не сказали, что имя массива это просто константный указатель(
+			#include <stdio.h>
+			void modA (const int x , const int c[] );
+			void modB (int x, int c[] );
+			int main()
 			{
-				*sPtr = toupper( *sPtr );
-				++sPtr; // увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт.
-			} 
-		}
-	2. a non-constant pointer to constant data.
-		#include <stdio.h>
-		#include <ctype.h>
-		void printCharacters1( const char *sPtr );
-		int main( void )
-		{
-			char string1[] = "print characters of a string";// non-constant массив можно изменять; но с точки зрения функции это constant данные.
-			printCharacters1( string1 );
-		}
-		void printCharacters1( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"; аналогично свойствам const int b[]; non-constant указатель - потому что можно менять его адрес.
-		{	
-		!!!	*sPtr = 'L';// Ошибка
-			for ( ; *sPtr != '\0'; ++sPtr ) 
-			{ 
-				printf( "%c", *sPtr );
-			} 
-			char x;
-			sPtr += 99;//нет ошибки
-			sPtr = &x;//нет ошибки
-		}
-	3. a constant pointer to non-constant data. 
-			int x = 1;
-			int y = 2;
-			int *const aPtr = &x;//constant pointer; нельзя менять адрес указателя.
-			const int *bPtr = &y;//нельзя менять значение через dereferencing.
-			printf ("%d  %d\n", aPtr, *aPtr );//
-			printf ("%d  %d\n", bPtr, *bPtr );//
-		!!!	aPtr = &y;// Ошибка.
-			bPtr = &x;
-			*aPtr = 5;
-		!!!	*bPtr = 7;// Ошибка.
-	4. a constant pointer to constant data. 
-			int n = 5;
-			int m;
-			const int *const ptr = &n;//константный указатель на целочисленную константу (с точки зрения указателя или функции); ptr всегда указывает на один и тот же адрес; целое число по этому адресу не может быть изменено.
-			printf( "%d\n", *ptr );
-			*ptr = 7; // ошибка: *ptr - константа; нельзя присвоить новое значение
-			ptr = &m; // ошибка: ptr - константа; нельзя присвоить новый адрес
+				int a = 2;
+				const int b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
+				int MASA [] = {1,2,3};
+				const int MASB [] = {4,5,6};
+			!!!	b = 7;//Ошибка.
+			!!!	MASB [2] = 33;//Ошибка.
+				modA(a, MASA);
+			!!!	modB(b, MASB);//Ошибка, требует const int c[]! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
+			}
+			void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
+			{
+			!!!	x = 2;//Ошибка.
+			!!! c[2]= 99;//Ошибка.
+			}
+			void modB (int x, int c[] )
+			{
+				x = 2;//Ошибки нет 
+			}
+		Из главы про указатели. The Const Qualifier with Pointers. Six possibilities exist for using (or not using) const with function parameters: 2 with pass-by-value parameter passing and 4 with pass-by-reference parameter passing. Представьте функцию, которая ожидает массив и переменную для его размера. И эти параметры не должны меняться в функции, даже не смотря на то, что и так передаются по значению. There are 4 ways to pass a pointer to a function: 
+		1. a non-constant pointer to non-constant data. 
+			#include <ctype.h>//toupper
+			void convertToUppercase( char *sPtr );
+			int main( void )
+			{
+				char string1[] = "cHaRaCters and $32.98";//массив можно изменять;
+				const char string2[] = "Hello";
+				printf("%s \n", string1 );//cHaRaCters and $32.98
+				convertToUppercase( string1 );
+				printf("%s \n", string1 );//CHARACTERS AND $32.98
+			!!!	convertToUppercase( string2 );//Ошибка, требует const char *sPtr ! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
+			}
+			void convertToUppercase( char *sPtr )
+			{
+				while( *sPtr != '\0' )
+				{
+					*sPtr = toupper( *sPtr );
+					++sPtr;//увеличивает значение указателя на 1 длину типа данных; в данном случае на 1 байт; это будет объясняться в разделе арифметики указателей.
+				} 
+			}
+		2. a non-constant pointer to constant data.
+			void printCharacters1( const char *sPtr );
+			int main( void )
+			{
+				char string1[] = "print characters of a string";// non-constant массив можно изменять; но с точки зрения функции это constant данные.
+				printCharacters1( string1 );
+			}
+			void printCharacters1( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"; аналогично свойствам const int b[]; non-constant указатель - потому что можно менять его адрес.
+			{	
+			!!!	*sPtr = 'L';//Ошибка
+				for ( ; *sPtr != '\0'; ++sPtr ) 
+				{ 
+					printf( "%c", *sPtr );
+				} 
+				char x;
+				sPtr += 99;
+				sPtr = &x;
+			}
+		3. a constant pointer to non-constant data. 
+				int x = 1;
+				int y = 2;
+				int *const xPtr = &x;//constant pointer; нельзя менять адрес указателя.
+				const int *yPtr = &y;//нельзя менять значение через dereferencing.
+				printf ("%d  %d\n", xPtr, *xPtr );
+				printf ("%d  %d\n", yPtr, *yPtr );
+			!!!	xPtr = &y;//Ошибка.
+				yPtr = &x;
+				*xPtr = 5;
+			!!!	*yPtr = 7;//Ошибка.
+		4. a constant pointer to constant data. 
+				int n = 5;
+				int m;
+				const int *const ptr = &n;//константный указатель на целочисленную константу (с точки зрения указателя или функции); ptr всегда указывает на один и тот же адрес; целое число по этому адресу не может быть изменено.
+				printf( "%d\n", *ptr );
+			!!!	*ptr = 7;//Ошибка; нельзя присвоить новое значение
+			!!!	ptr = &m;//Ошибка; нельзя присвоить новый адрес
 
-
-Bubble Sort Using Pass-by-Reference.
-Функция вызывает функцию. Бабл передает свопу элементы по ссылке. При использовании имени массива в качестве аргумента передается весь массив целиком, индивидуальные элементы являются скалярами и	передаются по значению.
-
+Bubble Sort Using Pass-by-Reference. Функция вызывает функцию. Бабл передает свопу элементы по ссылке. При использовании имени массива в качестве аргумента передается весь массив целиком (ну что за бред), индивидуальные элементы являются скалярами и передаются по значению.
 	#include <stdio.h>
 	#define SIZE 10
-	void bubbleSort(int *const array, const int size);//прототипа swap нет здесь.
+	void bubbleSort(int *const array, const int size);//прототипа swap внутри bubleSort.
 	int main (void)
 	{
 		int a[SIZE] = {2,6,4,8,10,12,89,68,45,37};
@@ -2117,29 +2023,28 @@ Bubble Sort Using Pass-by-Reference.
 			printf("%4d\n", a[i]);
 		}
 		puts ("");
-		bubbleSort (a, SIZE);//передача массива.
+		bubbleSort (a, SIZE);
 		for (int i = 0; i < SIZE; ++i)
 		{
 			printf("%4d\n", a[i]);		
 		}
 		return 0;	
 	}
-	void bubbleSort(int *const array, const int size)//The compiler does not differentiate between a function that receives a pointer and one that receives a single-subscripted array; int const *array запрешает менять адрес array.  
+	void bubbleSort(int *const array, const int size)//int const *array запрешает менять адрес array.  
 	{
 		void swap(int *, int *);//прототип объявляется внутри функции.
 		for (int pass = 1; pass < size; pass++)
 		{	
 			for (int i = 0; i < size -1; i++)
 			{
-				if (array[i] > array [ i + 1])//в параметрах объявлен указатель, но работать можно как с массивом.
+				if (array[i] > array [ i + 1])
 				{
-					swap( &array[i] , &array[i+1] );//передача адреса ячейки массива; иначе пришлось бы передавать значение ячейки по значению, то есть долго; по сути swap работает напрямую с ячейками массива. 
+					swap( &array[i] , &array[i+1] );
 				}
 			}
 		}
 	}
-	void swap (int *element1Ptr, int *element2Ptr)
-	// swap is not allowed to say int hold = array[ j ]; or array[ j ] = array[ j +  1]; 
+	void swap (int *element1Ptr, int *element2Ptr)//swap is not allowed to say int hold = array[ j ]; or array[ j ] = array[ j +  1]; 
 	{
 		int hold;
 		hold = *element1Ptr;
@@ -2147,29 +2052,26 @@ Bubble Sort Using Pass-by-Reference.
 		*element2Ptr = hold;
 	}
 
+Relationship between Pointers and Arrays. Pointer Expressions and Pointer Arithmetic. 
+	int main (void)
+	{
+		int x;
+		int *b1Ptr, *b2Ptr;
+		int B[5] = {0};//An array name can be thought of as a constant pointer. 
+		b1Ptr = B;//Because the array name (without a subscript) is a pointer to the first element of the array, we can set b1Ptr equal (равным) to the address of the first element in array B with the statement; 
+		b1Ptr = &B[0];//равносильно предыдущему, но нагляднее.
+		b2Ptr = &B[0];
 
-Pointer Expressions and Pointer Arithmetic. Relationship between Pointers and Arrays. 
+		//A limited set of arithmetic operations may be performed on pointers. A pointer may be: with an integer: incremented (++), decremented (--), +, +=, -, -= ; is meaningful only when both pointers point to elements of the same array : b2Ptr - b1Ptr.
+		b2Ptr += 2;//would produce 3008 (3000 + 2 * 4), assuming an integer is stored in 4 bytes of memory and address is 3000 ; 3004 (3000 + 2 * 2) if it's stored in 2 bytes.
+		x = b2Ptr - b1Ptr;//statement would assign to x the number of array elements from b2Ptr to bPtr, in this case 2 (3008 - 3000).
+		//4 байта - это 4гб озу, тогда адрес любой ячейки (то есть одного байта) - это всегда 4 байта на х86 при х32 ос.
 
-	int x;
-	int B[5] = {0};//An array name can be thought of as a constant pointer. 
-	int *bPtr;
-	int *b2Ptr;
-	bPtr = B;//Because the array name (without a subscript) is a pointer to the first element of the array, we can set bPtr equal (равным) to the address of the first element in array B with the statement; is equivalent to bPtr = &B[0]; .
-	bPtr = &B[0];//равносильно предыдущему, но нагляднее.
-	b2Ptr = &B[0];
-
-A limited set of arithmetic operations may be performed on pointers. A pointer may be: 
-	with an integer: incremented (++), decremented (--), +, +=, -, -= ;
-	is meaningful only when both pointers point to elements of the same array : b2Ptr - bPtr.
-
-	b2Ptr += 2;//would produce 3008 (3000 + 2 * 4), assuming an integer is stored in 4 bytes of memory and address is 3000 ; 3004 (3000 + 2 * 2) if it's stored in 2 bytes.
-	x = b2Ptr - bPtr;//statement would assign to x the number of array elements from b2Ptr to bPtr, in this case 2 (3008 - 3000).
-	//4 байта - это 4гб озу, тогда адрес любой ячейки (то есть одного байта) - это всегда 4 байта на х86 при х32 ос.
-
-	long long *bp = NULL ;
-	printf ("%p\n", bp );//00000000
-	++bp;
-	printf ("%p\n", bp );//00000008	
+		long long *bp = NULL ;
+		printf ("%p\n", bp );//00000000
+		++bp;
+		printf ("%p\n", bp );//00000008	
+	}
 
 A pointer can be assigned to another pointer if both have the same type. 
 The exception to this rule is the pointer to void (i.e., void *), which is a generic pointer that can represent any pointer type. All pointer types can be assigned a pointer to void, and a pointer to void can be assigned a pointer of any type. In both cases, a cast operation is not required. A pointer to void cannot be dereferenced. Consider this: The compiler knows that a pointer to int refers to 4 bytes of memory on a machine with 4-byte integers, but a pointer to void simply contains a memory location for an unknown data type—the precise number of bytes to which the pointer refers is not known by the compiler. The compiler must know the data type to determine the number of bytes to be dereferenced for a particular pointer.
@@ -2202,7 +2104,7 @@ Pointers can be compared using equality and relational operators, but such compa
 		{
 			printf( "*( bPtr + %u ) = %d\n", offset, *( bPtr + offset ) );
 		} 
-		!!!	printf ("%d\n", *bPtr[2] );// Ошибка.
+	!!!	printf ("%d\n", *bPtr[2] );//Ошибка.
 	}
 
 	int *bPtr = B;
@@ -2227,7 +2129,6 @@ Pointers can be compared using equality and relational operators, but such compa
 	*( bPtr + 1 ) = 20
 	*( bPtr + 2 ) = 30
 	*( bPtr + 3 ) = 40	
-
 
 Из-за этого примера пришлось все переосмыслить.
 	#include <stdio.h>
@@ -2262,7 +2163,6 @@ Pointers can be compared using equality and relational operators, but such compa
 		}
 	}
 
-
 Arrays of Pointers.
 Arrays may contain pointers. A common use of an array of pointers is to form an array of strings, referred to simply as a string array.
 
@@ -2287,15 +2187,11 @@ Arrays may contain pointers. A common use of an array of pointers is to form an 
 		{
 			printf ("%s ", wSuit[i]);
 		}
-			
 	}	
-
 
 Pointer to Function.
 
-A pointer to a function contains the address of the function in memory. 
-In Chapter 6, we saw that an array name is really the address in memory of the first element of the array. Similarly (аналогично), a function name is really (в действительности) the starting address in memory of the code that performs the function’s task. 
-Pointers to functions can be passed to functions, returned from functions, stored in arrays and assigned to other function pointers. 
+A pointer to a function contains the address of the function in memory. In Chapter 6, we saw that an array name is really the address in memory of the first element of the array. Similarly (аналогично), a function name is really (в действительности) the starting address in memory of the code that performs the function’s task. Pointers to functions can be passed to functions, returned from functions, stored in arrays and assigned to other function pointers. 
 
 Функция, возвращающая указатель на переменную.
 	#include <stdio.h>
@@ -2312,13 +2208,12 @@ Pointers to functions can be passed to functions, returned from functions, store
 		return ptr;
 	}
 
-Упрощенный пример ниже, указатель на функцию.
+Указатель на функцию.
 	#include <stdio.h>
 	int ascending( int a, int b );
 	int main( void )
 	{
 		printf ("%d\n", ascending ( 7, 2 ) );
-		
 		int (*FunctionPtr)(int x, int y);//FunctionPtr that’s a pointer to a function that receives two integer parameters and returns an integer result.
 		void (*VoidFunctionPtr)(int x, int y);//VoidFunctionPtr that’s a pointer to a function that receives two integer parameters and returns void.
 		//int *FunctionPtr (int x, int y) declares a function that receives two integers as parameters and returns a pointer to an integer. Логично, что функция не может быть параметром другой функции.
@@ -2331,7 +2226,7 @@ Pointers to functions can be passed to functions, returned from functions, store
 		return b - a;
 	}
 
-Упрощенный пример ниже.
+Указатель на функцию в параметрах функции.
 	#include <stdio.h>
 	void bubble ( int (*FunctionPtr)(int x, int y) );
 	int ascending( int a, int b );
@@ -2341,7 +2236,7 @@ Pointers to functions can be passed to functions, returned from functions, store
 		bubble( ascending );
 		bubble( descending );
 	}
-	void bubble ( int (*FunctionPtr)(int x, int y) )//This tells bubble to expect a parameter FunctionPtr that’s a pointer to a function that receives two integer parameters and returns an integer result. 
+	void bubble ( int (*FunctionPtr)(int x, int y) )
 	{
 		printf ("%d\n", (*FunctionPtr)( 7 , 2 ) );
 	}
@@ -2423,12 +2318,10 @@ Pointers to functions can be passed to functions, returned from functions, store
 	void function3( int c );
 	int main( void )
 	{
-		//просто для визуального сравнения с ранее:
-		const char *suit[4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//an array of 4 elements. 
-		int (*FunctionPtr)(int x, int y);//FunctionPtr that’s a pointer to a function that receives two integer parameters and returns an integer result; 
+		const char *suit[4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//просто для сравнения.
+		int (*FunctionPtr)(int x, int y);
 
-		void (*f[ 3 ])( int ) = { function1, function2, function3 };//initialize array of 3 pointers to functions that each take an int argument and return void.
-		// Имя переменной давать необязательно???
+		void (*f[ 3 ])( int ) = { function1, function2, function3 };// Имя переменной давать необязательно???
 		size_t choice;
 		scanf( "%u", &choice );
 		while ( 0 <= choice && choice < 3 ) 

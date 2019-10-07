@@ -1,6 +1,5 @@
 GCC 
 utf8
-
 	Настройка переменных сред для возможности ввода gcc без полного пути:
 	Переменные среды, создать PATH с значением D:\GDrive\books\C\MinGW\bin\
 
@@ -78,21 +77,6 @@ utf8
 		system("a");
 		return 0;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -296,9 +280,7 @@ printf ("%d\n", j );//6
 !5 равно 0, !!5 равно 1, 3*!5 равно 0, 3!5 ошибка.
 
 
-lvalues and rvalues.
-
-	Variable names are said to be lvalues (for “left values”) because they can be used on the left side of an assignment operator. Constants are said to be rvalues (for “right values”) because they can be used on only the right side of an assignment operator. lvalues can also be used as rvalues, but not vice versa.
+lvalues and rvalues. Variable names are said to be lvalues (for “left values”) because they can be used on the left side of an assignment operator. Constants are said to be rvalues (for “right values”) because they can be used on only the right side of an assignment operator. lvalues can also be used as rvalues, but not vice versa.
 
 	x == 7 равносильно 7 == x. х = 7, Но 7 = x есть ошибка. 
 
@@ -307,9 +289,7 @@ lvalues and rvalues.
 	day == 10 ? (a = 1) : (a = 0) ;//а так работает.	
 	printf("%d\n", a);
 
-
 Побитовые операции.
-
 	PORTX |= (1 << 2);
 	PORTX = PORTX | (1 << 2);
 	PORTX &= ~(1 << 2);
@@ -443,16 +423,12 @@ Data type/printf conversion specification/scanf conversion specification
 	00000081  129 129
 	00000082  130 130
 
-
 sizeof Operator.
-
 	sizeof(int) sizeof(A) sizeof(sum) выполняется на этапе компиляции. 
 	double real [ 22 ];//объялен массив.
 	printf ("%d", sizeof( real ) / sizeof( real[ 0 ] ) );//количество элементов массива.
 
-
 Явные - неявные преобразования?
-
 	int A = 2; int B = 5; float C = 7; int p; float g;
 	printf("%d_%d\n", A/B, B/A );//0 2 0.000000 -1.#QNAN0 ; если %f единственный - то 5/2 или 2/5 даст 0.00000
 	printf("%f %f\n", A/B, B/A );//0 2 0.000000 -1.#QNAN0 ; если %f единственный - то 5/2 или 2/5 даст 0.00000
@@ -488,9 +464,7 @@ sizeof Operator.
 	printf ("%d\n", g);//0
 	printf ("%f\n", g);//4.000000
 
-
 #define preprocessor directive
-
 	Умеют много чего, не путать с функцией, это именно символьная замена, с которой работает препроцессор.
 	#include <stdio.h>
 	#define SIZE 10// symbolic constant SIZE
@@ -508,9 +482,7 @@ sizeof Operator.
 
 	0x1234 - шестнадцатиричная. 4095 - десятичная.
 
-
 enumeration
-
 	An enumeration, introduced by the keyword enum, is a set of integer constants represented by identifiers. Enumeration constants are sometimes called symbolic constants. Values in an enum start with 0 and are incremented by 1. The constant CONTINUE has the value 0, WON has the value 1 and LOST has the value 2. It’s also possible to assign an integer value to each identifier in an enum (see Chapter 10; WON = 34,). The identifiers in an enumeration must be unique, but the values may be duplicated.	
 
 	#include <stdio.h>
@@ -533,15 +505,14 @@ enumeration
 
 
 
+
+
 Control structures (управляющие структуры). Структуры - это из датасаенс, общее понятие. В C эти структуры реализованы в виде инструкций. В основе лежит структурное программирование и отказ от goto. Суть в том, что бы любая структура подключалась к остальным как блок с одним входом и одним выходом. Это отлично видно в flowcharts!
 
 All programs could be written in terms of only three control structures: the sequence structure, the selection structure and the repetition structure.
 	1. The sequence structure (любой тип действий, вычисление, ввод/вывод) is simple — unless directed otherwise, the computer executes C statements one after the other in the order in which they’re written. 
 	2. C provides three types of selection structures in the form of statements: if, if/else, switch.
 	3. Repetition Statements, three types of in the form of statements: while, for, do/while.
-
-
-
 
 The if Statement, single-selection statement (с одиночным выбором).
 
@@ -552,7 +523,6 @@ The if Statement, single-selection statement (с одиночным выборо
 
 Conditions in if statements are formed by using the equality operators and relational (отношения) operators. The relational operators all have the same level of precedence and associate left to right. The equality operators have a lower level of precedence than the relational operators and they also associate left to right. 
 In C, a condition may actually be any expression that generates a zero (false) or nonzero (true) value. То есть если condition есть просто constant, то условие всегда будет истинным.
-
 	scanf ("%d", &x); 
 	printf("%d\n", x>=2);// Напечатает 0 или 1 в зависимости от истинности.
 
@@ -578,11 +548,7 @@ Any expression in C that produces a value can be used in the decision portion of
 	if ( payCode = 4 )//всегда истинно, пока присваивается ненулеваое значение.
  		printf( "%s", "You get a bonus!" );
 
-
-
-
 The if…else Selection Statement, double-selection statement. 
-
 Simple if…else statements.
 	if ( grade >= 60 )
 	{
@@ -607,27 +573,18 @@ Nested if…else statements.
 		printf("CCC");
 	}
 
-
-
-
-	printf 	(			grade >= 60 ? "1Passed\n" : "Failed\n" );
-	printf 	("%s\n" , 	grade >= 60 ? "2Passed" : "Failed" );
-	puts 	(			grade >= 60 ? "3Passed" : "Failed" );
-
-	grade >= 60 ? printf( "Passed" ) : printf( "Failed" );
-	grade >= 60 ? printf("%s", "Passed") : printf("%s", "Failed" );
-	grade >= 60 ? puts 	( "Passed" ) : puts( "Failed" );
-
 The conditional operator ?: is C’s only ternary operator — it takes three operands. These (three operands) together with the conditional operator ?: form a conditional expression (условное выражение). 
 The first operand grade >= 60 is a condition (условие). 
 The second operand string "Passed" is the value for the entire(всего) conditional expression (условного выражения) if the condition is true.
 The third operand string "Failed" is the value for the entire conditional expression if the condition is false. 
-
-
-
+	printf 	(			grade >= 60 ? "1Passed\n" : "Failed\n" );
+	printf 	("%s\n" , 	grade >= 60 ? "2Passed" : "Failed" );
+	puts 	(			grade >= 60 ? "3Passed" : "Failed" );
+	grade >= 60 ? printf( "Passed" ) : printf( "Failed" );
+	grade >= 60 ? printf("%s", "Passed") : printf("%s", "Failed" );
+	grade >= 60 ? puts 	( "Passed" ) : puts( "Failed" );
 
 The while Repetition Statement.
-
 	int stud = 0; //stud = 0  - initialized
 	while (stud < 3)
 	{
@@ -655,8 +612,6 @@ The while Repetition Statement.
 	3
 	4
 
-
-
 The for Repetition Statement.
 
 	for ( expression1; expression2; expression3 )//header. 
@@ -679,7 +634,6 @@ The for Repetition Statement.
 	}
 	
 In most cases, the for statement can be represented with an equivalent while statement as follows:
-
 	expression1;
 	while ( expression2 ) 
 	{
@@ -688,14 +642,12 @@ In most cases, the for statement can be represented with an equivalent while sta
 	}
 
 В стандарте С99 добавили возможность объявления и инициализации переменной внутри цикла for. Тогда i будет экранирована от i в main.
-
 	Смотри раздел про классы памяти и 
 	{
 		и области действия.
 	}
 
 Постинкремент выглядит естественнее, но прединкремент здесь эквивалентен и выполняется ( или компилируется?) быстрее.
-
 	int main (void)
 	{
 		int i;
@@ -706,13 +658,20 @@ In most cases, the for statement can be represented with an equivalent while sta
 		return 0;
 	}
 
-
-
+Do While
+	int main (void)
+	{
+		int counter = 1;
+		do 
+		{
+			printf("%d\n", counter);
+		}	while ( ++counter <= 10);
+		return 0;
+	}
 
 Switch, a multiple-selection statement (с множественным выбором).
 Работает только с константами.
 The switch statement consists of a series of case labels, an optional default case and statements to execute for each case. 
-	
 	#include <stdio.h>
 	int main (void)
 	{
@@ -742,34 +701,12 @@ The switch statement consists of a series of case labels, an optional default ca
 		printf("\n End");
 		return 0;
 	}	
-
 При отсутсвии brake будет выполнять все следующие операторы до brake или до конца. 
 case '\n' : case 10 - будет ошибка duplicate case value.
 Не путай dec с hex. По-умолчанию, все цифры - это dec!
 
-
-
-
-Do While
-
-	int main (void)
-	{
-		int counter = 1;
-		do 
-		{
-			printf("%d\n", counter);
-		}	while ( ++counter <= 10);
-		return 0;
-	}
-
-
-
-
 Break Continue
-
 The break statement, when executed in a while, for, do…while or switch statement, causes an immediate exit from that statement. 
-The continue statement, when executed in a while, for or do…while statement, skips the remaining statements in the body of that control statement and performs the next iteration of the loop. 
-
 	int main (void)
 	{
 		int  x;
@@ -783,6 +720,7 @@ The continue statement, when executed in a while, for or do…while statement, s
 		return 0;
 	}
 
+The continue statement, when executed in a while, for or do…while statement, skips the remaining statements in the body of that control statement and performs the next iteration of the loop. 
 	int main (void)
 	{
 		int  x;
@@ -796,18 +734,10 @@ The continue statement, when executed in a while, for or do…while statement, s
 		return 0;
 	}
 
-
-
-
 Logical Operators.
-
-In expressions using operator &&, make the condition that’s most likely to be false the leftmost condition. 
-In expressions using operator ||, make the condition that’s most likely to be true the leftmost condition. 
-This can reduce a program’s execution time.
- 
-The equality operators have a lower level of precedence than the relational operators and they also associate left to right
-
-	int main (void){
+In expressions using operator &&, make the condition that’s most likely to be false the leftmost condition. In expressions using operator ||, make the condition that’s most likely to be true the leftmost condition. This can reduce a program’s execution time. The equality operators have a lower level of precedence than the relational operators and they also associate left to right.
+	int main (void)
+	{
 		int  a, b, c;
 		scanf("%d%d%d", &a, &b, &c);
 		if ( a == 2 )	
@@ -820,9 +750,6 @@ The equality operators have a lower level of precedence than the relational oper
 			printf("%d == 1 && %d >= 10", b, c);
 		return 0;
 	}
-
-
-
 
 Булева алгебра. 
 Короче, вся эта муть дальше, потому что Петцольд не объяснил, что множества и логические высказывания - это две разных вещи. Факт принадлежности кошки к множеству Рыжих - это логическое высказывание, которое может быть истинным или ложным!!! На матпрофи - сначала идут множества, чтобы описать что это такое, а уже ПОТОМ идет логика.
@@ -950,11 +877,7 @@ The equality operators have a lower level of precedence than the relational oper
 	1 х 0 = 0 ; 1 + 0 = 1
 	1 х 1 = 1 ; 1 + 1 = 1
 
-
-
-
 Задание 4.14. Факториал итеративный.
-
 	int main (void)
 	{
 		int x,i;
@@ -969,23 +892,18 @@ The equality operators have a lower level of precedence than the relational oper
 		return 0;
 	}
 
-
 	mov 5, r0
 	call fact
 	stop
 
 	fact:
 	push r1; бекап регистра r1
-
 	mov 1, r1 ; понеслась
-
 	a:
 	mul r0, r1 ; 5 * 1 = 5 , поместить в r1
 	sub 1, r0 ;  5 - 1 = 4 , поместить в r0
 	jnz a
-
 	mov r1, r0
-
 	pop r1 ; применение бэкапа
 	ret
 
@@ -997,13 +915,9 @@ The equality operators have a lower level of precedence than the relational oper
 
 
 
-Functions.
-
-The general format for a function definition is:
-
+Functions. The general format for a function definition is:
 	return-value-type function-name( parameter-list )//header 
-	тип_возвращаемых_значений ИМЯ_функции (тип_принимаемых_значений/список_параметров)
-	{//тело функции
+	{//body
 		definitions
 		statements
 	}
@@ -1025,13 +939,9 @@ The general format for a function definition is:
 	}
 
 All variables defined in function definitions are local variables — they can be accessed only in the function in which they’re defined.
-The definitions and statements within braces form the function body, which is also referred (называться, упоминаются, передается) to as a block. 
-Variables can be declared in any block, and blocks can be nested. 
-
+The definitions and statements within braces form the function body, which is also referred (называться, упоминаются, передается) to as a block. Variables can be declared in any block, and blocks can be nested. 
 Прототип заставляет компилятор преобразовывать тип данных (int>float, etc). Если прототип не указать - компилятор сам создаст кое-как прототип. Function sqrt can be called with an int argument even though the function prototype in <math.h> specifies a double parameter, and the function will still work correctly. 
-
 Each time a function calls another function, an entry is pushed onto the stack. This entry, called a stack frame, contains the return address that the called function needs in order to return to the calling function. Most functions have automatic variables. When a called function returns to its caller, the called function’s automatic variables need to “go away.” When that function returns—and no longer needs its local automatic variables — its stack frame is popped from the stack, and those local automatic variables are no longer known to the program.
-
 	void print (void);
 	float FUNC(int);
 	int main (void)
@@ -1070,7 +980,6 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 	}
 
 К примеру бабл в указателях, сокрытие прототипа.
-
 	int AAA(int);
 	int main (void)
 	{
@@ -1089,9 +998,6 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 		return bbb * 1000;
 	}
 
-
-
-
 Заголовочные файлы .h
 Каждая библиотека имеет свой заголовочный файл, содержащий прототипы для всех функций данной библиотеки, а также определение типов данных и констант для этих функций. Можно создавать собственные заголовочные файлы. Подробнее в главе 13. Директивы сообщают препроцессору о необходимости включения заголовочных файлов, которые содержат много всего, в том числе - прототипы функций.
 #include "square.h" - файл лежит в рабочей директории.
@@ -1103,18 +1009,10 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 #include <unistd.h> sleep()
 #include <stddef.h> NULL
 
-
-
-
 Passing Arguments By Value (значению) and By Reference (ссылке). 
-
-In many programming languages, there are two ways to pass arguments—pass-by-value and pass-by-reference. 
-When arguments are passed by value, a copy of the argument’s value is made and passed to the called function. Changes to the copy do not affect an original variable’s value in the caller. When an argument is passed by reference, the caller allows the called function to modify the original variable’s value.
-In C, all arguments are passed by value. As we’ll see in Chapter 7, it’s possible to simulate pass-by-reference by using the address operator and the indirection operator. In Chapter 6, we’ll see that array arguments are automatically passed by reference for performance reasons.
-
+In many programming languages, there are two ways to pass arguments—pass-by-value and pass-by-reference. When arguments are passed by value, a copy of the argument’s value is made and passed to the called function. Changes to the copy do not affect an original variable’s value in the caller. When an argument is passed by reference, the caller allows the called function to modify the original variable’s value. In C, all arguments are passed by value. As we’ll see in Chapter 7, it’s possible to simulate pass-by-reference by using the address operator and the indirection operator. In Chapter 6, we’ll see that array arguments are automatically passed by reference for performance reasons.
 
 Storage Classes.
-
 We used identifiers for variable names. The attributes of variables include: 
 
 1. Name. 
@@ -1155,12 +1053,7 @@ We also use identifiers as names for user-defined functions. Actually, each iden
 
 8. Linkage. 
 
-
-Локальная переменная	- объявлена в списке параметров, теле функции или блоке.
-Глобальная переменная	- объявлена вне любого блока или вне функции.
-Если своими словами:
-	Дурацкое описание в принципе. Период хранения и область действия - разные вещи. Атрибуты по-разному переплетаются в зависимости от ключевых слов и местоположения. Глобальная переменная X будет скрыта для функции, если в функции будет объявлена переменная X.
-	Локальные скрываются аналогично:
+Дурацкое описание в принципе. Период хранения и область действия - разные вещи. Локальная переменная с классом static используется, например, в теле функции или массивах. Атрибуты по-разному переплетаются в зависимости от ключевых слов и местоположения. Глобальная переменная X будет скрыта для функции, если в функции будет объявлена переменная X. Локальные скрываются аналогично:
 	int main (void)
 	{
 		int a = 1;
@@ -1176,9 +1069,6 @@ We also use identifiers as names for user-defined functions. Actually, each iden
 		}
 		printf ("%d\n", a);			//5
 	}
-
-
-Локальная переменная с классом static используется, например, в теле функции или массивах.
 	
 В стандарте С99 добавили возможность инициализации и объявления переменной внутри цикла for:
 	int main (void)
@@ -1209,11 +1099,7 @@ We also use identifiers as names for user-defined functions. Actually, each iden
 		return 0;
 	}
 
-
-
-
 Пример с демонстрацией scope.
-
 	// Fig. 5.16: fig05_16.c
 	// Scoping.
 	void useLocal( void ); // function prototype
@@ -1222,7 +1108,6 @@ We also use identifiers as names for user-defined functions. Actually, each iden
 
 	int x = 1;
 
-	// function main begins program execution
 	int main ( void )
 	{
 		int x = 5; // local variable to main
@@ -1295,9 +1180,6 @@ We also use identifiers as names for user-defined functions. Actually, each iden
 
 	local x in main is 5
 
-
-
-
 Стохастическая игра
 	#include <stdio.h>
 	#include <stdlib.h>
@@ -1352,15 +1234,7 @@ We also use identifiers as names for user-defined functions. Actually, each iden
 		return 0;
 	}
 
-
-
-
-Рекурсия.
-
-Всё, что можно написать рекурсией - можно написать и итерацией. 
-Нужно выбирать подход в зависимости от обстоятельств. Рекурсия требует больше ресурсов. 
-
-Факториал рекурсивный:
+Рекурсия. Всё, что можно написать рекурсией - можно написать и итерацией. Нужно выбирать подход в зависимости от обстоятельств. Рекурсия требует больше ресурсов. Факториал рекурсивный:
 	int FUNC(int);
 	int main (void)
 	{
@@ -1407,9 +1281,6 @@ We also use identifiers as names for user-defined functions. Actually, each iden
 			return( FUNC(x-1) );//вычесть 1 из х и передать его в функцию
 		}	
 	}
-
-
-
 
 Вывод с задержкой в секунду.
 	#include <stdio.h>
@@ -1721,12 +1592,7 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 
 Двоичный поиск, стр 245
 
-
-
-
-Multidimensional Arrays.
-M[число строк][число столбцов-длина строки] 
-Значения группирируются в фигурных скобках по строкам.
+Multidimensional Arrays. M[число строк][число столбцов-длина строки]. Значения группирируются в фигурных скобках по строкам.
 	int M[2][2] = {	{1,2} , {3,4} };
 			0стлбц	1стлбц
 		0стрк//1//	//2//
@@ -1745,9 +1611,8 @@ M[число строк][число столбцов-длина строки]
 		1стрк//4//	//0//	//0//
 
 Вывод многомерного массива и передача в функцию.
-В памяти строка идет за строкой. Каждая строка - по сути одномерный массив. When accessing (при обращении) a[1][2] in our example, the compiler knows to skip the 3 elements of the 1 row (row 0) to get to the 2 row (row 1). Then, the compiler accesses element 2 of that row. 
 	#include <stdio.h>
-	void printM(int [][3]);//первый индекс не требуется и бесполезен, последующие - обязательно требуются, иначе компилятор не будет знать длину строки. В списке параметров функции определяется о чем идет речь - переменной, одномерном массиве или многомерном массиве.
+	void printM(int [][3]);//первый индекс не требуется и бесполезен, последующие - обязательно требуются, иначе компилятор не будет знать длину строки. В списке параметров функции определяется о чем идет речь - переменной, одномерном массиве или многомерном массиве. В памяти строка идет за строкой. Каждая строка - по сути одномерный массив. When accessing (при обращении) a[1][2] in our example, the compiler knows to skip the 3 elements of the 1 row (row 0) to get to the 2 row (row 1). Then, the compiler accesses element 2 of that row. 
 	int main (void)
 	{
 		int M[2][3] = {0,1,2,3,4};
@@ -2011,47 +1876,6 @@ Const Qualifier. Работает с компилятором.
 			!!!	*ptr = 7;//Ошибка; нельзя присвоить новое значение
 			!!!	ptr = &m;//Ошибка; нельзя присвоить новый адрес
 
-Bubble Sort Using Pass-by-Reference. Функция вызывает функцию. Бабл передает свопу элементы по ссылке. При использовании имени массива в качестве аргумента передается весь массив целиком (ну что за бред), индивидуальные элементы являются скалярами и передаются по значению.
-	#include <stdio.h>
-	#define SIZE 10
-	void bubbleSort(int *const array, const int size);//прототипа swap внутри bubleSort.
-	int main (void)
-	{
-		int a[SIZE] = {2,6,4,8,10,12,89,68,45,37};
-		for (int i = 0; i < SIZE; ++i)
-		{
-			printf("%4d\n", a[i]);
-		}
-		puts ("");
-		bubbleSort (a, SIZE);
-		for (int i = 0; i < SIZE; ++i)
-		{
-			printf("%4d\n", a[i]);		
-		}
-		return 0;	
-	}
-	void bubbleSort(int *const array, const int size)//int const *array запрешает менять адрес array.  
-	{
-		void swap(int *, int *);//прототип объявляется внутри функции.
-		for (int pass = 1; pass < size; pass++)
-		{	
-			for (int i = 0; i < size -1; i++)
-			{
-				if (array[i] > array [ i + 1])
-				{
-					swap( &array[i] , &array[i+1] );
-				}
-			}
-		}
-	}
-	void swap (int *element1Ptr, int *element2Ptr)//swap is not allowed to say int hold = array[ j ]; or array[ j ] = array[ j +  1]; 
-	{
-		int hold;
-		hold = *element1Ptr;
-		*element1Ptr = *element2Ptr;
-		*element2Ptr = hold;
-	}
-
 Relationship between Pointers and Arrays. Pointer Expressions and Pointer Arithmetic. 
 	int main (void)
 	{
@@ -2062,10 +1886,13 @@ Relationship between Pointers and Arrays. Pointer Expressions and Pointer Arithm
 		b1Ptr = &B[0];//равносильно предыдущему, но нагляднее.
 		b2Ptr = &B[0];
 
-		//A limited set of arithmetic operations may be performed on pointers. A pointer may be: with an integer: incremented (++), decremented (--), +, +=, -, -= ; is meaningful only when both pointers point to elements of the same array : b2Ptr - b1Ptr.
+		//A limited set of arithmetic operations may be performed on pointers. A pointer may be with an integer: incremented (++), decremented (--), +, +=, -, -= ; b2Ptr - b1Ptr is meaningful only when both pointers point to elements of the same array.
 		b2Ptr += 2;//would produce 3008 (3000 + 2 * 4), assuming an integer is stored in 4 bytes of memory and address is 3000 ; 3004 (3000 + 2 * 2) if it's stored in 2 bytes.
 		x = b2Ptr - b1Ptr;//statement would assign to x the number of array elements from b2Ptr to bPtr, in this case 2 (3008 - 3000).
 		//4 байта - это 4гб озу, тогда адрес любой ячейки (то есть одного байта) - это всегда 4 байта на х86 при х32 ос.
+
+		b1Ptr = b2Ptr;//A pointer can be assigned to another pointer if both have the same type. The exception to this rule is the pointer to void (i.e., void *), which is a generic pointer that can represent any pointer type. All pointer types can be assigned a pointer to void, and a pointer to void can be assigned a pointer of any type. In both cases, a cast operation is not required. A pointer to void cannot be dereferenced. Consider this: The compiler knows that a pointer to int refers to 4 bytes of memory on a machine with 4-byte integers, but a pointer to void simply contains a memory location for an unknown data type—the precise number of bytes to which the pointer refers is not known by the compiler. The compiler must know the data type to determine the number of bytes to be dereferenced for a particular pointer.
+		//Pointers can be compared using equality and relational operators, but such comparisons are meaningless unless the pointers point to elements of the same array. Pointer comparisons compare the addresses stored in the pointers. A comparison of two pointers pointing to elements in the same array could show, for example, that one pointer points to a higher-numbered element of the array than the other pointer does. A common use of pointer comparison is determining whether a pointer is NULL. 	
 
 		long long *bp = NULL ;
 		printf ("%p\n", bp );//00000000
@@ -2073,10 +1900,7 @@ Relationship between Pointers and Arrays. Pointer Expressions and Pointer Arithm
 		printf ("%p\n", bp );//00000008	
 	}
 
-A pointer can be assigned to another pointer if both have the same type. 
-The exception to this rule is the pointer to void (i.e., void *), which is a generic pointer that can represent any pointer type. All pointer types can be assigned a pointer to void, and a pointer to void can be assigned a pointer of any type. In both cases, a cast operation is not required. A pointer to void cannot be dereferenced. Consider this: The compiler knows that a pointer to int refers to 4 bytes of memory on a machine with 4-byte integers, but a pointer to void simply contains a memory location for an unknown data type—the precise number of bytes to which the pointer refers is not known by the compiler. The compiler must know the data type to determine the number of bytes to be dereferenced for a particular pointer.
-Pointers can be compared using equality and relational operators, but such comparisons are meaningless unless the pointers point to elements of the same array. Pointer comparisons compare the addresses stored in the pointers. A comparison of two pointers pointing to elements in the same array could show, for example, that one pointer points to a higher-numbered element of the array than the other pointer does. A common use of pointer comparison is determining whether a pointer is NULL. 
-
+Using subscripting and pointer notations with arrays.
 	#include <stdio.h>
 	#define SIZE 4
 	int main (void)
@@ -2130,6 +1954,47 @@ Pointers can be compared using equality and relational operators, but such compa
 	*( bPtr + 2 ) = 30
 	*( bPtr + 3 ) = 40	
 
+Bubble Sort Using Pass-by-Reference.
+	#include <stdio.h>
+	#define SIZE 10
+	void bubbleSort(int *const array, const int size);//прототипа swap внутри bubleSort.
+	int main (void)
+	{
+		int a[SIZE] = {2,6,4,8,10,12,89,68,45,37};
+		for (int i = 0; i < SIZE; ++i)
+		{
+			printf("%4d\n", a[i]);
+		}
+		puts ("");
+		bubbleSort (a, SIZE);
+		for (int i = 0; i < SIZE; ++i)
+		{
+			printf("%4d\n", a[i]);		
+		}
+		return 0;	
+	}
+	void bubbleSort(int *const array, const int size)//int const *array запрешает менять адрес array.  
+	{
+		void swap(int *, int *);//прототип объявляется внутри функции.
+		for (int pass = 1; pass < size; pass++)
+		{	
+			for (int i = 0; i < size -1; i++)
+			{
+				if (array[i] > array [ i + 1])
+				{
+					swap( &array[i] , &array[i+1] );
+				}
+			}
+		}
+	}
+	void swap (int *element1Ptr, int *element2Ptr)//swap is not allowed to say int hold = array[ j ]; or array[ j ] = array[ j +  1]; 
+	{
+		int hold;
+		hold = *element1Ptr;
+		*element1Ptr = *element2Ptr;
+		*element2Ptr = hold;
+	}
+
 Из-за этого примера пришлось все переосмыслить.
 	#include <stdio.h>
 	#define SIZE 10
@@ -2138,7 +2003,7 @@ Pointers can be compared using equality and relational operators, but such compa
 	int main( void )
 	{
 		char string1[ SIZE ];
-		char *string2 = "Hello";//Создать указатель на строку и инициализировать строковым литералом (то есть скаляром); Не нравится, потому что char string2[] = "Hello" понятнее и не-конст указатель лучше отдельно сделать...
+		char *string2 = "Hello";//Создать указатель на строку и инициализировать строковым литералом (то есть скаляром); char string2[] = "Hello" понятнее и не-конст указатель лучше сделать отдельно.
 	!!! int *MAS = {1,2,3,4,5};//Ошибка, см Arrays of Pointers, нельзя создать указатель и инициировать его последовательностью ячеек.
 		char string3[ SIZE ];
 		char string4[] = "Good Bye";
@@ -2163,9 +2028,7 @@ Pointers can be compared using equality and relational operators, but such compa
 		}
 	}
 
-Arrays of Pointers.
-Arrays may contain pointers. A common use of an array of pointers is to form an array of strings, referred to simply as a string array.
-
+Arrays of Pointers. Arrays may contain pointers. A common use of an array of pointers is to form an array of strings, referred to simply as a string array.
 	const char *suit[4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//The suit[4] portion of the definition indicates an array of 4 elements. The char * portion of the declaration indicates that each element of array suit is of type “pointer to char.” Qualifier const indicates that the strings pointed to by each element pointer will not be modified. The four values to be placed in the array are "Hearts", "Diamonds", "Clubs" and "Spades".
 	char *suit[4];//Массив из 4 указателей типа char c garbage.
 	char *suit[4] = {};//Массив из 4 указателей типа char инициализированных 0.
@@ -2189,9 +2052,7 @@ Arrays may contain pointers. A common use of an array of pointers is to form an 
 		}
 	}	
 
-Pointer to Function.
-
-A pointer to a function contains the address of the function in memory. In Chapter 6, we saw that an array name is really the address in memory of the first element of the array. Similarly (аналогично), a function name is really (в действительности) the starting address in memory of the code that performs the function’s task. Pointers to functions can be passed to functions, returned from functions, stored in arrays and assigned to other function pointers. 
+Pointer to Function. A pointer to a function contains the address of the function in memory. In Chapter 6, we saw that an array name is really the address in memory of the first element of the array. Similarly (аналогично), a function name is really (в действительности) the starting address in memory of the code that performs the function’s task. Pointers to functions can be passed to functions, returned from functions, stored in arrays and assigned to other function pointers. 
 
 Функция, возвращающая указатель на переменную.
 	#include <stdio.h>

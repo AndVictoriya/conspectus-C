@@ -1712,8 +1712,9 @@ Variable-Length Arrays VLA.
 
 
 
-Pointers.
+Pointers. Коротко: указатель - это переменная, хранящая адрес в памяти; причем есть ограниченное число способов присваивания адреса, а именно: 0, NULL и & адрес другой переменной; эти ограничения и обуславливает все особенности работы с указателями. 
 Pointers are variables whose values are memory addresses. Normally, a variable directly contains a specific value. A pointer, on the other hand, contains an address of a variable that contains a specific value. In this sense, a variable name directly references (непосредственной ссылкой) a value, and a pointer indirectly references (косвенной ссылкой) a value. Referencing a value through (обращение/ссылка к/на значение через) a pointer is called indirection (косвенным доступом).
+There are two ways to pass arguments to a function—pass-by-value and pass-by-reference. All arguments in C are passed by value. As we saw in Chapter 5, return may be used to return one value from a called function to a caller (or to return control from a called function without passing back a value). Many functions require the capability to modify variables in the caller or to pass a pointer to a large data object to avoid the overhead of passing the object by value (which incurs the time and memory overheads of making a copy of the object). In C, you use pointers and the indirection operator to simulate pass-by-reference. When calling a function with arguments that should be modified, the addresses of the arguments are passed. This is normally accomplished by applying the address operator (&) to the variable (in the caller) whose value will be modified. As we saw in Chapter 6, arrays are not passed using operator & because C automatically passes the starting location in memory of the array (the name of an array is equivalent to &arrayName[0]). When the address of a variable is passed to a function, the indirection operator (*) may be used in the function to modify the value at that location in the caller’s memory.
 	#include <stdio.h>
 	int cubeByValue( int n ); 
 	void cubeByReference( int *nPtr );
@@ -1752,13 +1753,14 @@ Pointers are variables whose values are memory addresses. Normally, a variable d
 		*nPtr = *nPtr * *nPtr * *nPtr; //разыменовывает указатель; number = number * number * number
 	} 
 
-For a function that expects a single-subscripted array as an argument, the function’s prototype and header can use the pointer notation shown in the parameter list of function cubeByReference. The compiler does not differentiate between a function that receives a pointer and one that receives a single-subscripted array. This, of course, means that the function must “know” when it’s receiving an array or simply a single variable for which it’s to perform pass-by-reference. When the compiler encounters a function parameter for a single-subscripted array of the form int B[], the compiler converts the parameter to the pointer notation int *B. The two forms are interchangeable.
+For a function that expects a single-subscripted array as an argument, the function’s prototype and header can use the pointer notation shown in the parameter list of function cubeByReference. The compiler does not differentiate between a function that receives a pointer and one that receives a single-subscripted array. This, of course, means that the function must “know” when it’s receiving an array or simply a single variable for which it’s to perform pass-by-reference. When the compiler encounters a function parameter for a single-subscripted array of the form int B[], the compiler converts the parameter to the pointer notation int *B. The two forms are interchangeable. Объяснение причин этого будет позже в виде "An array name can be thought of as a constant pointer".
 	#include <stdio.h>
 	void array1( int *BPtr );
 	void array2( int B[] );
 	int main ()
 	{
 		int MAS[] = {1,2,3,4,5};
+		printf ("%p\n", MAS);//0028FF24
 		array1 (MAS);
 		array2 (MAS);
 	}
@@ -1789,7 +1791,7 @@ Const Qualifier. Работает с компилятором.
 		int const *cPtr = &y;;//нельзя менять адрес указателя.
 		const int const *dPtr;//все нельзя.
 	}
-	void func( int x, const int y, int FAS1[], const FAS2[], int *aPtr, const int *bPtr; int const *cPtr = &y; const int const *dPtr )//Если передавать const сущность в non-const параметр функции, то будет ошибка.	
+	void func( int x, const int y, int FAS1[], const FAS2[], int *aPtr, const int *bPtr; int const *cPtr = &y; const int const *dPtr )//Если передавать const сущность в non-const параметр функции, который может изменить значение const сущности, то будет ошибка, даже если нет ни одной изменяющей инструкции.
 	{
 	}
 
@@ -1954,6 +1956,39 @@ Using subscripting and pointer notations with arrays.
 	*( bPtr + 2 ) = 30
 	*( bPtr + 3 ) = 40	
 
+Из-за этого примера пришлось все переосмыслить.
+	#include <stdio.h>
+	#define SIZE 10
+	void copy1( char * const s1, const char * const s2 );
+	void copy2( char *s1, const char *s2 );
+	int main( void )
+	{
+	!!! int *MAS = {1,2,3,4,5};//Ошибка, см Arrays of Pointers, нельзя создать указатель и инициировать его последовательностью ячеек.
+		char string1[ SIZE ];
+		char *string2 = "Hello";//Создать указатель на строку и инициализировать строковым литералом (то есть скаляром); char string2[] = "Hello" понятнее и не-конст указатель лучше сделать отдельно.
+		char string3[ SIZE ];
+		char string4[] = "Good Bye";
+		copy1( string1, string2 );
+		printf( "string1 = %s\n", string1 );
+		copy2( string3, string4 );
+		printf( "string3 = %s\n", string3 );
+	}
+	void copy1( char * const s1, const char * const s2 )//у s1 нельзя менять адрес, у s2 нельзя менять адрес и нельзя менять значение.
+	{
+		size_t i;
+		for ( i=0; ( s1[ i ] = s2[ i ] ) != '\0' ; ++i )//слева от != будет находиться результат последнего присваивания.
+		{
+			;//после последнего s1[ i ] равного \0 произойдет ложность условия и ++i не будет выполнено, произойдет выход из for.
+		}
+	}
+	void copy2( char *s1, const char *s2 )//у s1 можно менять адрес и значение, у s2 нельзя менять значение.
+	{
+		for ( ;  ( *s1 = *s2 ) != '\0' ; ++s1, ++s2 ) 
+		{
+			;
+		}
+	}
+
 Bubble Sort Using Pass-by-Reference.
 	#include <stdio.h>
 	#define SIZE 10
@@ -1993,39 +2028,6 @@ Bubble Sort Using Pass-by-Reference.
 		hold = *element1Ptr;
 		*element1Ptr = *element2Ptr;
 		*element2Ptr = hold;
-	}
-
-Из-за этого примера пришлось все переосмыслить.
-	#include <stdio.h>
-	#define SIZE 10
-	void copy1( char * const s1, const char * const s2 );
-	void copy2( char *s1, const char *s2 );
-	int main( void )
-	{
-		char string1[ SIZE ];
-		char *string2 = "Hello";//Создать указатель на строку и инициализировать строковым литералом (то есть скаляром); char string2[] = "Hello" понятнее и не-конст указатель лучше сделать отдельно.
-	!!! int *MAS = {1,2,3,4,5};//Ошибка, см Arrays of Pointers, нельзя создать указатель и инициировать его последовательностью ячеек.
-		char string3[ SIZE ];
-		char string4[] = "Good Bye";
-		copy1( string1, string2 );
-		printf( "string1 = %s\n", string1 );
-		copy2( string3, string4 );
-		printf( "string3 = %s\n", string3 );
-	}
-	void copy1( char * const s1, const char * const s2 )//у s1 нельзя менять адрес, у s2 нельзя менять адрес и нельзя менять значение; это приходится объявлять в том числе потому что string1 и string2 являются массивами, которые являтся конст указателями, тогда соответствующие параметры функции тоже должны быть конст.
-	{
-		size_t i;
-		for ( i=0; ( s1[ i ] = s2[ i ] ) != '\0' ; ++i )//слева от != будет находиться результат последнего присваивания.
-		{
-			;//после последнего s1[ i ] равного \0 произойдет ложность условия и ++i не будет выполнено, произойдет выход из for.
-		}
-	}
-	void copy2( char *s1, const char *s2 )//у s1 можно менять адрес и значение, у s2 нельзя менять значение.
-	{
-		for ( ;  ( *s1 = *s2 ) != '\0' ; ++s1, ++s2 ) 
-		{
-			;
-		}
 	}
 
 Arrays of Pointers. Arrays may contain pointers. A common use of an array of pointers is to form an array of strings, referred to simply as a string array.

@@ -146,7 +146,6 @@ Secure print:
 	puts( "Welcome to C!" );
 	printf( "%s", "Welcome " );//a string with printf.
 
-
 Теперь в общем.
 Когда речь заходит о датасаенс и информатике, о философии, логике и языках высого уровня, то появляются выражения и прочее. В асме нельзя написать х = 2+3-5*6, каждый кусочек нужно описать вручную, выделить место в памяти, назвать это место меткой "х", затем поочередно складывать, затем сохранять результат обратно в память, и так далее. А чтобы придумать С нужно придумать логику, законы и абстракции его мира.
 
@@ -154,28 +153,20 @@ https://en.wikipedia.org/wiki/Expression_(computer_science) :
 An expression in a programming language is a combination of one or more constants, variables, operators, and functions that the programming language interprets (according (в соответсвтии с) to its particular rules of precedence (приоритет, приоритетность, старшинство, предшествование) and of association (ассоциативность) ) and computes (вычисляет) to produce (производства) ("to return", in a stateful environment) another value. This process, as for mathematical expressions, is called evaluation.
 
 https://en.wikipedia.org/wiki/Statement_(computer_science) :
-In computer programming, a statement is a syntactic unit of an imperative programming language that expresses (выражает) some action to be carried out (которые необходимо выполнить). A program written in such (таком) a language is formed (сформирована чем) by a sequence of one or more statements. A statement may have internal components (e.g. например, expressions). Many imperative languages (e.g. C) make a distinction (делают различие) between statements and definitions, with (причем) a statement only containing executable code and a definition instantiating an identifier (определение, создающее экземпляр идентификатора), while (тогда как) an expression evaluates (оценивается) to a value only. A distinction (различие) can also be made between simple and compound statements; the latter may contain statements as components. 
-Simple statements a = a + b; return z; Compound statements {} блок, if, for.
-In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction (различие) is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. 
-In purely (чисто) functional programming, there are no statements; everything is an expression.
+In computer programming, a statement is a syntactic unit of an imperative programming language that expresses (выражает) some action to be carried out (которые необходимо выполнить). A program written in such (таком) a language is formed (сформирована чем) by a sequence of one or more statements. A statement may have internal components (e.g. например, expressions). Many imperative languages (e.g. C) make a distinction (делают различие) between statements and definitions, with (причем) a statement only containing executable code and a definition instantiating an identifier (определение, создающее экземпляр идентификатора), while (тогда как) an expression evaluates (оценивается) to a value only. A distinction (различие) can also be made between simple and compound (составная) statements; the latter may contain statements as components. Simple statements: a = a + b; return z; Compound statements: {} блок, if, for. In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction (различие) is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. In purely (чисто) functional programming, there are no statements; everything is an expression.
 
 C how to program:
 Pseudocode consists only of action statements—those that are executed when the program has been converted from pseudocode to C and is run in C. Definitions are not executable statements—they’re simply messages to the compiler. For example, the definition tells the compiler the type of variable i and instructs the compiler to reserve space in memory for the variable. But this definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed. 
 
 Unknown:
-An expression is a sequence of operators. Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). The body of any function is a compound (составная) statement which in turn is a sequence of statements and declarations (объявлений).
+An expression is a sequence of operators. Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). The body of any function is a compound statement which in turn is a sequence of statements and declarations (объявлений).
 
-Rules of Operator Precedence.
-The rules of operator precedence specify the order C uses to evaluate expressions (правила, которые определяют порядок). 
-The associativity of the operators specifies whether (будут ли) they evaluate from left to right or from right to left. 
-The circled numbers indicate the order in which C evaluates the operators: 
+Rules of Operator Precedence. The rules of operator precedence specify the order C uses to evaluate expressions (правила, которые определяют порядок). The associativity of the operators specifies whether (будут ли) they evaluate from left to right or from right to left. The circled numbers indicate the order in which C evaluates the operators: 
 	z = p * r % q + w / x - y;
 	  6   1   2   4   3   5
 
 	while ( ( grade = getchar() ) != EOF )
-In the while header the parenthesized assignment (grade = getchar()) executes first. The getchar function (from <stdio.h>) reads one character from the keyboard and stores that character in the integer variable grade. 
-Assignments as a whole actually have a value (присваивание само по себе имеет значение). This value is assigned to the variable on the left side of the =. The value of the assignment expression grade = getchar() is the character that’s returned by getchar and assigned to the variable grade. 
-То есть речь о том, что выражение присваивания (с простыми выражениями из остальных операторов и так все понятно, что можно) само по себе может использоваться как условие. Это похоже на оценку последней инструкции в регистре состояний. Но касается ли это инструкций здесь?
+In the while header the parenthesized assignment (grade = getchar()) executes first. The getchar function (from <stdio.h>) reads one character from the keyboard and stores that character in the integer variable grade. Assignments as a whole actually have a value (присваивание само по себе имеет значение). This value is assigned to the variable on the left side of the =. The value of the assignment expression grade = getchar() is the character that’s returned by getchar and assigned to the variable grade. То есть речь о том, что выражение присваивания (с простыми выражениями из остальных операторов и так все понятно, что можно) само по себе может использоваться как условие. Это похоже на оценку последней инструкции в регистре состояний. Но касается ли это инструкций здесь?
 The fact that assignments have values can be useful for setting several variables to the same value. For example, a = b = c = 0; first evaluates the assignment c = 0 (because the = operator associates from right to left). The variable b is then assigned the value of the assignment (переменной b присваивается значение выражениЯ) c = 0 (which is 0). Then, the variable a is assigned the value of the assignment b = (c = 0) (which is also 0).
 Any expression in C that produces a value can be used in the decision portion of any control statement. 
 	if ( payCode == 4 )
@@ -183,28 +174,18 @@ Any expression in C that produces a value can be used in the decision portion of
 	if ( payCode = 4 )//всегда истинно, пока присваивается ненулеваое значение.
  		printf( "%s", "You get a bonus!" );
 
-Order of Evaluation of Operands. 
-Не путать с Order of Evaluation of Operators (или precedence).
-Выражения состоят из операторов и их операндов. Есть порядок оценки операторов, а есть порядок оценки операндов для операторов &&, ||, the comma (,) operator and ?: . А все это вместе как раз и образует порядок оценки выражений... 
+Order of Evaluation of Operands. Не путать с Order of Evaluation of Operators (или precedence). Выражения состоят из операторов и их операндов. Есть порядок оценки операторов, а есть порядок оценки операндов для операторов &&, ||, the comma (,) operator and ?: . А все это вместе как раз и образует порядок оценки выражений?
 Это из рекурсивного способа решения чисел Фибоначчи. 
 	unsigned long long int fibonacci( unsigned int n )
 	{
-		if ( 0 == n || 1 == n ) 
-		{
-			return n;
-		}
-		else 
-		{
-			return fibonacci( n - 1 ) + fibonacci( n - 2 );
-		}
+		if ( 0 == n || 1 == n ) return n;
+		else return fibonacci( n - 1 ) + fibonacci( n - 2 );
 	} 
-	This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в которой операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета операторов)! 
+This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в которой операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета операторов)! 
 Figure 5.20 shows that while evaluating fibonacci(3), two recursive calls will be made, namely fibonacci(2) and fibonacci(1). But in what order will these calls be made? You might simply assume the operands will be evaluated left to right. For optimization reasons, C does not specify the order in which the operands of most operators (C не определяет порядок, в каком будут вычисляться операнды большинства операторов) (including +) are to be evaluated. Therefore, you should make no assumption about the order in which these calls will execute. The calls could in fact execute fibonacci(2) first and then fibonacci(1), or the calls could execute in the reverse order, fibonacci(1) then fibonacci(2).
 In this and most other programs, the final result would be the same. But in some programs the evaluation of an operand may have side effects that could affect the final result of the expression. C specifies the order of evaluation of the operands of only four operators— namely &&, ||, the comma (,) operator and ?:. The first three of these are binary operators whose operands are guaranteed to be evaluated left to right. Именно поэтому лучше наиболее вероятную истину ставить слева от ||, а наиболее вероятную ложь слева от &&, с запятой и тренарным смотри примеры ниже. [Note: The commas used to separate the arguments in a function call are not comma operators.] The last operator is C’s only ternary operator. Its leftmost operand is always evaluated first; if the leftmost operand evaluates to nonzero, the middle operand is evaluated next and the last operand is ignored; if the leftmost operand evaluates to zero, the third operand is evaluated next and the middle operand is ignored.
 
-
-Operator precedence and associativity.  
-(стр 136, 218, 281) Понятнее было бы associativity and operator precedence/order of operations (operator precedence понятнее звучит), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
+Operator precedence and associativity. (стр 136, 218, 281) Понятнее было бы associativity and operator precedence/order of operations (operator precedence понятнее звучит), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
 
 Operators								Associativity	Type			//My comment
 	
@@ -263,9 +244,8 @@ printf ("%d\n", j );//6
 
 !5 равно 0, !!5 равно 1, 3*!5 равно 0, 3!5 ошибка.
 
-
-lvalues and rvalues. Variable names are said to be lvalues (for “left values”) because they can be used on the left side of an assignment operator. Constants are said to be rvalues (for “right values”) because they can be used on only the right side of an assignment operator. lvalues can also be used as rvalues, but not vice versa.
-
+lvalues and rvalues. 
+	Variable names are said to be lvalues (for “left values”) because they can be used on the left side of an assignment operator. Constants are said to be rvalues (for “right values”) because they can be used on only the right side of an assignment operator. lvalues can also be used as rvalues, but not vice versa.
 	x == 7 равносильно 7 == x. х = 7, Но 7 = x есть ошибка. 
 
 	int  day = 10, a;
@@ -293,9 +273,7 @@ lvalues and rvalues. Variable names are said to be lvalues (for “left values�
 		PORTX | 0000 0100.
 	~ - побитовое НЕ,  инвертирует биты.
 
-
 Keywords
-
 	auto double int struct
 	break else long switch
 	case enum register typedef
@@ -304,13 +282,10 @@ Keywords
 	continue for signed void
 	default goto sizeof volatile
 	do if static while
-
-	Keywords added in C99 standard
-
-		_Bool _Complex _Imaginary inline restrict
-		Keywords added in C11 draft standard
-		_Alignas _Alignof _Atomic _Generic _Noreturn _Static_assert _Thread_local
-
+Keywords added in C99 standard
+	_Bool _Complex _Imaginary inline restrict
+	Keywords added in C11 draft standard
+	_Alignas _Alignof _Atomic _Generic _Noreturn _Static_assert _Thread_local
 
 Data type/printf conversion specification/scanf conversion specification
 

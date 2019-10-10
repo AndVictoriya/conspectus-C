@@ -1506,7 +1506,7 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 			printf("%d\n", M[i]);
 		for (int pass = 1; pass < SIZE; pass++ )
 		{
-			for (int i = 0; i < SIZE-1	; i++)
+			for (int i = 0; i < SIZE-1	; i++)//0 удобен утилизацией в качестве индекса.
 			{
 				if (M[ i ]	> M[ i+1 ])	
 				{
@@ -1836,7 +1836,7 @@ Relationship between Pointers and Arrays. Pointer Expressions and Pointer Arithm
 	int main (void)
 	{
 		int x;
-		int * b1Ptr, *b2Ptr;
+		int * b1Ptr, * b2Ptr;
 		int B[5] = {0};//An array name can be thought of as a constant pointer. Причем важно понимать, что при этом нет ячейки с адресом. Имя массива является указателем как бы для компилятора.
 		b1Ptr = B;//Because the array name (without a subscript) is a pointer to the first element of the array, we can set b1Ptr equal (равным) to the address of the first element in array B with the statement; 
 		b1Ptr = &B[0];//равносильно предыдущему, но нагляднее.
@@ -1944,21 +1944,21 @@ Bubble Sort Using Pass-by-Reference.
 		}
 		return 0;	
 	}
-	void bubbleSort(int * const array, const int size)//int const *array запрешает менять адрес array.  
+	void bubbleSort(int * const array, const int size)
 	{
-		void swap(int * , int * );//прототип объявляется внутри функции.
+		void swap(int * , int * );
 		for (int pass = 1; pass < size; pass++)
 		{	
 			for (int i = 0; i < size -1; i++)
 			{
 				if (array[i] > array [ i + 1])
 				{
-					swap( &array[i] , &array[i+1] );
+					swap( &array[i] , &array[i+1] );//можно было бы заменить на (array+i) и (array+i+1), но так удобнее.
 				}
 			}
 		}
 	}
-	void swap (int * element1Ptr, int * element2Ptr)//swap is not allowed to say int hold = array[ j ]; or array[ j ] = array[ j +  1]; 
+	void swap (int * element1Ptr, int * element2Ptr)
 	{
 		int hold;
 		hold = *element1Ptr;
@@ -1968,16 +1968,19 @@ Bubble Sort Using Pass-by-Reference.
 
 Arrays of Pointers. Arrays may contain pointers. A common use of an array of pointers is to form an array of strings, referred to simply as a string array.
 	#define SUITS 4
+	#define SIZE 4
 	#include <stdio.h>
-	void deal( const char *wSuit[] );
+	void deal( const char * wSuit [] );
 	int main()
 	{
-		const char * suit[4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//The suit[4] portion of the definition indicates an array of 4 elements. The char * portion of the declaration indicates that each element of array suit is of type “pointer to char.” Qualifier const indicates that the strings pointed to by each element pointer will not be modified. The four values to be placed in the array are "Hearts", "Diamonds", "Clubs" and "Spades".
-		char * suit[4];//Массив из 4 указателей типа char c garbage.
-		char * suit[4] = {};//Массив из 4 указателей типа char инициализированных 0.
-		char * suit[4] = {0};//Массив из 4 указателей типа char инициализированных 0.
-		char * suit[4] = {NULL};//Массив из 4 указателей типа char инициализированных NULL.
+		const char * suit [4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//The suit[4] portion of the definition indicates an array of 4 elements. The char * portion of the declaration indicates that each element of array suit is of type “pointer to char.” Qualifier const indicates that the strings pointed to by each element pointer will not be modified. The four values to be placed in the array are "Hearts", "Diamonds", "Clubs" and "Spades".
+		char * suit1[4];//Массив из 4 указателей типа char c garbage.
+		char * suit2[4] = {};//Массив из 4 указателей типа char инициализированных 0.
+		char * suit3[4] = {0};//Массив из 4 указателей типа char инициализированных 0.
+		char * suit4[4] = {NULL};//Массив из 4 указателей типа char инициализированных NULL.
 		int * MAS[SIZE] = {NULL};//Массив из SIZE указателей типа int инициализированных NULL.
+	!!! int * BAS[SIZE] = {1,2,3,4,5};//Ошибка; а вот с отдельными значениями так нельзя.
+
 		deal( suit );
 	}
 	void deal( const char *wSuit[] )
@@ -1989,6 +1992,7 @@ Arrays of Pointers. Arrays may contain pointers. A common use of an array of poi
 	}	
 
 Pointer to Function. A pointer to a function contains the address of the function in memory. In Chapter 6, we saw that an array name is really the address in memory of the first element of the array. Similarly (аналогично), a function name is really (в действительности) the starting address in memory of the code that performs the function’s task. Pointers to functions can be passed to functions, returned from functions, stored in arrays and assigned to other function pointers. 
+
 Функция, возвращающая указатель на переменную.
 	#include <stdio.h>
 	int * lol ( void );
@@ -2009,20 +2013,20 @@ Pointer to Function. A pointer to a function contains the address of the functio
 	int ascending( int a, int b );
 	int main( void )
 	{
-		printf ("%d\n", ascending ( 7, 2 ) );
 		int (*FunctionPtr)(int x, int y);//FunctionPtr that’s a pointer to a function that receives two integer parameters and returns an integer result.
-		void (*VoidFunctionPtr)(int x, int y);//VoidFunctionPtr that’s a pointer to a function that receives two integer parameters and returns void.
 		//int * FunctionPtr (int x, int y) declares a function that receives two integers as parameters and returns a pointer to an integer. Логично, что функция не может быть параметром другой функции.
+		void (*VoidFunctionPtr)(int x, int y);//VoidFunctionPtr that’s a pointer to a function that receives two integer parameters and returns void.
+		printf ("%d\n", ascending(7,2) );//ничего интересного.
 		FunctionPtr = ascending; 
-		printf ("%d\n", (*FunctionPtr) ( 7 , 2 ) );//Just as a pointer to a variable is dereferenced to access the value of the variable, a pointer to a function is dereferenced to use the function. 
-		printf ("%d\n", FunctionPtr ( 7 , 2 ) );//можно, но через разыменование нагляднее!
+		printf ("%d\n", (*FunctionPtr)(7,2) );//Just as a pointer to a variable is dereferenced to access the value of the variable, a pointer to a function is dereferenced to use the function; указатель выступает как посредник, который передает полученные значения. 
+		printf ("%d\n", FunctionPtr(7,2) );//можно, но через разыменование нагляднее, чтобы не перепутать с функцией.
 	}
 	int ascending( int a, int b )
 	{
 		return b - a;
 	}
 
-Указатель на функцию в параметрах функции.
+Указатель на функцию в параметрах функции. Все тоже самое, что и в примере выше. bubble получает адрес, после чего сама же передает значения в функцию по этому адресу.
 	#include <stdio.h>
 	void bubble ( int (*FunctionPtr)(int x, int y) );
 	int ascending( int a, int b );
@@ -2079,12 +2083,12 @@ Pointer to Function. A pointer to a function contains the address of the functio
 		void swap( int * element1Ptr, int * element2ptr );//просто прототип swap.
 		for ( int pass = 1; pass < size; ++pass )
 		{
-			for ( int count = 0; count < size - 1; ++count )
+			for ( int count = 0; count < size - 1; ++count )//0 удобен утилизацией в качестве индекса.
 			{
 				if ( (*FunctionPtr) ( work[count], work[count+1] ) == 0	)
 				//Передача элементов в функцию асендин или десендин с помощью указателя FuctionPtr. 
-				//Если функция вернет 1, то все в порядке; 1 == 0 ложно.
-				//Если функция вернет 0, то нужен своп; 0 == 0 истинно. Тогда будет вызван своп, чтобы поменять элементы местами.
+				//Если функция вернет 1, то все в порядке; 1 == 0 даст 0.
+				//Если функция вернет 0, то нужен своп; 0 == 0 даст 1. Тогда будет вызван своп, чтобы поменять элементы местами.
 				{
 					swap( &work[count], &work[count+1] );//передача элементов в своп.
 				}
@@ -2093,7 +2097,7 @@ Pointer to Function. A pointer to a function contains the address of the functio
 	}
 	int ascending( int a, int b )
 	{
-		return b > a;//Ассендин вернет 1, если следующее больше предыдущего, то есть если все в порядке. 
+		return b > a;//Ассендин вернет 1, если следующее больше предыдущего; то есть если все в порядке. 
 	}
 	int descending( int a, int b )
 	{
@@ -2107,22 +2111,22 @@ Pointer to Function. A pointer to a function contains the address of the functio
 		*element2Ptr = hold;
 	}
 
-Демонстрация использования массива указателей на функции.
+Демонстрация использования массива указателей на функции. Бонус в отказе от свичей с кейсами? Тогда понятно, почему непонятен указатель на функцию и понятно когда массив указателей на функции.
 	#include <stdio.h>
 	void function1( int a );
 	void function2( int b );
 	void function3( int c );
 	int main( void )
 	{
+		int (*FunctionPtr)(int x, int y);//просто для сравнения.
 		const char *suit[4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//просто для сравнения.
-		int (*FunctionPtr)(int x, int y);
 
 		void (*f[ 3 ])( int ) = { function1, function2, function3 };// Имя переменной давать необязательно???
 		size_t choice;
 		scanf( "%u", &choice );
 		while ( 0 <= choice && choice < 3 ) 
 		{
-			(*f[ choice ])( choice );//In the function call f[ choice ] selects the pointer at location choice in the array (выбирает указатель на функцию из элемента с индексом choice).  The pointer is dereferenced to call the function, and choice is passed as the argument to the function.   
+			(*f[ choice ])( choice );//In the function call f[ choice ] selects the pointer at location choice in the array (извлекает указатель на функцию из элемента с индексом choice в массиве). The pointer is dereferenced to call the function, and choice is passed as the argument to the function.
 			scanf( "%u", &choice );
 		}
 		puts( "Program execution completed." );

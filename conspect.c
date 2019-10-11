@@ -185,13 +185,11 @@ This figure raises some interesting issues about the order in which C compilers 
 Figure 5.20 shows that while evaluating fibonacci(3), two recursive calls will be made, namely fibonacci(2) and fibonacci(1). But in what order will these calls be made? You might simply assume the operands will be evaluated left to right. For optimization reasons, C does not specify the order in which the operands of most operators (C не определяет порядок, в каком будут вычисляться операнды большинства операторов) (including +) are to be evaluated. Therefore, you should make no assumption about the order in which these calls will execute. The calls could in fact execute fibonacci(2) first and then fibonacci(1), or the calls could execute in the reverse order, fibonacci(1) then fibonacci(2).
 In this and most other programs, the final result would be the same. But in some programs the evaluation of an operand may have side effects that could affect the final result of the expression. C specifies the order of evaluation of the operands of only four operators— namely &&, ||, the comma (,) operator and ?:. The first three of these are binary operators whose operands are guaranteed to be evaluated left to right. Именно поэтому лучше наиболее вероятную истину ставить слева от ||, а наиболее вероятную ложь слева от &&, с запятой и тренарным смотри примеры ниже. [Note: The commas used to separate the arguments in a function call are not comma operators.] The last operator is C’s only ternary operator. Its leftmost operand is always evaluated first; if the leftmost operand evaluates to nonzero, the middle operand is evaluated next and the last operand is ignored; if the leftmost operand evaluates to zero, the third operand is evaluated next and the middle operand is ignored.
 
-Operator precedence and associativity. (стр 136, 218, 281) Понятнее было бы associativity and operator precedence/order of operations (operator precedence понятнее звучит), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
-
+Operator precedence and associativity.
 Operators								Associativity	Type			//My comment
-	
-() () []								left to right	parentheses		// () the expression in the parentheses evaluated first, func() function call operator, [] brackets (square brackets) used to enclose (заключить) the subscript (индекс) of an array.
-++(postfix) --(postfix)					right to left					//type длинный: postfix, unary, highest; a++, b-- на стр 281 имеют одинаковую приоритетность со строчкой выше, так же не понятно,почему постфикс имеет приоритет выше префикса.
-+ - ! ++(prefix) --(prefix) (type) & *	right to left	unary			//унарные версии (+5,-7), !(grade != sum), ++a, --b, cast operator a(float),  address operator, indirection Operator.
+() () []								left to right	parentheses		//() Operators in expressions contained within pairs of parentheses are evaluated first; func() function call operator; [] brackets(square brackets) used to enclose (заключить) the subscript (индекс) of an array.
+++(postfix) --(postfix)					right to left					//type длинный: postfix, unary, highest; на стр 281 имеют одинаковую приоритетность со строчкой выше, так же не понятно,почему постфикс имеет приоритет выше префикса.
++ - ! ++ -- (type) & * sizeof			right to left	unary			//унарные версии (+5,-7), !(grade != sum), ++a, --b, cast operator a(float),  address operator, indirection Operator.
 * / %									left to right	multiplicative	//binary
 + -										left to right	additive		//binary
 < <= > >=								left to right	relational
@@ -204,6 +202,8 @@ Operators								Associativity	Type			//My comment
 
 https://en.wikipedia.org/wiki/Order_of_operations
 https://en.wikipedia.org/wiki/Operator_associativity
+
+(стр 52, 136, 218, 281) Понятнее было бы associativity and operator precedence/order of operations (operator precedence понятнее звучит), потому что сначала нужно разобраться почему 7-4 + 2 = 5, а не 1; и только потом разбираться почему * старше +.
 
 7 - 4  + 2 из-за левоассоциативности распознается как (7 - 4) + 2 = 5 ; если бы эти операции были правоассоциативными, то 7 - (4 + 2) = 1.
 
@@ -1842,7 +1842,10 @@ Relationship between Pointers and Arrays. Pointer Expressions and Pointer Arithm
 		b1Ptr = &B[0];//равносильно предыдущему, но нагляднее.
 		b2Ptr = b1Ptr;//A pointer can be assigned to another pointer if both have the same type. The exception to this rule is the pointer to void (i.e., void *), which is a generic pointer that can represent any pointer type. All pointer types can be assigned a pointer to void, and a pointer to void can be assigned a pointer of any type. In both cases, a cast operation is not required. A pointer to void cannot be dereferenced. Consider this: The compiler knows that a pointer to int refers to 4 bytes of memory on a machine with 4-byte integers, but a pointer to void simply contains a memory location for an unknown data type—the precise number of bytes to which the pointer refers is not known by the compiler. The compiler must know the data type to determine the number of bytes to be dereferenced for a particular pointer.
 		//Pointers can be compared using equality and relational operators, but such comparisons are meaningless unless the pointers point to elements of the same array. Pointer comparisons compare the addresses stored in the pointers. A comparison of two pointers pointing to elements in the same array could show, for example, that one pointer points to a higher-numbered element of the array than the other pointer does. A common use of pointer comparison is determining whether a pointer is NULL.
-		
+		int number;
+		void *sPtr = NULL;
+		number = *( ( int * ) sPtr );//To dereference the pointer, it must first be cast to an integer pointer.
+
 		b2Ptr += 2;//would produce 3008 (3000 + 2 * 4), assuming an integer is stored in 4 bytes of memory and address is 3000 ; 3004 (3000 + 2 * 2) if it's stored in 2 bytes. 
 		//A pointer may be incremented (++) or decremented (--), an integer may be added to a pointer (+ or +=), an integer may be subtracted from a pointer (- or -=) and one pointer may be subtracted from another.
 		x = b2Ptr - b1Ptr;//statement would assign to x the number of array elements from b2Ptr to bPtr, in this case 2 (3008 - 3000).
@@ -1873,7 +1876,7 @@ Using subscripting and pointer notations with arrays.
 			++i;
 			++offset;
 		}
-	!!!	printf ("%d\n", *Ptr[2] );//Ошибка. Ptr[2] это фича, элемент массива, а не указатель.
+	!!!	printf ("%d\n", *Ptr[2] );//Ошибка. Ptr[2] это фича, элемент массива, а не указатель, который можно разыменовать.
 	}
 	int MAS[] = { 10, 20, 30, 40 };
 	int * Ptr = MAS;
@@ -2025,7 +2028,6 @@ Pointer to Function. A pointer to a function contains the address of the functio
 	{
 		return b - a;
 	}
-
 Указатель на функцию в параметрах функции. Все тоже самое, что и в примере выше. bubble получает адрес, после чего сама же передает значения в функцию по этому адресу.
 	#include <stdio.h>
 	void bubble ( int (*FunctionPtr)(int x, int y) );
@@ -2048,7 +2050,6 @@ Pointer to Function. A pointer to a function contains the address of the functio
 	{
 		return c + d;
 	}
-
 Универсальная программа сортировки, использующая указатели на функции.
 	#include <stdio.h>
 	#define SIZE 10
@@ -2118,15 +2119,12 @@ Pointer to Function. A pointer to a function contains the address of the functio
 	void function3( int c );
 	int main( void )
 	{
-		int (*FunctionPtr)(int x, int y);//просто для сравнения.
-		const char *suit[4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//просто для сравнения.
-
 		void (*f[ 3 ])( int ) = { function1, function2, function3 };// Имя переменной давать необязательно???
 		size_t choice;
 		scanf( "%u", &choice );
 		while ( 0 <= choice && choice < 3 ) 
 		{
-			(*f[ choice ])( choice );//In the function call f[ choice ] selects the pointer at location choice in the array (извлекает указатель на функцию из элемента с индексом choice в массиве). The pointer is dereferenced to call the function, and choice is passed as the argument to the function.
+			(*f[ choice ])( choice );//In the function call, f[choice] selects the pointer at location choice in the array (извлекает указатель на функцию из элемента с индексом choice в массиве). The pointer is dereferenced to call the function, and choice is passed as the argument to the function.
 			scanf( "%u", &choice );
 		}
 		puts( "Program execution completed." );

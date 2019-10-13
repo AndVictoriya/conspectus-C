@@ -1375,6 +1375,26 @@ We also use identifiers as names for user-defined functions. Actually, each iden
 			return z;
 		}
 
+Метод Эйлера вики
+	double func(double x, double y)
+	{
+		return 6*x*x+5*x*y; // функция первой производной
+	}
+	int main(int argc, char** argv)
+	{
+	    int i, n; 
+	    double x, y, h;
+	    h = 0.01; // шаг
+	    n = 10; // количество итераций
+	    x = 1; // x0
+	    y = 1; // y0
+	    for (i = 0; i < n; i++)
+	    {
+	        y += h * func(x, y); // вычисление yi
+	        x += h;
+	    }
+	    return EXIT_SUCCESS;
+	}
 
 
 
@@ -1441,7 +1461,7 @@ scanf и printf не являются частью языка. ВАЖНЫЙ МО
 	scanf("%5s", MAS);//& не нужен; 5s введет строку не длиннее 5 символов; scanf может выйти за пределы массива; 
 	printf("%p", &MAS);//0028FF34; 
 	scanf("%5s", &MAS);//в функциях остальных это не работает.
-!!!	func (&MAS);//Ошибка.
+!!!	func (&MAS);//Ошибка. См пример ниже.
 	printf("%p", &MAS[0]);//0028FF34.
 	scanf("%5s", &MAS[0]);//%c будет распозновать ввод как символ конца строки!
 	printf("%p", MAS[0]);//конкретный член массива, работа с ним, как с переменной; но так же будет передаваться строка двумерного массива.
@@ -1710,7 +1730,7 @@ For a function that expects a single-subscripted array as an argument, the funct
 		printf ("%p\n", MAS);//0028FF24
 		func1 (MAS);
 		func2 (MAS);
-	!!!	func1 (&MAS);//Ошибка.
+	!!!	func1 (&MAS);//Ошибка. То есть та же проблема, что и в главе про массивы.
 	!!!	func2 (&MAS);//Ошибка.
 	}
 	void func1( int * BPtr )
@@ -1754,7 +1774,7 @@ Const Qualifier. Работает с компилятором.
 	void func( int x, const int y, int MAS1[], const MAS2[], int * aPtr, const int * bPtr; int const *cPtr = &y; const int const *dPtr )//Если передавать const сущность в non-const параметр функции, который может изменить значение const сущности, то будет ошибка, даже если нет ни одной изменяющей инструкции.
 	{
 	}
-	Эта же муть на 10 страниц. Надо будет удалить.
+	Эта же муть на 10 страниц.
 		Из главы про массивы. Не сказали, что имя массива это просто константный указатель(
 			#include <stdio.h>
 			void modA (const int x , const int c[] );
@@ -1871,25 +1891,23 @@ Using subscripting and pointer notations with arrays.
 		int MAS[] = { 10, 20, 30, 40 };
 		int * Ptr = MAS;
 	!!!	printf ("%d\n", *Ptr[2] );//Ошибка; Ptr[2] это фича, элемент массива, а не указатель, который можно разыменовать.
-		printf ("int MAS[] = { 10, 20, 30, 40 };\n" );
-		printf ("int * Ptr = MAS;\n" );
-		int i = 0, offset = 0;
-		puts ("i  offset  Ptr+offset  &MAS[i]   *(Ptr+offset)  Ptr[i]  MAS[i]  *(MAS+offset)  *(&MAS[0]+offset)");
-		while (  i < SIZE )
+	!!!	func1 (&MAS);//Ошибка. То есть та же проблема, что и в главе про массивы. Но printf так может.
+		puts ("int MAS[] = { 10, 20, 30, 40 };" );
+		puts ("int * Ptr = MAS;" );
+		puts ("i  Ptr+i     &MAS[i]   *(Ptr+i)  Ptr[i]  MAS[i]  *(MAS+i)  *(&MAS[0]+i)");
+		for (int i = 0; i < SIZE; ++i)
 		{
-			printf("%d  %d      %p   %p  %d             %d      %d      %d             %d\n", 
-				i, offset, Ptr+offset, &MAS[i], *(Ptr+offset), Ptr[i], MAS[i], *(MAS+offset), *(&MAS[0]+offset) );	
-			++i;
-			++offset;
+			printf("%d  %p  %p  %d        %d      %d      %d        %d\n", 
+				i, Ptr+i, &MAS[i], *(Ptr+i), Ptr[i], MAS[i], *(MAS+i), *(&MAS[0]+i) );	
 		}
 	}
 	int MAS[] = { 10, 20, 30, 40 };
 	int * Ptr = MAS;
-	i offset Ptr+offset &MAS[i]  *(Ptr+offset) Ptr[i] MAS[i] *(MAS+offset) *(&MAS[0]+offset)
-	0  0     0028FF14   0028FF14  10           10     10      10            10
-	1  1     0028FF18   0028FF18  20           20     20      20            20
-	2  2     0028FF1C   0028FF1C  30           30     30      30            30
-	3  3     0028FF20   0028FF20  40           40     40      40            40
+	i  Ptr+i     &MAS[i]   *(Ptr+i)  Ptr[i]  MAS[i]  *(MAS+i)  *(&MAS[0]+i)
+	0  0028FF18  0028FF18  10        10      10      10        10
+	1  0028FF1C  0028FF1C  20        20      20      20        20
+	2  0028FF20  0028FF20  30        30      30      30        30
+	3  0028FF24  0028FF24  40        40      40      40        40
 	Pointer/offset notation *(Ptr+offset). Array element MAS[offset] can alternatively be referenced with the pointer expression; offset is offset; this notation is referred to as pointer/offset notation; the parentheses are necessary because the precedence of * is higher than the precedence of +.
 	Pointer subscript notation Ptr[i]. Pointers can be subscripted like arrays. If Ptr has the value MAS, the expression refers to the array element MAS[1]. This is referred to as pointer/subscript notation. &Ptr[i] даст адрес соответствующего элемента или просто сделает прыжок на тИповое число байт.
 	Array subscript notation MAS[i]. An array name can be thought of as a constant pointer. 

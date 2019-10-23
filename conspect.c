@@ -43,9 +43,9 @@ utf8
 	-S Stop after the stage of compilation proper; do not assemble. 
 
 	Исходник > 
-		препроцессор (подключает прототипы функций из заголовочных файлов) > 
-			компилятор (сначало в асм?, потом в объектный/машинный код) > 
-				компоновщик (линкер, линковщик добавляет куски скомпилированных библиотек)
+		препроцессор включает в основной файл содержимое всех заголовочных файлов >
+		компилятор сначало в асм?, потом в набор машинных команд в объектный файл >
+		компоновщик связывает: объектные файлы в один, вызовы функций с их определениями, присоединяет библиотечные файлы с функциями, которые вызываются, но не определены в проекте.
 
 	Настройка для компиляции из саблайма.
 	tools>build system
@@ -66,11 +66,9 @@ utf8
 	    ]
 	}
 
-	"Компилятор".
 	#include <stdlib.h> 
 	#include <stdio.h>
-	#include <conio.h> 
-	int main (void){
+		int main (void){
 		system("gcc \"C:/GD/books/Coding/MinGW/CUBEC/test.c\" ");
 		printf("\n\n\n				End of LOG... Press ENTER.\n");
 		getchar();
@@ -110,7 +108,7 @@ The entire line, including the printf function (the “f” stands for “format
 The backslash (\) is called an escape character. Они же esq-коды.
 Printf causes the computer to perform an action. 
 As any program executes, it performs a variety (множество) of actions and makes decisions. 
-Executable statements either perform actions (calculations, input or output of data, etc) or make decisions (if, while, etc) (стр 54). 
+Executable statements either (либо) perform actions (calculations, input or output of data, etc) or make decisions (if, while, etc) (стр 54). 
 The Linker and Executables. Standard library functions like printf and scanf are not part of the C programming language. Сompiler cannot find a spelling error in printf or scanf. When the compiler compiles a printf statement, it merely provides space in the object program for a “call” to the library function (e.g printf). But the compiler does not know where the library functions are — the linker does. When the linker runs, it locates the library functions and inserts the proper calls (соответствующие вызовы) to these library functions in the object program (причем, вставляет он уже обжекнутые куски кода). Now the object program is complete and ready to be executed. For this reason, the linked program is called an executable. If the function name is misspelled, the linker will spot the error, because it will not be able to match the name in the C program with the name of any known function in the libraries.
 
 4	int integer1, integer2;
@@ -148,57 +146,71 @@ Secure print:
 
 Теперь в общем.
 Когда речь заходит о датасаенс и информатике, о философии, логике и языках высого уровня, то появляются выражения и прочее. В асме нельзя написать х = 2+3-5*6, каждый кусочек нужно описать вручную, выделить место в памяти, назвать это место меткой "х", затем поочередно складывать, затем сохранять результат обратно в память, и так далее. А чтобы придумать С нужно придумать логику, законы и абстракции его мира.
-
 https://en.wikipedia.org/wiki/Expression_(computer_science) :
 An expression in a programming language is a combination of one or more constants, variables, operators, and functions that the programming language interprets (according (в соответсвтии с) to its particular rules of precedence (приоритет, приоритетность, старшинство, предшествование) and of association (ассоциативность) ) and computes (вычисляет) to produce (производства) ("to return", in a stateful environment) another value. This process, as for mathematical expressions, is called evaluation.
-
 https://en.wikipedia.org/wiki/Statement_(computer_science) :
 In computer programming, a statement is a syntactic unit of an imperative programming language that expresses (выражает) some action to be carried out (которые необходимо выполнить). A program written in such (таком) a language is formed (сформирована чем) by a sequence of one or more statements. A statement may have internal components (e.g. например, expressions). Many imperative languages (e.g. C) make a distinction (делают различие) between statements and definitions, with (причем) a statement only containing executable code and a definition instantiating an identifier (определение, создающее экземпляр идентификатора), while (тогда как) an expression evaluates (оценивается) to a value only. A distinction (различие) can also be made between simple and compound (составная) statements; the latter may contain statements as components. Simple statements: a = a + b; return z; Compound statements: {} блок, if, for. In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction (различие) is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. In purely (чисто) functional programming, there are no statements; everything is an expression.
-
 C how to program:
 Pseudocode consists only of action statements—those that are executed when the program has been converted from pseudocode to C and is run in C. Definitions are not executable statements—they’re simply messages to the compiler. For example, the definition tells the compiler the type of variable i and instructs the compiler to reserve space in memory for the variable. But this definition does not cause any action—such as input, output, a calculation or a comparison—to occur when the program is executed. 
-
 Unknown:
 An expression is a sequence of operators. Statements are fragments of the C program that are executed in sequence (в последовательности или последовательно?). The body of any function is a compound statement which in turn is a sequence of statements and declarations (объявлений).
 
-Rules of Operator Precedence. The rules of operator precedence specify the order C uses to evaluate expressions (правила, которые определяют порядок). The associativity of the operators specifies whether (будут ли) they evaluate from left to right or from right to left. The circled numbers indicate the order in which C evaluates the operators: 
+Rules of Operator Precedence and Associativity. The rules of operator precedence specify the order C uses to evaluate expressions (правила, которые определяют порядок). The associativity of the operators specifies whether (будут ли) they evaluate from left to right or from right to left. The circled numbers indicate the order in which C evaluates the operators: 
 	z = p * r % q + w / x - y;
-	  6   1   2   4   3   5
-
+	//6   1   2   4   3   5
 	while ( ( grade = getchar() ) != EOF )
-In the while header the parenthesized assignment (grade = getchar()) executes first. The getchar function (from <stdio.h>) reads one character from the keyboard and stores that character in the integer variable grade. Assignments as a whole actually have a value (присваивание само по себе имеет значение). This value is assigned to the variable on the left side of the =. The value of the assignment expression grade = getchar() is the character that’s returned by getchar and assigned to the variable grade. То есть речь о том, что выражение присваивания (с простыми выражениями из остальных операторов и так все понятно, что можно) само по себе может использоваться как условие. Это похоже на оценку последней инструкции в регистре состояний. Но касается ли это инструкций здесь?
+	{
+		;
+	}
+In the while header the parenthesized assignment (grade = getchar()) executes first. The getchar function (from <stdio.h>) reads one character from the keyboard and stores that character in the integer variable grade. Assignments as a whole actually have a value (присваивание само по себе имеет значение). This value is assigned to the variable on the left side of the =. The value of the assignment expression grade = getchar() is the character that’s returned by getchar and assigned to the variable grade.
 The fact that assignments have values can be useful for setting several variables to the same value. For example, a = b = c = 0; first evaluates the assignment c = 0 (because the = operator associates from right to left). The variable b is then assigned the value of the assignment (переменной b присваивается значение выражениЯ) c = 0 (which is 0). Then, the variable a is assigned the value of the assignment b = (c = 0) (which is also 0).
 Any expression in C that produces a value can be used in the decision portion of any control statement. 
 	if ( payCode == 4 )
 		printf( "%s", "You get a bonus!" );
 	if ( payCode = 4 )//всегда истинно, пока присваивается ненулеваое значение.
  		printf( "%s", "You get a bonus!" );
+ 	for (; *s1 = *s2; s1++, s2++)//истинно, пока результат присваивания больше нуля.
+ 	{
+ 		;
+ 	}
 
-Order of Evaluation of Operands. Не путать с Order of Evaluation of Operators (или precedence). Выражения состоят из операторов и их операндов. Есть порядок оценки операторов, а есть порядок оценки операндов для операторов &&, ||, the comma (,) operator and ?: . А все это вместе как раз и образует порядок оценки выражений?
-Это из рекурсивного способа решения чисел Фибоначчи. 
+Order of Evaluation of Operands. Не путать с Order of Evaluation of Operators (или precedence). Есть порядок оценки операторов, а есть порядок оценки операндов для операторов &&, ||, the comma (,) operator and ?: .
 	unsigned long long int fibonacci( unsigned int n )
 	{
 		if ( 0 == n || 1 == n ) return n;
 		else return fibonacci( n - 1 ) + fibonacci( n - 2 );
 	} 
-This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в которой операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета операторов)! 
+This figure raises some interesting issues about the order in which C compilers will evaluate the operands of operators. This is a different issue from the order in which operators are applied to their operands, namely the order dictated by the rules of operator precedence (Это отличается от проблемы порядка, в которой операторы применяются к своим операндам, а именно порядка, определяемого правилами приоритета операторов).
 Figure 5.20 shows that while evaluating fibonacci(3), two recursive calls will be made, namely fibonacci(2) and fibonacci(1). But in what order will these calls be made? You might simply assume the operands will be evaluated left to right. For optimization reasons, C does not specify the order in which the operands of most operators (C не определяет порядок, в каком будут вычисляться операнды большинства операторов) (including +) are to be evaluated. Therefore, you should make no assumption about the order in which these calls will execute. The calls could in fact execute fibonacci(2) first and then fibonacci(1), or the calls could execute in the reverse order, fibonacci(1) then fibonacci(2).
 In this and most other programs, the final result would be the same. But in some programs the evaluation of an operand may have side effects that could affect the final result of the expression. C specifies the order of evaluation of the operands of only four operators— namely &&, ||, the comma (,) operator and ?:. The first three of these are binary operators whose operands are guaranteed to be evaluated left to right. Именно поэтому лучше наиболее вероятную истину ставить слева от ||, а наиболее вероятную ложь слева от &&, с запятой и тренарным смотри примеры ниже. [Note: The commas used to separate the arguments in a function call are not comma operators.] The last operator is C’s only ternary operator. Its leftmost operand is always evaluated first; if the leftmost operand evaluates to nonzero, the middle operand is evaluated next and the last operand is ignored; if the leftmost operand evaluates to zero, the third operand is evaluated next and the middle operand is ignored.
 
 Operator precedence and associativity.
-Operators								Associativity	Type			//My comment
-() () []								left to right	parentheses		//() Operators in expressions contained within pairs of parentheses are evaluated first; func() function call operator; [] brackets(square brackets) used to enclose (заключить) the subscript (индекс) of an array.
-++(postfix) --(postfix)					right to left					//type длинный: postfix, unary, highest; на стр 281 имеют одинаковую приоритетность со строчкой выше, так же не понятно,почему постфикс имеет приоритет выше префикса.
-+ - ! ++ -- (type) & * sizeof			right to left	unary			//унарные версии (+5,-7), !(grade != sum), ++a, --b, cast operator a(float),  address operator, indirection Operator.
-* / %									left to right	multiplicative	//binary
-+ -										left to right	additive		//binary
-< <= > >=								left to right	relational
-== !=									left to right	equality		//The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см ниже, в if и в Logical Operators).
-&&										left to right	logical AND		//binary
-||										left to right	logical OR		//binary
-?:										right to left	conditional		//ternary
-= += -= *= /= %=						right to left	assignment		//binary
-,										left to right	comma			//см 12: .
+Operators												Associativity 	Type			
+//My comment
+() () []												left to right		parentheses		
+//() Operators in expressions contained within pairs of parentheses are evaluated first; func() function call operator; [] brackets(square brackets) used to enclose (заключить) the subscript (индекс) of an array.
+++(postfix) --(postfix)					right to left 
+//type длинный: postfix, unary, highest; на стр 281 имеют одинаковую приоритетность со строчкой выше, так же не понятно,почему постфикс имеет приоритет выше префикса.
++ - ! ++ -- (type) & * sizeof		right to left		unary			
+//унарные версии (+5,-7), !(grade != sum), ++a, --b, cast operator a(float),  address operator, indirection Operator.
+* / %														left to right		multiplicative	
+//binary
++ -															left to right		additive		
+//binary
+< <= > >=												left to right		relational
+//
+== !=														left to right		equality		
+//The equality operators have a lower level of precedence than the relational operators and they also associate left to right (см ниже, в if и в Logical Operators).
+&&															left to right		logical AND		
+//binary
+||															left to right		logical OR		
+//binary
+?:															right to left		conditional		
+//ternary
+= += -= *= /= %=								right to left		assignment		
+//binary
+,																left to right		comma			
+//см ниже пример.
 
 https://en.wikipedia.org/wiki/Order_of_operations
 https://en.wikipedia.org/wiki/Operator_associativity
@@ -305,6 +317,7 @@ Data type/printf conversion specification/scanf conversion specification
 	short %hd %hd +32767 2 байта
 	char %c %c 
 	signed char +127 1 байт (разница между чарами хз)
+	size_t - an unsigned integral type <stddef.h>.
 
 	Fig. 5.5 | Arithmetic data types and their conversion specifications.
 
@@ -706,7 +719,7 @@ In expressions using operator &&, make the condition that’s most likely to be 
 	}
 
 Булева алгебра. 
-Короче, вся эта муть дальше, потому что Петцольд не объяснил, что множества и логические высказывания - это две разных вещи. Факт принадлежности кошки к множеству Рыжих - это логическое высказывание, которое может быть истинным или ложным!!! На матпрофи - сначала идут множества, чтобы описать что это такое, а уже ПОТОМ идет логика. Рациональное мышление происходит по законам логики. Если описать эти законы средствами математики - то получится описание мышления. Для обозначения чисел используются операнды (буквы). Для указания способа объединения чисел используются операторы, например, + или х.
+Короче, вся эта муть дальше, потому что Петцольд не объяснил, что множества и логические высказывания - это две разных вещи. Факт принадлежности кошки к множеству Рыжих - это логическое высказывание, которое может быть истинным или ложным!!! На матпрофи - сначала идут множества, чтобы описать что это такое, а уже ПОТОМ идет логика. Рациональное мышление происходит по законам логики. Если описать эти законы средствами математики - то получится описание мышления. Для обозначения чисел используются операнды (буквы). Для указания способа объединения чисел используются операторы, например, + или х. Обычное ИЛИ с двумя входами строго называется 2ИЛИ.
 
 	В обычной алгебре:
 	Операции сложения и умножения коммутативны, их операнды можно поменять местами, а результат не изменится (вычитание и деление некоммутативны):
@@ -952,10 +965,9 @@ Each time a function calls another function, an entry is pushed onto the stack. 
 Заголовочные файлы .h
 Каждая библиотека имеет свой заголовочный файл, содержащий прототипы для всех функций данной библиотеки, а также определение типов данных и констант для этих функций. Можно создавать собственные заголовочные файлы. Подробнее в главе 13. Директивы сообщают препроцессору о необходимости включения заголовочных файлов, которые содержат много всего, в том числе - прототипы функций.
 #include "square.h" - файл лежит в рабочей директории.
-#include <stdio.h> printf(), scanf(), NULL, sizeof(type or name)
+#include <stdio.h> printf(), scanf(), NULL, sizeof(type or name) getchar()
 #include <stdlib.h> system(), rand()
 #include <math.h> 
-#include <conio.h> getchar()
 #include <time.h> time(NULL)
 #include <unistd.h> sleep()
 #include <stddef.h> NULL
@@ -1222,7 +1234,7 @@ We also use identifiers as names for user-defined functions. Actually, each iden
 	{
 		int number = 10;
 		FUNC(number);
-	}	}
+	}	
 	int FUNC(int x)
 	{
 		printf ("%d\n", x);//получен х
@@ -1404,8 +1416,7 @@ We also use identifiers as names for user-defined functions. Actually, each iden
 
 
 Arrays. Кратко - одномерные, передача одномерного, многомерные, передача многомерного и передача одной строки многомерного, переменные массивы и передача переменных массивов.
-Arrays are data structures consisting of related (связанных) data items of the same (одного) type. In Chapter 10, we discuss C’s notion of struct (structure) — a data structure consisting of related data items of possibly different types. Arrays and structures are “static” entities (remain the same size throughout program execution). They may be of automatic storage class.
-size_t - an unsigned integral type <stddef.h>.
+Arrays are data structures consisting of related (связанных) data items of the same (одного) type. In Chapter 10, we discuss C’s notion of struct (structure) — a data structure consisting of related data items of possibly different types. Arrays and structures are “static” entities (объекты) (remain the same size throughout program execution). They may be of automatic storage class.
 
 	int MAS[3] = {0};//массив с 3 ячейками типа int с нулями; номера ячеек: 0, 1, 2; {0} поместит нули во все ячейки, {1} поместит единицу только в нулевую ячейку, а в остальные - нули.
 	int MAS[3] = {1, 2, 3};//Можно перечислять переменные по отдельности. Число перечисленных членов не должно превышать размер массива
@@ -1457,7 +1468,7 @@ Static Local Arrays and Automatic Local Arrays.
 	S+5     0040E020 10     0040E024 10     0040E028 10
 
 Passing Arrays to Functions. Recall that all arguments in C are passed by value. C automatically passes arrays to functions by reference — the called functions can modify the element values in the callers’ original arrays. The name of the array evaluates (соответствует) to the address of the first element of the array. It’s possible to pass an array by value (by using a simple trick we explain in Chapter 10). Си передаёт массив в функцию путём имитации передачи параметра по ссылке, вызываемые функции могут изменять значения элементов массива.
-Individual array elements (scalars) are passed by value exactly as simple variables are. In Chapter 7, we show how to pass scalars (i.e., individual variables and array elements) to functions by reference. Отдельные значения (скаляры) передются по значению. Но можно имитировать ссылку для скаляров. Чем имитация отличается от передачи по ссылке - хз.
+Individual array elements (scalars) are passed by value exactly as simple variables are. In Chapter 7, we show how to pass scalars (i.e., individual variables and array elements) to functions by reference. Но можно имитировать ссылку для скаляров. Чем имитация отличается от передачи по ссылке - хз.
 	#include <stdio.h>
 	#define SIZE 5//нужно для удобной передачи разных массивов в одну и ту же функцию. В параметрах функции объявляют int переменную, которая внутри функции будет служить размером массива. Это позволяет передавать разные массивы с разными размерами одной и той же функции.
 	void modifyArray (int b[], int size);//modifyArray expects to receive an array of integers in parameter b and the number of array elements in parameter size. The size of the array is not required between the array brackets. If it’s included, the compiler checks that it’s greater than zero, then ignores it. 
@@ -1522,6 +1533,33 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 		for (int pass = 1; pass < SIZE; pass++ )
 		{
 			for (int i = 0; i < SIZE-1	; i++)//0 удобен утилизацией в качестве индекса.
+			{
+				if (M[ i ]	> M[ i+1 ])	
+				{
+					hold	= M[ i ] ;
+					M[ i ]	= M[ i+1 ] ;
+					M[ i+1 ]= hold ;
+				}
+			}	
+		}
+		for (int i=0; i < SIZE; i++)
+			printf("%d\n", M[i]);
+					
+		return 0;
+	}
+
+	#include <stdio.h>
+	#define  SIZE 5
+	int main (void)
+	{
+		int hold;
+		int M[SIZE] = {0,4,3,2,1};
+		for (int i=0; i < SIZE; i++)
+			printf("%d\n", M[i]);
+		puts ("");
+		for (int n = SIZE - 1 ; n > 0 ; --n )//число проходов равно числу элементов.
+		{
+			for (int i = 0; i < n	; i++)//0 удобен утилизацией в качестве индекса; а сравнение происходит каждый раз с "уменьшающимся массивом".
 			{
 				if (M[ i ]	> M[ i+1 ])	
 				{
@@ -2181,3 +2219,11 @@ Pointer to Function. A pointer to a function contains the address of the functio
 	} 
 
 
+
+
+
+
+
+
+
+Символы и строки.

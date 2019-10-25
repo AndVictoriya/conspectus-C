@@ -2044,10 +2044,6 @@ Arrays of Pointers. Arrays may contain pointers. A common use of an array of poi
 	!!int * suit4 [SIZE] = {1,2,3,4,5};//Ошибка; а вот с отдельными значениями так нельзя.
 		const char * suit [4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//The suit[4] portion of the definition indicates an array of 4 elements. The char * portion of the declaration indicates that each element of array suit is of type “pointer to char.” Qualifier const indicates that the strings pointed to by each element pointer will not be modified. The four values to be placed in the array are "Hearts", "Diamonds", "Clubs" and "Spades".
 		deal( suit );
-		char * zait [4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//Как изменить строку, инициализированную при объявлении массива символьных указателей, с помощью scanf? В данном случае только выделить память для новой строки, сделать scanf туда, присвоить указатель на выделенную память элементу массива suit. Напрямую в первоначальный массив никак, потому что указатели указывают на константные строки (а возможность писать char * вместо const char * это устаревшее средство обеспечения совместимости с древними версиями стандарта).
-		zait[1] = "Hello";
-		printf ("%s\n", zait[1]);
-  	scanf ("%4s", &zait[1] ); //Всевозможные варианты не работают.
 	}
 	void deal( const char *wSuit[] )
 	{
@@ -2056,7 +2052,16 @@ Arrays of Pointers. Arrays may contain pointers. A common use of an array of poi
 			printf ("%s ", wSuit[i]);
 		}
 	}	
-
+Проблема const массивов указателей.
+	int main()
+	{
+		char * zait [4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//Как изменить строку, инициализированную при объявлении массива символьных указателей, с помощью scanf? В данном случае только выделить память для новой строки, сделать scanf туда, присвоить указатель на выделенную память элементу массива suit. Напрямую в первоначальный массив никак, потому что указатели указывают на константные строки (а возможность писать char * вместо const char * это устаревшее средство обеспечения совместимости с древними версиями стандарта).
+		zait[1] = "Hello";
+		printf ("%s\n", zait[1]);
+  	scanf ("%4s", &zait[1] ); //Всевозможные варианты не работают.
+  	char * bait [4] = { "Hearts", "Diamonds", "Clubs", "Spades" };
+  	bait[1] = "Hello";//не выдает ошибки.
+	}
 Pointer to Function. A pointer to a function contains the address of the function in memory. In Chapter 6, we saw that an array name is really the address in memory of the first element of the array. Similarly (аналогично), a function name is really (в действительности) the starting address in memory of the code that performs the function’s task. Pointers to functions can be passed to functions, returned from functions, stored in arrays and assigned to other function pointers. 
 Функция, возвращающая указатель на переменную.
 	#include <stdio.h>

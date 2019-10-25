@@ -147,7 +147,7 @@ Secure print:
 Теперь в общем.
 Когда речь заходит о датасаенс и информатике, о философии, логике и языках высого уровня, то появляются выражения и прочее. В асме нельзя написать х = 2+3-5*6, каждый кусочек нужно описать вручную, выделить место в памяти, назвать это место меткой "х", затем поочередно складывать, затем сохранять результат обратно в память, и так далее. А чтобы придумать С нужно придумать логику, законы и абстракции его мира.
 https://en.wikipedia.org/wiki/Expression_(computer_science) :
-An expression in a programming language is a combination of one or more constants, variables, operators, and functions that the programming language interprets (according (в соответсвтии с) to its particular rules of precedence (приоритет, приоритетность, старшинство, предшествование) and of association (ассоциативность) ) and computes (вычисляет) to produce (производства) ("to return", in a stateful environment) another value. This process, as for mathematical expressions, is called evaluation.
+An expression in a programming language is a combination of one or more constants, variables, operators, and functions that the programming language interprets (according to its particular rules of precedence (приоритет, приоритетность, старшинство, предшествование) and of association (ассоциативность) ) and computes (вычисляет) to produce (производства) ("to return", in a stateful environment) another value. This process, as for mathematical expressions, is called evaluation.
 https://en.wikipedia.org/wiki/Statement_(computer_science) :
 In computer programming, a statement is a syntactic unit of an imperative programming language that expresses (выражает) some action to be carried out (которые необходимо выполнить). A program written in such (таком) a language is formed (сформирована чем) by a sequence of one or more statements. A statement may have internal components (e.g. например, expressions). Many imperative languages (e.g. C) make a distinction (делают различие) between statements and definitions, with (причем) a statement only containing executable code and a definition instantiating an identifier (определение, создающее экземпляр идентификатора), while (тогда как) an expression evaluates (оценивается) to a value only. A distinction (различие) can also be made between simple and compound (составная) statements; the latter may contain statements as components. Simple statements: a = a + b; return z; Compound statements: {} блок, if, for. In most languages, statements contrast with expressions, in that statements do not return results and are executed solely for their side effects, while (когда как) expressions always return a result and often do not have side effects at all. This distinction (различие) is frequently observed in wording (в формулировках) : a statement is executed, while an expression is evaluated. In purely (чисто) functional programming, there are no statements; everything is an expression.
 C how to program:
@@ -719,7 +719,7 @@ In expressions using operator &&, make the condition that’s most likely to be 
 	}
 
 Булева алгебра. 
-Короче, вся эта муть дальше, потому что Петцольд не объяснил, что множества и логические высказывания - это две разных вещи. Факт принадлежности кошки к множеству Рыжих - это логическое высказывание, которое может быть истинным или ложным!!! На матпрофи - сначала идут множества, чтобы описать что это такое, а уже ПОТОМ идет логика. Рациональное мышление происходит по законам логики. Если описать эти законы средствами математики - то получится описание мышления. Для обозначения чисел используются операнды (буквы). Для указания способа объединения чисел используются операторы, например, + или х. Обычное ИЛИ с двумя входами строго называется 2ИЛИ.
+Короче, вся эта муть дальше, потому что Петцольд не объяснил, что множества и логические высказывания - это две разных вещи. Факт принадлежности кошки к множеству Рыжих - это логическое высказывание, которое может быть истинным или ложным! На матпрофи - сначала идут множества, чтобы описать что это такое, а уже ПОТОМ идет логика. Рациональное мышление происходит по законам логики. Если описать эти законы средствами математики - то получится описание мышления. Для обозначения чисел используются операнды (буквы). Для указания способа объединения чисел используются операторы, например, + или х. Обычное ИЛИ с двумя входами строго называется 2ИЛИ.
 
 	В обычной алгебре:
 	Операции сложения и умножения коммутативны, их операнды можно поменять местами, а результат не изменится (вычитание и деление некоммутативны):
@@ -1425,7 +1425,9 @@ Arrays are data structures consisting of related (связанных) data items
 	char string1 [] = "first";//initializes the elements of array string1 to the individual characters in the string literal "first". The string "first" contains 5 characters plus a special string-termination character called the null character '\0'. 
 	char string1 [] = { 'f', 'i', 'r', 's', 't', '\0' };//эквивалентно предыдущему.
 	for (int i = 0; string1[i] != '\0' ; ++i)
+	{
 		printf("%c\n", string1[i]);//вывести значение ячейки string1[i]. i subscript - индекс; a subscripted array name is an lvalue — it can be used on the left side of an assignment.
+	}
 Программа может выйти за пределы массива, этого нельзя допускать.
 
 Static Local Arrays and Automatic Local Arrays.
@@ -1478,23 +1480,22 @@ Individual array elements (scalars) are passed by value exactly as simple variab
 	{
 		int MAS[SIZE] = {0,1,2,3,4}; 
 		char string1 [] = "first";
-		scanf и printf не являются частью языка. ВАЖНЫЙ МОМЕНТ - printf ожидает работать просто с числами! Как вариант, в параметрах написано (int a). Поэтому здесь можно передавать все, что угодно. Адрес будет распознаваться просто как число. А вот в функцию, ождающую массив или переменную, так передавать нельзя!!! И об этом не было написано (стр 233)! Scanf работает с цифрами, как с адресами, поэтому ей тоже безразличен способ получения числа. Работа с остальными функциями ниже и она отличается.
+		scanf и printf не являются частью языка. ВАЖНЫЙ МОМЕНТ - printf ожидает работать просто с числами! Как вариант, в параметрах написано (int a). Поэтому здесь можно передавать все, что угодно. Адрес будет распознаваться просто как число. А вот в функцию, ождающую массив или переменную, так передавать нельзя! И об этом не было написано (стр 233)! Scanf работает с цифрами, как с адресами, поэтому ей тоже безразличен способ получения числа. Работа с остальными функциями ниже и она отличается.
 		printf("%p", string1);//0028FF34; The name of the array evaluates to the address of the first element of the array; %p conversion specifier.
-		scanf("%5s", string1);//& не нужен; 5s введет строку не длиннее 5 символов; scanf может выйти за пределы массива; более того, scanf используют только со строчными массивами.
-	!!!	printf("%p", &string1);//Ошибка; адрес адреса???
-	!!!	scanf("%5s", &string1);//Ошибка; адрес адреса???
+		scanf("%5s", string1);//& не нужен; 5s введет строку не длиннее 5 символов; scanf может выйти за пределы массива; %s будет работать только с char массивами.
+		printf("%p", &string1);//Ошибка; адрес адреса??? адрес указателя, которого нет, но здесь это работает...
+		scanf("%5s", &string1);//Ошибка; адрес адреса??? адрес указателя, которого нет, но здесь это работает...
 		printf("%p", &string1[0]);//0028FF34.
-	!!!	scanf("%5s", &string1[0]);//%c будет распозновать ввод как символ конца строки; не работает с целочисленными массивами???
+	!!scanf("%5s", &string1[0]);//%c будет распозновать ввод как символ конца строки; не работает с целочисленными массивами???
 		printf("%p", string1[0]);//конкретный член массива, работа с ним, как с переменной; но так же будет передаваться строка двумерного массива.
 		scanf("%d" , string1[0]);//запишет введенное значение по адресу равному значению ячейки MAS[0]; Это как scanf("%d", x) вместо scanf("%d", &x); но с массивом указателей это не работает...
-		
 		printMAS (MAS, SIZE);//  0  1  2  3  4
 		modifyArray(MAS, SIZE);
 		printMAS (MAS, SIZE);//  0  2  4  6  8
-	!!!	modifyArray(&MAS, SIZE);//Ошибка; адрес адреса???
-	!!!	printMAS (&MAS, SIZE);//Ошибка; адрес адреса???
-	!!!	modifyArray(MAS[0], SIZE);//Ошибка; происходит передача значения; одномерный массив двумерного массива передавался бы именно так.
-	!!!	printMAS (MAS[0], SIZE);//Ошибка; 
+	!!modifyArray(&MAS, SIZE);//Ошибка; адрес адреса??? адрес указателя, которого нет...
+	!!printMAS (&MAS, SIZE);//Ошибка; адрес адреса???
+	!!modifyArray(MAS[0], SIZE);//Ошибка; происходит передача значения; одномерный массив двумерного массива передавался бы именно так.
+	!!printMAS (MAS[0], SIZE);//Ошибка; 
 		modifyArray(&MAS[0], SIZE);
 		printMAS (&MAS[0], SIZE);//  0  4  8 12 16
 		modifyArray(&MAS[2], SIZE);//внутри будет "иметь" массив b, который будет начинаться с адреса MAS[2].
@@ -1652,9 +1653,9 @@ Multidimensional Arrays. M[число строк][число столбцов-д
 			//This causes (это приводит к тому) the address of one row of the double-subscripted array to be passed to average (print). The argument M[1] is the starting address of row 1 of the array.
 			puts ("");
 		}
-	!!!	print( M, LONG );//Ошибка.
-	!!!	print( &M, LONG );//Ошибка.
-	!!!	print( &M[0], LONG );//Ошибка.
+	!!print( M, LONG );//Ошибка.
+	!!print( &M, LONG );//Ошибка.
+	!!print( &M[0], LONG );//Ошибка.
 	}
 	void print( int A[], int size )// Принимает одномерные массивы.
 	{
@@ -1729,22 +1730,18 @@ There are two ways to pass arguments to a function—pass-by-value and pass-by-r
 		int * countPtr; //The definition specifies that variable countPtr is of type int * (i.e., a pointer to an integer) and is read (right to left), “countPtr is a pointer to int” or “countPtr points to an object of type int.”
 		int * yPtr = &y;//Assigns the address of the variable y to pointer variable yPtr. Variable yPtr is then said to “point to” y. The operand of the address operator must be a variable. The address operator cannot be applied to constants or expressions or register. A pointer may be initialized to NULL, 0 or an address. Initializing a pointer to 0 is equivalent to initializing a pointerto NULL, but NULL is preferred. When 0 is assigned, it’s first converted to a pointer of the appropriate type (Инициализация указателя значением 0 эквивалентна инициализации значением NULL, но вообще предпочтительнее использовать NULL. Когда указателю присваивается значение 0, оно сначала преобразуется в указатель соответствующего типа).
 		countPtr = &x;
-		
 		y = 3;
 		printf( "%d\n", y );//3
 		printf( "%p\n", &y );//0028FF20
 		printf( "%p\n", yPtr );//0028FF20
 		printf( "%d\n", *yPtr );//The unary * operator, commonly referred (часто называемый?) to as the Indirection Operator (оператор косвенного обращения) or Dereferencing Operator (оператор разыменовывания), returns the value of the object to which its operand (i.e., a pointer) points (объекта, на который его операнд (т.е. указатель) указывает). Using * in this manner is called dereferencing a pointer (разыменованием указателя); 3 
 		printf( "%d\n", y+*yPtr );//6
-		
 		x = 5; 
 		x = cubeByValue( x );
 		printf( "%d\n", x );//125
-
 		x = 5; 
 		cubeByReference( &x );//In C, you use pointers and the indirection operator to simulate pass-by-reference (имитации передачи по ссылке). When calling a function with arguments that should be modified, the addresses of the arguments are passed.
 		printf( "%d\n", x );//125
-
 		x = 5; 
 		cubeByReference( countPtr );
 		printf( "%d\n", x );//125
@@ -1768,7 +1765,7 @@ For a function that expects a single-subscripted array as an argument, the funct
 		printf ("%p\n", MAS);//0028FF24
 		func1 (MAS);
 		func2 (MAS);
-	!!!	func1 (&MAS);//Ошибка; адрес адреса???
+	!!func1 (&MAS);//Ошибка; адрес адреса???
 	}
 	void func1( int * BPtr )
 	{
@@ -1805,10 +1802,10 @@ Const Qualifier. Работает с компилятором.
 		const int MAS2[] = {4,5,6};//нельзя менять значения ячеек.
 		int * aPtr;//все можно.
 		const int * bPtr;//нельзя менять значение через dereferencing.
-		int const *cPtr = &y;;//нельзя менять адрес указателя.
-		const int const *dPtr;//все нельзя.
+		int * const cPtr = &y;;//нельзя менять адрес указателя.
+		const int * const dPtr;//все нельзя.
 	}
-	void func( int x, const int y, int MAS1[], const MAS2[], int * aPtr, const int * bPtr; int const *cPtr = &y; const int const *dPtr )//Если передавать const сущность в non-const параметр функции, который может изменить значение const сущности, то будет ошибка, даже если нет ни одной изменяющей инструкции.
+	void func( int x, const int y, int MAS1[], const MAS2[], int * aPtr, const int * bPtr; int * const cPtr = &y; const int * const dPtr )//Если передавать const сущность в non-const параметр функции, который может изменить значение const сущности, то будет ошибка, даже если нет ни одной изменяющей инструкции.
 	{
 	}
 	Эта же муть на 10 страниц.
@@ -1822,15 +1819,15 @@ Const Qualifier. Работает с компилятором.
 				const int b = 5;//запрет любых изменений, поэтому инициализировать нужно сразу.
 				int MASA [] = {1,2,3};
 				const int MASB [] = {4,5,6};
-			!!!	b = 7;//Ошибка.
-			!!!	MASB [2] = 33;//Ошибка.
+			!!b = 7;//Ошибка.
+			!!MASB [2] = 33;//Ошибка.
 				modA(a, MASA);
-			!!!	modB(b, MASB);//Ошибка, требует const int c[]! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
+			!!modB(b, MASB);//Ошибка, требует const int c[]! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
 			}
 			void modA (const int x , const int c[])//any attempt to modify an element of the array in the function body results in a compile-time error. 
 			{
-			!!!	x = 2;//Ошибка.
-			!!! c[2]= 99;//Ошибка.
+			!!x = 2;//Ошибка.
+			!!c[2]= 99;//Ошибка.
 			}
 			void modB (int x, int c[] )
 			{
@@ -1847,7 +1844,7 @@ Const Qualifier. Работает с компилятором.
 				printf("%s \n", string1 );//cHaRaCters and $32.98
 				convertToUppercase( string1 );
 				printf("%s \n", string1 );//CHARACTERS AND $32.98
-			!!!	convertToUppercase( string2 );//Ошибка, требует const char *sPtr ! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
+			!!convertToUppercase( string2 );//Ошибка, требует const char *sPtr ! Ошибка будет даже несмотря на отсутствие модифицирующих его инструкций в функции. 
 			}
 			void convertToUppercase( char *sPtr )
 			{
@@ -1866,7 +1863,7 @@ Const Qualifier. Работает с компилятором.
 			}
 			void printCharacters1( const char *sPtr )// указатель sPtr не может использоваться для изменения символа, на который он указывает, то есть sPtr – указатель "только для чтения"; аналогично свойствам const int b[]; non-constant указатель - потому что можно менять его адрес.
 			{	
-			!!!	*sPtr = 'L';//Ошибка
+			!!*sPtr = 'L';//Ошибка
 				for ( ; *sPtr != '\0'; ++sPtr ) 
 				{ 
 					printf( "%c", *sPtr );
@@ -1882,17 +1879,17 @@ Const Qualifier. Работает с компилятором.
 				const int * yPtr = &y;//нельзя менять значение через dereferencing.
 				printf ("%d  %d\n", xPtr, *xPtr );
 				printf ("%d  %d\n", yPtr, *yPtr );
-			!!!	xPtr = &y;//Ошибка.
+			!!xPtr = &y;//Ошибка.
 				yPtr = &x;
 				*xPtr = 5;
-			!!!	*yPtr = 7;//Ошибка.
+			!!*yPtr = 7;//Ошибка.
 			4. a constant pointer to constant data. 
 				int n = 5;
 				int m;
 				const int * const ptr = &n;//константный указатель на целочисленную константу (с точки зрения указателя или функции); ptr всегда указывает на один и тот же адрес; целое число по этому адресу не может быть изменено.
 				printf( "%d\n", *ptr );
-			!!!	*ptr = 7;//Ошибка; нельзя присвоить новое значение
-			!!!	ptr = &m;//Ошибка; нельзя присвоить новый адрес
+			!!*ptr = 7;//Ошибка; нельзя присвоить новое значение
+			!!ptr = &m;//Ошибка; нельзя присвоить новый адрес
 
 Relationship between Pointers and Arrays. Pointer Expressions and Pointer Arithmetic. 
 	int main (void)
@@ -1906,14 +1903,11 @@ Relationship between Pointers and Arrays. Pointer Expressions and Pointer Arithm
 		int number;
 		void *sPtr = NULL;
 		number = *( ( int * ) sPtr );//To dereference the pointer, it must first be cast to an integer pointer.
-
 		//Pointers can be compared using equality and relational operators, but such comparisons are meaningless unless the pointers point to elements of the same array. Pointer comparisons compare the addresses stored in the pointers. A comparison of two pointers pointing to elements in the same array could show, for example, that one pointer points to a higher-numbered element of the array than the other pointer does. A common use of pointer comparison is determining whether a pointer is NULL.
-
 		b2Ptr += 2;//would produce 3008 (3000 + 2 * 4), assuming an integer is stored in 4 bytes of memory and address is 3000 ; 3004 (3000 + 2 * 2) if it's stored in 2 bytes. 
 		//A pointer may be incremented (++) or decremented (--), an integer may be added to a pointer (+ or +=), an integer may be subtracted from a pointer (- or -=) and one pointer may be subtracted from another.
 		x = b2Ptr - b1Ptr;//statement would assign to x the number of array elements from b2Ptr to bPtr, in this case 2 (3008 - 3000).
 		//4 байта - это 4гб озу, тогда адрес любой ячейки (то есть одного байта) - это всегда 4 байта на х86 при х32 ос.
-
 		long long *bp = NULL ;
 		printf ("%p\n", bp );//00000000
 		++bp;
@@ -1927,8 +1921,7 @@ Using subscripting and pointer notations with arrays.
 	{
 		int MAS[] = { 10, 20, 30, 40 };
 		int * Ptr = MAS;
-	!!!	printf ("%d\n", *Ptr[2] );//Ошибка; Ptr[2] это фича, элемент массива, а не указатель, который можно разыменовать.
-
+	!!printf ("%d\n", *Ptr[2] );//Ошибка; Ptr[2] это фича, элемент массива, а не указатель, который можно разыменовать.
 		puts ("int MAS[] = { 10, 20, 30, 40 };" );
 		puts ("int * Ptr = MAS;" );
 		puts ("i  Ptr+i     &MAS[i]   *(Ptr+i)  Ptr[i]  MAS[i]  *(MAS+i)  *(&MAS[0]+i)");
@@ -1998,26 +1991,24 @@ String Copying with Arrays and Pointers. Из-за этого примера п�
 	void copy2( char *s1, const char *s2 );
 	int main( void )
 	{
+		int MAS[] = {1,2,3,4,5};
+	!!int * MAS = {1,2,3,4,5};//Ошибка; нельзя.		
 		char string1[ SIZE ];//Обычный char массив;
 		char string2[ SIZE ];
 		char string3[] = "Good Bye";
-		char *string4 = "Hello";//Объявить non-const указатель на строку и инициализировать его строковым литералом (то есть скаляром?);
-				
-		int MAS[] = {1,2,3,4,5};
-	!!! int * MAS = {1,2,3,4,5};//Ошибка; а вот с отдельными значениями так нельзя.
-	
+		char *string4 = "Hello";//Объявить non-const указатель на строку и инициализировать его строковым литералом (то есть скаляром?);см вопрос на тостере про массив указателей на стрк.
+		char * a = "ABc";//Когда переменная типа char * инициализируется строковым литералом, некоторые компиляторы могут размещать саму строку в области памяти, недоступной для изменения несмотря на отсутствие const.
+		char b [] = "ABc";//Если необходимо иметь возможность изменять строковые литералы во время выполнения, их следует сохранять в массивах символов.
 		int a = 2;
 		int * ptr1 = &a;
 		printf ("%d\n", *ptr1 );//2
-			
 		char * ptr2 = string3;
 		printf ("%s\n", string3 );//Good Bye
 		printf ("%s\n", ptr2 );//Good Bye
-	!!!	printf ("%s\n", *ptr2 );//Ошибка из-за спецификатора. 
-	!!!	printf ("%s\n", *(ptr2+3) );//Ошибка из-за спецификатора. 
+	!!printf ("%s\n", *ptr2 );//Ошибка из-за спецификатора. 
+	!!printf ("%s\n", *(ptr2+3) );//Ошибка из-за спецификатора. 
 		printf ("%c\n", *ptr2 );//G
 		printf ("%c\n", *(ptr2+3) );//d
-			
 		copy1( string1, string3 );
 		printf( "string1 = %s\n", string1 );//Good Bye
 		copy2( string2, string4 );
@@ -2043,22 +2034,20 @@ Arrays of Pointers. Arrays may contain pointers. A common use of an array of poi
 	#define SIZE 4
 	#include <stdio.h>
 	void deal( const char * wSuit [] );
-	int main(int argc, char const *argv[])
+	int main(int argc, char const *argv[])//const на странном месте
 	{
 		for (int i = 0; i < argc; ++i)
 		{
 			printf ("%s\n", argv[i] );
 		}
+		int * suit1[4];//Массив из 4 указателей типа int c garbage;={} ={0} ={NULL} c нулями.
+	!!int * suit4 [SIZE] = {1,2,3,4,5};//Ошибка; а вот с отдельными значениями так нельзя.
 		const char * suit [4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//The suit[4] portion of the definition indicates an array of 4 elements. The char * portion of the declaration indicates that each element of array suit is of type “pointer to char.” Qualifier const indicates that the strings pointed to by each element pointer will not be modified. The four values to be placed in the array are "Hearts", "Diamonds", "Clubs" and "Spades".
-		char * suit1[4];//Массив из 4 указателей типа char c garbage.
-		char * suit2[4] = {};//Массив из 4 указателей типа char инициализированных 0.
-		char * suit3[4] = {0};//Массив из 4 указателей типа char инициализированных 0.
-		char * suit4[4] = {NULL};//Массив из 4 указателей типа char инициализированных NULL.
-		
-		int * MAS[SIZE] = {NULL};//Массив из SIZE указателей типа int инициализированных NULL.
-	!!! int * BAS[SIZE] = {1,2,3,4,5};//Ошибка; а вот с отдельными значениями так нельзя.
-
 		deal( suit );
+		char * zait [4] = { "Hearts", "Diamonds", "Clubs", "Spades" };//Как изменить строку, инициализированную при объявлении массива символьных указателей, с помощью scanf? В данном случае только выделить память для новой строки, сделать scanf туда, присвоить указатель на выделенную память элементу массива suit. Напрямую в первоначальный массив никак, потому что указатели указывают на константные строки (а возможность писать char * вместо const char * это устаревшее средство обеспечения совместимости с древними версиями стандарта).
+		zait[1] = "Hello";
+		printf ("%s\n", zait[1]);
+  	scanf ("%4s", &zait[1] ); //Всевозможные варианты не работают.
 	}
 	void deal( const char *wSuit[] )
 	{
@@ -2069,7 +2058,6 @@ Arrays of Pointers. Arrays may contain pointers. A common use of an array of poi
 	}	
 
 Pointer to Function. A pointer to a function contains the address of the function in memory. In Chapter 6, we saw that an array name is really the address in memory of the first element of the array. Similarly (аналогично), a function name is really (в действительности) the starting address in memory of the code that performs the function’s task. Pointers to functions can be passed to functions, returned from functions, stored in arrays and assigned to other function pointers. 
-
 Функция, возвращающая указатель на переменную.
 	#include <stdio.h>
 	int * lol ( void );
@@ -2084,7 +2072,6 @@ Pointer to Function. A pointer to a function contains the address of the functio
 		int * ptr = &lala;
 		return ptr;
 	}
-
 Указатель на функцию.
 	#include <stdio.h>
 	int ascending( int a, int b );
@@ -2102,7 +2089,6 @@ Pointer to Function. A pointer to a function contains the address of the functio
 	{
 		return b - a;
 	}
-
 Указатель на функцию в параметрах функции. Все тоже самое, что и в примере выше. bubble получает адрес, после чего сама же передает значения в функцию по этому адресу.
 	#include <stdio.h>
 	void bubble ( int (*FunctionPtr)(int x, int y) );
@@ -2125,7 +2111,6 @@ Pointer to Function. A pointer to a function contains the address of the functio
 	{
 		return c + d;
 	}
-
 Универсальная программа сортировки, использующая указатели на функции.
 	#include <stdio.h>
 	#define SIZE 10
@@ -2188,7 +2173,7 @@ Pointer to Function. A pointer to a function contains the address of the functio
 		*element2Ptr = hold;
 	}
 
-Демонстрация использования массива указателей на функции. Бонус в отказе от свичей с кейсами? Тогда понятно, почему непонятен указатель на функцию и понятно когда массив указателей на функции.
+Demonstrating an array of pointers to functions. Бонус в отказе от свичей с кейсами? Тогда понятно, почему непонятен указатель на функцию и понятно когда массив указателей на функции.
 	#include <stdio.h>
 	void function1( int a );
 	void function2( int b );
@@ -2227,3 +2212,14 @@ Pointer to Function. A pointer to a function contains the address of the functio
 
 
 Символы и строки.
+	#include <ctype.h>
+	int isxdigit( int c );//Возвращает 128 ???
+	printf( "%s\n", isxdigit( 'F' ) ? "F is a " : "F is not a " );
+	printf( "%d\n", isxdigit( 70 ) );
+
+	printf ("%c\n", 2686776);//8
+	printf ("%c\n", 56);//8
+
+	#include <stdlib.h> 
+	double strtod( const char *nPtr, char **endPtr );//a string (char *); and a pointer to a string (char **), указатель на переменную типа char *; строка - это массив, а имя массива это константный указатель.
+
